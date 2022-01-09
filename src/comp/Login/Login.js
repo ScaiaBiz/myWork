@@ -8,7 +8,7 @@ import { UserCxt } from '../../cxt/UserCxt';
 import Input from '../../utils/Input';
 import Button from '../../utils/Button';
 import LoadingSpinner from '../../utils/LoadingSpinner';
-// import ErrorModal from '../../utils/ErrorModal';
+import ErrorModal from '../../utils/ErrorModal';
 
 import classes from './Login.module.css';
 
@@ -87,7 +87,9 @@ function Login() {
 				'Content-Type': 'application/json',
 			}
 		);
-		setUser(responseData);
+		if (responseData) {
+			setUser(responseData);
+		}
 	};
 
 	const isNew = formState.inputs.name.value.slice(0, 3) === '<!>';
@@ -179,7 +181,7 @@ function Login() {
 
 	return (
 		<React.Fragment>
-			{/* <ErrorModal error={error} onClear={clearError} /> */}
+			{error && <ErrorModal error={error} onClear={clearError} />}
 			{isLoading && <LoadingSpinner asOverlay />}
 			<div className={classes.container}>{showButton()}</div>
 		</React.Fragment>

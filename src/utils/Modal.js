@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { CSSTransition } from 'react-transition-group';
+// import { CSSTransition } from 'react-transition-group';
 
 import Backdrop from './Backdrop';
 
@@ -29,22 +29,24 @@ const ModalOverlay = props => {
 	const content = (
 		<div
 			className={props.className ? classes[props.className] : classes.base}
-			style={props.style}>
+			style={props.style}
+		>
 			<header className={props.headerClass ? headerClass() : classes.header}>
 				<h2>{props.header}</h2>
 			</header>
 			<form
-				onSubmit={props.onSubmit ? props.onSubmit : e => e.preventDefault()}>
+				onSubmit={props.onSubmit ? props.onSubmit : e => e.preventDefault()}
+			>
 				<div
 					className={
 						props.contentClass ? contentClass.join(' ') : classes.content
-					}>
+					}
+				>
 					{props.children}
 				</div>
 				<footer
-					className={
-						props.footerClass ? footerClass.join(' ') : classes.footer
-					}>
+					className={props.footerClass ? footerClass.join(' ') : classes.footer}
+				>
 					{props.footer}
 				</footer>
 			</form>
@@ -58,14 +60,14 @@ const Modal = props => {
 	return (
 		<React.Fragment>
 			{props.show && <Backdrop onClick={props.onCancel} />}
-			<CSSTransition
+			{/* <CSSTransition
 				in={props.show}
 				mountOnEnter
 				unmountOnExit
 				// timeout={200}
-				classNames={classes.base}>
-				<ModalOverlay {...props} />
-			</CSSTransition>
+				classNames={classes.base}> */}
+			<ModalOverlay {...props} />
+			{/* </CSSTransition> */}
 		</React.Fragment>
 	);
 };

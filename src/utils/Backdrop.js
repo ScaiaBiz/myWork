@@ -6,7 +6,7 @@ import classes from './Backdrop.module.css';
 const Backdrop = props => {
 	return ReactDOM.createPortal(
 		<div className={classes.backdrop} onClick={props.onClick}></div>,
-		document.getElementById('backdrop-hook')
+		document.getElementById('backdrop')
 	);
 };
 

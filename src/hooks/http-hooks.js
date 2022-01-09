@@ -18,7 +18,6 @@ export const useHttpClient = () => {
 		async (url, method = 'GET', body = undefined, headers = {}) => {
 			setIsLoading(true);
 			if (APP_name !== currentAppName) {
-				console.log('error');
 				setError('Nome applicazione errato. Verificare variabili ambientali');
 				setIsLoading(false);
 				return;
