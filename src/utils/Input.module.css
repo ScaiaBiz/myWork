@@ -1,0 +1,38 @@
+textarea {
+	display: block;
+	width: 100%;
+	height: 100%;
+	max-width: 100%;
+	padding: 0.5%;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+.errorText {
+	color: crimson;
+	font-weight: bold;
+}
+
+.formCtrl {
+	align-items: center;
+	justify-content: center;
+}
+
+.radio_container {
+	justify-content: space-evenly;
+	width: 50%;
+}
+
+.radio_dot {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-left: 90%;
+}
+.radio_label {
+	width: 33%;
+	display: flex;
+	align-items: center;
+	/* justify-content: space-between; */
+}

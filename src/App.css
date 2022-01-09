@@ -1,38 +1,39 @@
-.App {
-  text-align: center;
+:root {
+	/* App commons */
+	--background: #282c34;
+	--bgContrast: white;
+	--text: white;
+	--activeLink: #61dafb;
+	--backdrop: rgba(40, 44, 52, 0.75);
+	--overlay: #3c5280;
+	--overlayBg: rgba(220, 230, 255, 0.9);
+	/* --overlayBg: rgba(255, 255, 255, 0.9); */
+
+	/* Elemetns */
+	--StandardBgColor: #61dafb;
+	--DangerBgColor: crimson;
+
+	/* Button */
+	--ButtonStdBgColor: #61dafb;
+	--ButtonStdTxtColor: #282c34;
+	--ButtonDngrBgColor: crimson;
+	--ButtonDngrTxtColor: white;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+*::after,
+::before {
+	box-sizing: border-box;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+html {
+	max-height: 100vh;
+	overflow: hidden;
+	line-height: 1.5rem;
+	font-size: 18px;
 }
