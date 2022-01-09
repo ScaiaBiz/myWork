@@ -4,13 +4,25 @@ export const useHttpClient = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
 
+	const currentAppName = 'my-work2';
+
 	const activeHttpReq = useRef([]);
 
-	const SRV = 'http://localhost:3102/';
+	const APP_name = process.env.REACT_APP_NAME;
+	const SRV_name = process.env.REACT_APP_SRVNAME;
+	const SRV_port = process.env.REACT_APP_SRVPORT;
+
+	const SRV = `${SRV_name}:${SRV_port}`;
 
 	const sendRequest = useCallback(
 		async (url, method = 'GET', body = undefined, headers = {}) => {
 			setIsLoading(true);
+			if (APP_name !== currentAppName) {
+				console.log('error');
+				setError('Nome applicazione errato. Verificare variabili ambientali');
+				setIsLoading(false);
+				return;
+			}
 			const httpAbortCtrl = new AbortController();
 			activeHttpReq.current.push(httpAbortCtrl);
 			try {

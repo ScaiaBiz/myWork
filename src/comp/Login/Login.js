@@ -27,6 +27,7 @@ function Login() {
 		false
 	);
 
+	//extract local storage area
 	const LS_Area = useContext(UserCxt).LS_Area;
 	const [user, setUser] = useContext(UserCxt).user;
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -69,25 +70,24 @@ function Login() {
 
 	const postSignIn = async e => {
 		e.preventDefault();
-		setTestLoading(true);
-		console.log(testLoading);
-		setTimeout(() => {
-			setTestLoading(false);
-			console.log(testLoading);
-		}, 1000);
 
-		// const responseData = await sendRequest(
-		// 	'signin',
-		// 	'POST',
-		// 	{
-		// 		name: formState.inputs.name.value,
-		// 		password: formState.inputs.password.value,
-		// 	},
-		// 	{
-		// 		'Content-Type': 'application/json',
-		// 	}
-		// );
-		// setUser(responseData);
+		// setTestLoading(true);
+		// setTimeout(() => {
+		// 	setTestLoading(false);
+		// }, 1000);
+
+		const responseData = await sendRequest(
+			'signin',
+			'POST',
+			{
+				name: formState.inputs.name.value.substring(3),
+				password: formState.inputs.password.value,
+			},
+			{
+				'Content-Type': 'application/json',
+			}
+		);
+		setUser(responseData);
 	};
 
 	const isNew = formState.inputs.name.value.slice(0, 3) === '<!>';
@@ -180,7 +180,7 @@ function Login() {
 	return (
 		<React.Fragment>
 			{/* <ErrorModal error={error} onClear={clearError} /> */}
-			{testLoading && <LoadingSpinner asOverlay />}
+			{isLoading && <LoadingSpinner asOverlay />}
 			<div className={classes.container}>{showButton()}</div>
 		</React.Fragment>
 	);
