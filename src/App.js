@@ -42,7 +42,7 @@ function App() {
 			>
 				<Menu />
 				<Routes>
-					{/* <Route path='/' element={<Login />} /> */}
+					<Route path='/' element={<Login />} />
 					{/* <Route path='/week' element={<Week />} /> */}
 					{/* <Route path='/backdrop' element={<Backdrop />} /> */}
 				</Routes>

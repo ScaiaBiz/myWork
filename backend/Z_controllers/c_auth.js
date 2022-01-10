@@ -48,7 +48,7 @@ exports.postLogin = (req, res, next) => {
 
 exports.postLogout = (req, res, next) => {
 	console.log('logged out');
-	res.status(201);
+	res.status(201).json({});
 };
 
 exports.postNewUser = (req, res, next) => {

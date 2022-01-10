@@ -3,16 +3,15 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 export const useHttpClient = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
-
-	const currentAppName = 'my-work2';
-
-	const activeHttpReq = useRef([]);
-
 	const APP_name = process.env.REACT_APP_NAME;
 	const SRV_name = process.env.REACT_APP_SRVNAME;
 	const SRV_port = process.env.REACT_APP_SRVPORT;
 
-	const SRV = `${SRV_name}:${SRV_port}`;
+	const activeHttpReq = useRef([]);
+
+	const currentAppName = 'my-work';
+
+	const SRV = `http://${SRV_name}:${SRV_port}/`;
 
 	const sendRequest = useCallback(
 		async (url, method = 'GET', body = undefined, headers = {}) => {

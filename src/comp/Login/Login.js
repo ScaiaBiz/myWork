@@ -65,16 +65,11 @@ function Login() {
 			console.log(responseData);
 		}
 		setUser(null);
-		localStorage.setItem(LS_Area, null);
+		// localStorage.setItem(LS_Area, null);
 	};
 
 	const postSignIn = async e => {
 		e.preventDefault();
-
-		// setTestLoading(true);
-		// setTimeout(() => {
-		// 	setTestLoading(false);
-		// }, 1000);
 
 		const responseData = await sendRequest(
 			'signin',
@@ -109,7 +104,7 @@ function Login() {
 				},
 				false
 			);
-			localStorage.setItem('myWorkUser', JSON.stringify(user));
+			localStorage.setItem(LS_Area, JSON.stringify(user));
 		}
 	}, [setFormData, user]);
 
