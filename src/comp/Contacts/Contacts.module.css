@@ -25,3 +25,11 @@
 	/* border: var(--maincolor) solid 2px; */
 	background-color: var(--activeLinkLight);
 }
+
+.list {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+	text-align: center;
+}
