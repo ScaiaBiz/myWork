@@ -6,12 +6,22 @@
 	width: 100vw;
 }
 
-form {
+.formContainer {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
 	height: 100%;
 	width: 30%;
+}
+
+.logout {
+	height: 11vh;
+	width: 100%;
+}
+
+.logoutForm {
+	display: flex;
+	justify-content: center;
 }
 
 @media (max-width: 768px) {

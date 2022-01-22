@@ -11,7 +11,7 @@ const ErrorModal = props => {
 			headerClass='header danger'
 			show={props.error}
 			footer={
-				<Button clname='danger' onClick={props.onClear}>
+				<Button clname='danger' onClick={props.onClear} autofocus={true}>
 					Okay
 				</Button>
 			}

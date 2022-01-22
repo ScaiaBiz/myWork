@@ -1,6 +1,6 @@
 const Contact = require('./../O_models/m_contact');
 
-exports.createCustomer = (req, res, next) => {
+exports.createContact = (req, res, next) => {
 	//initials
 	const getInitials = () => {
 		const name = req.body.name.toUpperCase().split(' ');
@@ -40,7 +40,7 @@ exports.getContacts = (req, res, next) => {
 		});
 };
 
-exports.getCustomer = (req, res, next) => {
+exports.getContact = (req, res, next) => {
 	Contact.findById(req.params.id).then(c => {
 		res.status(201).json({ c });
 	});

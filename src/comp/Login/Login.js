@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 
 import { VALIDATOR_REQUIRE } from '../../utils/validators';
 import { useForm } from '../../hooks/form-hook';
@@ -32,8 +32,6 @@ function Login() {
 	const [user, setUser] = useContext(UserCxt).user;
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-	const [testLoading, setTestLoading] = useState(false);
-
 	const postLogin = async e => {
 		e.preventDefault();
 		const responseData = await sendRequest(
@@ -65,7 +63,6 @@ function Login() {
 			console.log(responseData);
 		}
 		setUser(null);
-		// localStorage.setItem(LS_Area, null);
 	};
 
 	const postSignIn = async e => {
@@ -104,15 +101,15 @@ function Login() {
 				},
 				false
 			);
-			localStorage.setItem(LS_Area, JSON.stringify(user));
 		}
+		localStorage.setItem(LS_Area, JSON.stringify(user));
 	}, [setFormData, user]);
 
 	//>>>>>>>>>>>>>>>>>>>>>
 	const showButton = () => {
 		if (user === null) {
 			return (
-				<form>
+				<form className={classes.formContainer}>
 					<Input
 						id='name'
 						element='input'
@@ -159,7 +156,7 @@ function Login() {
 			);
 		} else {
 			return (
-				<form>
+				<form className={classes.logoutForm}>
 					<Button
 						clname={'danger small'}
 						disabled={false}
@@ -178,7 +175,11 @@ function Login() {
 		<React.Fragment>
 			{error && <ErrorModal error={error} onClear={clearError} />}
 			{isLoading && <LoadingSpinner asOverlay />}
-			<div className={classes.container}>{showButton()}</div>
+			{user ? (
+				<div className={classes.logout}>{showButton()}</div>
+			) : (
+				<div className={classes.container}>{showButton()}</div>
+			)}
 		</React.Fragment>
 	);
 }

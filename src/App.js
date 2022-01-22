@@ -6,6 +6,7 @@ import { UserCxt } from './cxt/UserCxt';
 import Login from './comp/Login/Login';
 
 import Menu from './comp/Menu/Menu';
+import Contacts from './comp/Contacts/Contacts';
 // import Day from './comp/page/Day';
 // import Week from './comp/page/Week';
 // import Backdrop from './comp/common/Backdrop';
@@ -41,11 +42,12 @@ function App() {
 				}}
 			>
 				<Menu />
-				<Routes>
-					<Route path='/' element={<Login />} />
-					{/* <Route path='/week' element={<Week />} /> */}
-					{/* <Route path='/backdrop' element={<Backdrop />} /> */}
-				</Routes>
+				<div className='Content'>
+					<Routes>
+						<Route path='/Contacts' element={<Contacts />} />
+						{/* <Route path='/backdrop' element={<Backdrop />} /> */}
+					</Routes>
+				</div>
 			</UserCxt.Provider>
 		</div>
 	);
