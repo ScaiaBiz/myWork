@@ -15,6 +15,7 @@ import classes from './Contacts.module.css';
 function Contacts() {
 	const [activeContacts, setActiveContacts] = useState(null);
 	const [showNewContactForm, setShowNewContactForm] = useState(false);
+	const [loadContacts, setLoadContacts] = useState(false);
 
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
@@ -48,13 +49,13 @@ function Contacts() {
 
 	useEffect(() => {
 		getContactsCard();
-	}, []);
+	}, [loadContacts]);
 
 	const addNewContact = () => {
 		const formNewContat = (
 			<React.Fragment>
 				<Backdrop onClick={addNewHandler} />
-				<NewContact clear={addNewHandler} />
+				<NewContact clear={addNewHandler} succes={setLoadContacts} />
 			</React.Fragment>
 		);
 		return ReactDOM.createPortal(

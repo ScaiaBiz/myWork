@@ -11,7 +11,7 @@ import LoadingSpinner from '../../../utils/LoadingSpinner';
 
 import classes from './NewContact.module.css';
 
-function NewContact({ clear, setLoading }) {
+function NewContact({ clear, succes }) {
 	const [formState, inputHandler, setFormData] = useForm({
 		name: { value: '', isValid: false },
 		street: { value: '' },
@@ -42,8 +42,8 @@ function NewContact({ clear, setLoading }) {
 			}
 		);
 		console.log('Postato');
+		succes(true);
 		clear();
-		setLoading(true);
 	};
 
 	const showForm = () => {
