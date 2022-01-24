@@ -17,7 +17,7 @@ function Menu() {
 		const items = menuItems.map(i => {
 			return (
 				<NavLink
-					className={navData => (navData.isActive ? classes.active : '')}
+					className={navData => (navData.isActive ? classes.active : classes.a)}
 					key={menuItems._id}
 					to={i.address}
 				>

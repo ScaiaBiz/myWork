@@ -5,11 +5,8 @@ const isAuth = require('../../X_middelwares/is-auth');
 
 const router = express.Router();
 
-router.post('/new', projectsCtrl.postNewProject);
-// router.post('/pause', logWorksCtrl.postPauseLog);
-// router.post('/stop', logWorksCtrl.postStopLog);
-
-// router.get('/customerLogs/:custId', logWorksCtrl.getCustomerProjects);
-// router.get('/getLogs', logWorksCtrl.getLogs);
+router.get('/getProjects/:contactId', projectsCtrl.getContactProjects);
+router.post('/newProject', projectsCtrl.postNewProject);
+// router.post('/updateProject', projectsCtrl.postNewProject);
 
 module.exports = router;

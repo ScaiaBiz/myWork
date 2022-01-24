@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/contacts', contactsCtrl.getContacts);
 router.post('/createContact', contactsCtrl.createContact);
-router.get('/contact/:id', contactsCtrl.getContact);
+router.get('/:id', contactsCtrl.getContact);
 // router.post('/update', isAuth, contactsCtrl.updateActivity);
 
 module.exports = router;

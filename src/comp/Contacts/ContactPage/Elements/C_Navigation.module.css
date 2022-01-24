@@ -1,0 +1,31 @@
+.container {
+	border-bottom: #fff solid 2px;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	color: #000;
+	width: 100%;
+}
+
+.cross {
+	color: #000;
+	text-decoration: none;
+}
+
+.a,
+.active {
+	width: 20%;
+	color: #000;
+	text-decoration: none;
+	text-align: center;
+}
+
+.a:hover {
+	text-decoration: underline;
+	border-left: 2px #fff solid;
+	border-right: 2px #fff solid;
+}
+
+.active {
+	background-color: #fff;
+}

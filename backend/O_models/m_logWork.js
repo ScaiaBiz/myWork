@@ -3,44 +3,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const workLogSchema = new Schema({
-	customerId: {
-		type: Schema.Types.ObjectId,
-		ref: 'Contact',
-		require: true,
-	},
-	activityId: {
-		type: Schema.Types.ObjectId,
-		ref: 'Activity',
-	},
-	project: {
-		id: {
-			type: Schema.Types.ObjectId,
-			ref: 'Projects',
-			// required: true,
-		},
-		name: {
-			type: String,
-			// required: true,
-		},
-	},
-	description: {
-		type: String,
-		required: true,
-	},
-	work: {
-		type: String,
-		required: true,
-	},
-	workSummary: {
-		type: String,
-	},
-	start: {
-		type: Date,
-		required: true,
-	},
-	end: {
-		type: Date,
-	},
+	contactId: { type: Schema.Types.ObjectId, ref: 'Contact', require: true },
+	activityId: { type: Schema.Types.ObjectId, ref: 'Activity' },
+	project: { id: { type: Schema.Types.ObjectId, ref: 'Projects' } },
+	description: { type: String, required: true },
+	work: { type: String, required: true },
+	workSummary: { type: String },
+	start: { type: Date, required: true },
+	end: { type: Date },
 	startBreak: { type: Date },
 	breaksTime: { type: Number, default: 0 },
 	minWorked: { type: Number, default: 0 },

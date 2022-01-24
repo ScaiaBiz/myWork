@@ -13,12 +13,13 @@
 
 	/* Elemetns */
 	--StandardBgColor: #61dafb;
-	--DangerBgColor: crimson;
+	--DangerBgColor: #d11010;
 
 	/* Button */
 	--ButtonStdBgColor: #61dafb;
 	--ButtonStdTxtColor: #282c34;
-	--ButtonDngrBgColor: crimson;
+	--ButtonDngrBgColor: #d11010;
+	/* --ButtonDngrBgColor: crimson; */
 	--ButtonDngrTxtColor: white;
 }
 

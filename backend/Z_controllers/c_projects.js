@@ -2,19 +2,18 @@ const Project = require('./../O_models/m_projects');
 const ObjectId = require('mongoose').Types.ObjectId;
 
 exports.postNewProject = (req, res, next) => {
-	if (!req.body.activityId) {
-		//TODO: Crerare attività?
-	}
-
-	if (!req.body.projectId) {
-		//TODO: Creare progetto?
-	}
-
+	const data = req.body;
 	const project = new Project({
-		customerId: req.body.customerId,
-		title: req.body.title,
-		description: req.body.description,
-		workType: req.body.workType,
+		contactId: data.contactId,
+		referent: data.referent,
+		title: data.title,
+		description: data.description,
+		workType: data.workType,
+		status: data.status || 'active',
+		creationDate: data.creationDate,
+		startDate: data.startDate || data.creationDate,
+		dueDate: data.dueDate,
+		endDate: data.endDate,
 	});
 	project
 		.save()
@@ -25,9 +24,9 @@ exports.postNewProject = (req, res, next) => {
 		});
 };
 
-exports.getCustomerProjects = (req, res, next) => {
-	const customerId = req.params.custId;
-	Project.find({ customerId: customerId })
+exports.getContactProjects = (req, res, next) => {
+	const contactId = req.params.contactId;
+	Project.find({ contactId: contactId })
 		.sort({ _id: -1 })
 		.limit(10)
 		.then(projects => {

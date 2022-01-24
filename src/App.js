@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import { UserCxt } from './cxt/UserCxt';
 
@@ -7,6 +7,8 @@ import Login from './comp/Login/Login';
 
 import Menu from './comp/Menu/Menu';
 import Contacts from './comp/Contacts/Contacts';
+import ContactPage from './comp/Contacts/ContactPage/ContactPage';
+import C_Projects from './comp/Contacts/ContactPage/Elements/C_Projects';
 // import Day from './comp/page/Day';
 // import Week from './comp/page/Week';
 // import Backdrop from './comp/common/Backdrop';
@@ -45,6 +47,12 @@ function App() {
 				<div className='Content'>
 					<Routes>
 						<Route path='/Contacts' element={<Contacts />} />
+						<Route path='/Contacts/:contactId/*' element={<ContactPage />}>
+							<Route path='Data' />
+							<Route path='Projects' element={<C_Projects />} />
+							<Route path='Logs' />
+							<Route path='Balance' />
+						</Route>
 						{/* <Route path='/backdrop' element={<Backdrop />} /> */}
 					</Routes>
 				</div>

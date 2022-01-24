@@ -32,11 +32,7 @@ function Contacts() {
 		const contactsList = await getContactsList();
 		const contacts = contactsList.map(contact => {
 			return (
-				<NavLink
-					className={classes.card}
-					key={contact._id}
-					to={contact.address}
-				>
+				<NavLink className={classes.card} key={contact._id} to={contact._id}>
 					<div className={classes.list} key={contact._id}>
 						<h2>{contact.name}</h2>
 						<h4>{contact.address.city}</h4>
