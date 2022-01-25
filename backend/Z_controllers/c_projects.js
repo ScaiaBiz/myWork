@@ -30,6 +30,7 @@ exports.getContactProjects = (req, res, next) => {
 		.sort({ _id: -1 })
 		.limit(10)
 		.then(projects => {
+			console.log('>>> Risposto progetti per cliente: ' + contactId);
 			res.status(201).json({ projects });
 		})
 		.catch(err => {
@@ -47,6 +48,7 @@ exports.getProjects = (req, res, next) => {
 		.sort({ _id: sort })
 		.limit(limit)
 		.then(logs => {
+			console.log(logs);
 			res.status(201).json({ logs });
 		})
 		.catch(err => {

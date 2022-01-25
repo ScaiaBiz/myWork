@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Outlet } from 'react-router-dom';
 
 import { useHttpClient } from './../../../hooks/http-hooks';
-
 import LoadingSpinner from '../../../utils/LoadingSpinner';
 import ErrorModal from '../../../utils/ErrorModal';
 
