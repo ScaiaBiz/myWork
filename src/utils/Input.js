@@ -70,6 +70,35 @@ const Input = props => {
 		changeHandler(e);
 	};
 
+	const getDropdownList = e => {
+		if (props.baseList) {
+			switch (props.baseList) {
+				case 'workType':
+					return [
+						{ id: 1, name: 'Analisi' },
+						{ id: 2, name: 'Assistenza' },
+						{ id: 3, name: 'Consulenza' },
+						{ id: 4, name: 'Progettazione' },
+						{ id: 5, name: 'Programmazione' },
+					];
+
+				case 'status':
+					return [
+						{ id: 1, name: 'TODO' },
+						{ id: 2, name: 'ONGOING' },
+						{ id: 3, name: 'COMPLETED' },
+						{ id: 4, name: 'SUSPENDED' },
+						{ id: 5, name: 'ABORTED' },
+					];
+
+				default:
+					break;
+			}
+		} else {
+			return props.list;
+		}
+	};
+
 	const element = () => {
 		switch (props.element) {
 			case 'input':
@@ -150,26 +179,29 @@ const Input = props => {
 					/>
 				);
 			case 'dropdown':
+				const list = getDropdownList();
+				console.log(list);
 				return (
 					<React.Fragment>
 						<input
 							id={props.id}
 							list={props.label}
-							name={props.label}
+							name={props.id}
 							onMouseDown={clear}
 							onFocus={clear}
 							onChange={changeHandler}
 							onBlur={toucHandler}
 							value={inputState.value}
 						/>
-						<datalist display='none' id={props.label}>
-							{props.list.map(el => {
+						<datalist id={props.label}>
+							{list.map(el => {
+								console.log(el);
 								return <option value={el.name} />;
 							})}
 						</datalist>
 					</React.Fragment>
 				);
-			default:
+			case 'textarea':
 				return (
 					<textarea
 						id={props.id}
@@ -180,6 +212,8 @@ const Input = props => {
 						value={inputState.value}
 					/>
 				);
+			default:
+				break;
 		}
 	};
 

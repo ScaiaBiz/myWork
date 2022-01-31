@@ -2,18 +2,23 @@ import React from 'react';
 
 import classes from './C_Card.module.css';
 
-function C_Card({ project, handleClick, state }) {
+function C_Card({ cardData, clickHandler, stateToHandle, setResultState }) {
+	const cardResutlHandler = () => {
+		setResultState(cardData);
+		clickHandler(!stateToHandle);
+	};
+
 	return (
 		<div
 			className={classes.card}
-			key={project._id}
-			onClick={() => handleClick(!state)}
+			key={cardData._id}
+			onClick={cardResutlHandler}
 		>
-			<div className={classes.list} key={project._id}>
-				<h2>{project.title}</h2>
-				<p className={classes.description}>{project.description}</p>
-				<p className={`${classes.workType} ${classes[project.status]}`}>
-					{project.workType}
+			<div className={classes.list} key={cardData._id}>
+				<h2>{cardData.title}</h2>
+				<p className={classes.description}>{cardData.description}</p>
+				<p className={`${classes.workType} ${classes[cardData.status]}`}>
+					{cardData.workType}
 				</p>
 			</div>
 		</div>

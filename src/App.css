@@ -21,6 +21,12 @@
 	--ButtonDngrBgColor: #d11010;
 	/* --ButtonDngrBgColor: crimson; */
 	--ButtonDngrTxtColor: white;
+
+	--TODO: hsl(180, 50%, 50%);
+	--ONGOING: hsl(100, 50%, 50%);
+	--COMPLETED: hsl(0, 50%, 50%);
+	--SUSPENDED: hsl(51, 50%, 50%);
+	--ABORTED: hsl(0, 0%, 48%);
 }
 
 * {
@@ -29,10 +35,10 @@
 	box-sizing: border-box;
 }
 
-*::after,
+/* *::after,
 ::before {
 	box-sizing: border-box;
-}
+} */
 
 html {
 	max-height: 100vh;

@@ -7,6 +7,7 @@ import LoadingSpinner from '../../../../utils/LoadingSpinner';
 import ErrorModal from '../../../../utils/ErrorModal';
 import Backdrop from '../../../../utils/Backdrop';
 
+import C_Card from './C_Card';
 import Project from '../../Project/Project';
 
 import classes from './C_Projects.module.css';
@@ -19,39 +20,40 @@ function ContactProjects() {
 
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-	const showProjecCardHandler = () => setShowProjectCard(!showProjectCard);
+	const showProjecCardHandler = () => {
+		setShowProjectCard(!showProjectCard);
+	};
 
 	const getProjects = async () => {
 		const p = await sendRequest(`api/project/getProjects/${param.contactId}`);
-		const projects = p.projects.map(projet => {
+		const projects = p.projects.map(project => {
 			return (
-				<div
-					className={classes.card}
-					key={projet._id}
-					onClick={showProjecCardHandler}
-				>
-					<div className={classes.list} key={projet._id}>
-						<h2>{projet.title}</h2>
-						<p className={classes.description}>{projet.description}</p>
-						<p className={`${classes.workType} ${classes[projet.status]}`}>
-							{projet.workType}
-						</p>
-					</div>
-				</div>
+				<C_Card
+					key={project._id}
+					cardData={project}
+					clickHandler={showProjecCardHandler}
+					stateToHandle={showProjectCard}
+					setResultState={setSelectedProjectIdCard}
+				/>
 			);
 		});
 		setProjects(projects);
 	};
 
 	useEffect(() => {
-		getProjects();
+		if (!showProjectCard) {
+			getProjects();
+		}
 	}, [showProjectCard]);
 
 	const openProjectCard = () => {
 		const projectCard = (
 			<React.Fragment>
 				<Backdrop onClick={showProjecCardHandler} />
-				<Project clear={showProjecCardHandler} />
+				<Project
+					clear={showProjecCardHandler}
+					project={selectedProjectIdCard}
+				/>
 			</React.Fragment>
 		);
 		return ReactDOM.createPortal(
@@ -74,7 +76,6 @@ function ContactProjects() {
 				</div>
 				{projects}
 			</div>
-			{showProjectCard.toString()}
 		</React.Fragment>
 	);
 }

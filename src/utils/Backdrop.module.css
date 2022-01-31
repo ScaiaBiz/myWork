@@ -7,3 +7,7 @@
 	background: var(--backdrop);
 	z-index: 10;
 }
+
+.secondo {
+	z-index: 52;
+}

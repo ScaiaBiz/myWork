@@ -19,6 +19,7 @@ textarea {
 	flex-direction: column;
 	align-items: center;
 	min-height: 12%;
+	width: 70%;
 }
 
 .radio_container {

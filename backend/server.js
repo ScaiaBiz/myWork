@@ -48,7 +48,7 @@ app.use('/', authRts);
 //Error handler
 //>> Check route
 app.use((req, res, next) => {
-	console.log(req);
+	// console.log(req);
 	return next(
 		new HttpError('No route found: ' + req.method + ' ' + req.url, 404)
 	);
@@ -58,7 +58,7 @@ app.use((error, req, res, next) => {
 	if (res.headerSent) {
 		return next(error);
 	}
-	console.log(error.message);
+	// console.log(error.message);
 	return res
 		.status(error.code || 500)
 		.json({ message: error.message || 'Unknown error', errorStatus: true });

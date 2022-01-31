@@ -1,13 +1,40 @@
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+
+// import classes from './Backdrop.module.css';
+
+// const Backdrop = props => {
+// 	return ReactDOM.createPortal(
+// 		<div className={classes.backdrop} onClick={props.onClick}></div>,
+// 		document.getElementById('backdrop')
+// 	);
+// };
+
+// export default Backdrop;
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 import classes from './Backdrop.module.css';
 
 const Backdrop = props => {
-	return ReactDOM.createPortal(
-		<div className={classes.backdrop} onClick={props.onClick}></div>,
-		document.getElementById('backdrop')
-	);
+	console.log('livello ' + props.level);
+	switch (props?.level) {
+		case 'secondo':
+			return ReactDOM.createPortal(
+				<div
+					className={`${classes.backdrop} ${classes.secondo}`}
+					onClick={props.onClick}
+				></div>,
+				document.getElementById('backdrop_2')
+			);
+
+		default:
+			return ReactDOM.createPortal(
+				<div className={`${classes.backdrop}`} onClick={props.onClick}></div>,
+				document.getElementById('backdrop')
+			);
+	}
 };
 
 export default Backdrop;

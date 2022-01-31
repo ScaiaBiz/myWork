@@ -14,8 +14,9 @@ const projectSchema = new Schema({
 	startDate: { type: Date },
 	dueDate: { type: Date },
 	endDate: { type: Date },
-	totalWorkTime: { type: Number, default: 0 },
-	totalInvoicedTime: { type: Number, default: 0 },
+	totalTimeWorked: { type: Number, default: 0 },
+	totalTimeInvoiced: { type: Number, default: 0 },
+	totalTimeToInvoice: { type: Number, default: 0 },
 });
 
 module.exports = mongoose.model('Project', projectSchema);
