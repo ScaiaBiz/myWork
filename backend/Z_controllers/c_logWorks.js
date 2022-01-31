@@ -1,13 +1,12 @@
 const Log = require('./../O_models/m_logWork');
 const ObjectId = require('mongoose').Types.ObjectId;
 
-exports.postStartLog = (req, res, next) => {
+exports.postNewLog = (req, res, next) => {
+	//todo: Da sistemare!
 	if (!req.body.activityId) {
-		//TODO: Crerare attività?
 	}
 
 	if (!req.body.projectId) {
-		//TODO: Creare progetto?
 	}
 
 	const log = new Log({
@@ -28,6 +27,9 @@ exports.postStartLog = (req, res, next) => {
 		});
 };
 
+exports.postStartLog = (req, res, next) => {
+	console.log('Inizia attività');
+};
 exports.postPauseLog = (req, res, next) => {
 	const logId = req.body.logId;
 	Log.findOne({ _id: logId })
@@ -76,6 +78,20 @@ exports.getCustomerLogs = (req, res, next) => {
 		.limit(10)
 		.then(logs => {
 			res.status(201).json({ logs });
+		})
+		.catch(err => {
+			console.log(err);
+		});
+};
+
+exports.getProjectsLogs = (req, res, next) => {
+	const projectId = req.params.projectId;
+	Log.find({ projectId: projectId })
+		.sort({ _id: -1 })
+		.limit(10)
+		.then(projectLogs => {
+			console.log('>>> Rispost logs per progetto:' + projectId);
+			res.status(201).json({ projectLogs });
 		})
 		.catch(err => {
 			console.log(err);
