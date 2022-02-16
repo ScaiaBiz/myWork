@@ -28,6 +28,14 @@ const Backdrop = props => {
 				></div>,
 				document.getElementById('backdrop_2')
 			);
+		case 'message':
+			return ReactDOM.createPortal(
+				<div
+					className={`${classes.backdrop} ${classes.message}`}
+					onClick={props.onClick}
+				></div>,
+				document.getElementById('backdrop_message')
+			);
 
 		default:
 			return ReactDOM.createPortal(

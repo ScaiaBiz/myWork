@@ -1,0 +1,19 @@
+.controls {
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+}
+
+.icons {
+	font-size: 2rem;
+}
+
+.play:hover {
+	color: var(--ONGOING);
+}
+.pause:hover {
+	color: var(--PAUSED);
+}
+.stop:hover {
+	color: var(--COMPLETED);
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { VALIDATOR_REQUIRE, VALIDATOR_NO } from '../../../../utils/validators';
 import { useForm } from '../../../../hooks/form-hook';
@@ -11,10 +11,14 @@ import LoadingSpinner from '../../../../utils/LoadingSpinner';
 
 import classes from './NewLog.module.css';
 
-function NewLog({ clear, succes }) {
+function NewLog({ clear, succes, projectId, contactId }) {
+	const [newData, setNewData] = useState(null);
+
 	const [formState, inputHandler, setFormData] = useForm({
 		title: { value: '', isValid: false },
 		dueDate: { value: '', isValid: false },
+		hours: { value: '', isValid: false },
+		quarters: { value: '', isValid: false },
 		workDescription: { value: '', isValid: false },
 		workType: { value: '', isValid: true },
 		status: { value: '', isValid: false },
@@ -23,43 +27,47 @@ function NewLog({ clear, succes }) {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
 	const postActivity = async e => {
-		let today = new Date();
 		e.preventDefault();
+		const date = formState.inputs.dueDate.value;
+		const hh = formState.inputs.hours.value;
+		const mm = formState.inputs.quarters.value;
+		let dueDate = new Date(date + ' ' + hh + ':' + mm);
 		console.log('Posto nuova attiità');
-		await sendRequest(
-			'api/logs/newLog',
-			'POST',
-			{
-				dueDate: formState.inputs.dueDate.value || today,
-				title: formState.inputs.title.value,
-				workDescription: formState.inputs.workDescription.value,
-				workType: formState.inputs.workType.value || '',
-				status: formState.inputs.status.value || '',
-			},
-			{
-				'Content-Type': 'application/json',
-			}
+		setNewData(
+			await sendRequest(
+				'api/log/newLog',
+				'POST',
+				{
+					contactId: contactId,
+					projectId: projectId,
+					dueDate: dueDate,
+					hours: formState.inputs.hours.value || '',
+					quarters: formState.inputs.quarters.value || '',
+					title: formState.inputs.title.value,
+					workDescription: formState.inputs.workDescription.value,
+					workType: formState.inputs.workType.value || '',
+					status: formState.inputs.status.value || '',
+				},
+				{
+					'Content-Type': 'application/json',
+				}
+			)
 		);
 		console.log('Postato');
-		succes(true);
-		clear();
 	};
 
+	useEffect(() => {
+		if (newData) {
+			console.log('Lancio chiusura maschera');
+			succes(true);
+			clear();
+		}
+	}, [newData]);
+
 	const showForm = () => {
-		console.log('mostro form');
 		return (
 			<div className={classes.container}>
 				<form className={classes.form}>
-					<Input
-						id='dueDate'
-						element='input'
-						type='date'
-						label='Data esecuzione'
-						validators={[VALIDATOR_NO()]}
-						onInput={inputHandler}
-						initValue=''
-						initIsValid={true}
-					/>
 					<Input
 						id='title'
 						element='input'
@@ -72,15 +80,63 @@ function NewLog({ clear, succes }) {
 						initIsValid={false}
 					/>
 					<Input
+						id='dueDate'
+						element='input'
+						type='date'
+						label='Data'
+						validators={[VALIDATOR_REQUIRE()]}
+						onInput={inputHandler}
+						initValue=''
+						initIsValid={false}
+					/>
+					{/* <Input
+						id='time'
+						element='input'
+						type='time'
+						label='Orario'
+						step='900'
+						validators={[VALIDATOR_NO()]}
+						onInput={inputHandler}
+						initValue=''
+						initIsValid={true}
+					/> */}
+					<div className={classes.dropdownTime}>
+						<Input
+							id='hours'
+							element='dropdown'
+							type='dropdown'
+							baseList='hours'
+							elementType='selectTime'
+							label='Ora'
+							validators={[VALIDATOR_REQUIRE()]}
+							onInput={inputHandler}
+							initValue=''
+							initIsValid={false}
+						/>
+						<Input
+							id='quarters'
+							element='dropdown'
+							type='dropdown'
+							baseList='quarters'
+							elementType='selectTime'
+							label='Minuti'
+							validators={[VALIDATOR_REQUIRE()]}
+							onInput={inputHandler}
+							initValue=''
+							initIsValid={false}
+						/>
+					</div>
+					<Input
 						id='workType'
 						element='dropdown'
 						type='dropdown'
 						baseList='workType'
 						label='Tipo attività'
-						validators={[VALIDATOR_NO()]}
+						validators={[VALIDATOR_REQUIRE()]}
+						errorText='Campo obbligatorio'
 						onInput={inputHandler}
 						initValue=''
-						initIsValid={true}
+						initIsValid={false}
 					/>
 					<Input
 						id='status'
@@ -88,10 +144,11 @@ function NewLog({ clear, succes }) {
 						type='dropdown'
 						baseList='status'
 						label='Status'
-						validators={[VALIDATOR_NO()]}
+						validators={[VALIDATOR_REQUIRE()]}
+						errorText='Campo obbligatorio'
 						onInput={inputHandler}
 						initValue=''
-						initIsValid={true}
+						initIsValid={false}
 					/>
 					<Input
 						id='workDescription'
@@ -101,7 +158,7 @@ function NewLog({ clear, succes }) {
 						validators={[VALIDATOR_NO()]}
 						onInput={inputHandler}
 						initValue=''
-						initIsValid={true}
+						initIsValid={false}
 					/>
 					<Button
 						clname={'default big'}

@@ -14,7 +14,6 @@
 
 .card:hover {
 	box-shadow: 6px 6px 2px var(--maincolor);
-	background-color: var(--activeLinkLight);
 }
 
 .list {
@@ -28,6 +27,7 @@
 
 .description {
 	overflow: auto;
+	height: 40%;
 }
 
 .workType {
@@ -41,14 +41,15 @@
 }
 
 .ONGOING {
+	background-color: var(--ONGOING);
 }
 
 .COMPLETED {
 	background-color: var(--COMPLETED);
 }
 
-.SUSPENDED {
-	background-color: var(--SUSPENDED);
+.PAUSED {
+	background-color: var(--PAUSED);
 }
 
 .ABORTED {

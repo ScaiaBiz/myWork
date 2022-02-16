@@ -10,13 +10,16 @@ exports.postNewLog = (req, res, next) => {
 	}
 
 	const log = new Log({
-		start: req.body.startTime,
-		customerId: req.body.customerId,
-		activityId: req.body.activityId,
+		contactId: req.body.contactId,
 		projectId: req.body.projectId,
-		description: req.body.description,
-		work: req.body.work,
-		status: 'ONGOING',
+		workType: req.body.workType,
+		workDescription: req.body.workDescription,
+		creationDate: new Date(),
+		dueDate: req.body.dueDate,
+		status: req.body.status,
+		title: req.body.title,
+		// start: req.body.startTime,
+		// activityId: req.body.activityId,
 	});
 	log
 		.save()
@@ -35,14 +38,21 @@ exports.postPauseLog = (req, res, next) => {
 	Log.findOne({ _id: logId })
 		.then(log => {
 			switch (log.status) {
+				case 'TODO':
+					log.startWork = new Date();
+					log.status = 'ONGOING';
+					console.log('<<< Invio comando START per log: ' + logId);
+					break;
 				case 'ONGOING':
 					log.startBreak = new Date();
 					log.status = 'PAUSED';
+					console.log('<<< Invio comando PAUSE per log: ' + logId);
 					break;
 				case 'PAUSED':
 					const delta = new Date() - log.startBreak;
 					log.breaksTime += delta;
 					log.status = 'ONGOING';
+					console.log('<<< Invio comando RESUME per log: ' + logId);
 					break;
 				default:
 					break;
@@ -58,11 +68,14 @@ exports.postStopLog = (req, res, next) => {
 	const logId = req.body.logId;
 	Log.findOne({ _id: logId })
 		.then(log => {
-			log.end = new Date();
-			let minWorked = (log.end - log.start - log.breaksTime) / 60000;
-			log.minWorked = minWorked.toFixed();
-			log.workSummary = req.body.summary;
-			log.status = 'FINISHED';
+			log.endWork = new Date();
+			let minWorked = (log.endWork - log.startWork - log.breaksTime) / 60000;
+			console.log('<<< Invio comando STOP per log: ' + logId);
+			if (minWorked > 0) {
+				log.minWorked = minWorked.toFixed();
+			}
+			// log.workSummary = req.body.summary;
+			log.status = 'COMPLETED';
 			log.save().then(status => res.status(201).json({ status }));
 		})
 		.catch(err => {
@@ -90,7 +103,7 @@ exports.getProjectsLogs = (req, res, next) => {
 		.sort({ _id: -1 })
 		.limit(10)
 		.then(projectLogs => {
-			console.log('>>> Rispost logs per progetto:' + projectId);
+			console.log('>>> Rispondo logs per progetto:' + projectId);
 			res.status(201).json({ projectLogs });
 		})
 		.catch(err => {

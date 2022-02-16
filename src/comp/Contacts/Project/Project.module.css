@@ -16,6 +16,7 @@
 
 .header {
 	display: flex;
+	width: 90%;
 	justify-content: space-around;
 	border-bottom: var(--maincolor) solid 1px;
 }
@@ -41,6 +42,7 @@ Colori status progetto
 	width: 100%;
 	display: flex;
 	justify-content: space-around;
+	flex-wrap: wrap;
 	/* align-items: flex-start; */
 }
 

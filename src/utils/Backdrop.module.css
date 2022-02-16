@@ -11,3 +11,6 @@
 .secondo {
 	z-index: 52;
 }
+.message {
+	z-index: 100;
+}

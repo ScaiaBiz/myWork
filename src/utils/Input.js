@@ -39,7 +39,6 @@ const Input = props => {
 	}, [id, value, isValid, onInput]);
 
 	const changeHandler = e => {
-		// console.log(e.target.value);
 		dispatch({
 			type: 'CHANGE',
 			val: e.target.value,
@@ -91,6 +90,41 @@ const Input = props => {
 						{ id: 5, name: 'ABORTED' },
 					];
 
+				case 'hours':
+					return [
+						{ id: 1, name: '01' },
+						{ id: 2, name: '02' },
+						{ id: 3, name: '03' },
+						{ id: 4, name: '04' },
+						{ id: 5, name: '05' },
+						{ id: 6, name: '06' },
+						{ id: 7, name: '07' },
+						{ id: 8, name: '08' },
+						{ id: 9, name: '09' },
+						{ id: 10, name: '10' },
+						{ id: 11, name: '11' },
+						{ id: 12, name: '12' },
+						{ id: 13, name: '13' },
+						{ id: 14, name: '14' },
+						{ id: 15, name: '15' },
+						{ id: 16, name: '16' },
+						{ id: 17, name: '17' },
+						{ id: 18, name: '18' },
+						{ id: 19, name: '19' },
+						{ id: 20, name: '20' },
+						{ id: 21, name: '21' },
+						{ id: 22, name: '22' },
+						{ id: 23, name: '23' },
+						{ id: 24, name: '24' },
+					];
+				case 'quarters':
+					return [
+						{ id: 1, name: '00' },
+						{ id: 2, name: '15' },
+						{ id: 3, name: '30' },
+						{ id: 4, name: '45' },
+					];
+
 				default:
 					break;
 			}
@@ -104,6 +138,7 @@ const Input = props => {
 			case 'input':
 				return (
 					<input
+						key={props.id}
 						id={props.id}
 						type={props.type}
 						placeholder={props.placeholder}
@@ -115,6 +150,7 @@ const Input = props => {
 			case 'checkbox':
 				return (
 					<input
+						key={props.id}
 						id={props.id}
 						type={props.type}
 						onChange={changeHandler}
@@ -130,6 +166,7 @@ const Input = props => {
 								<div className={classes.radio_container}>
 									<label className={classes.radio_dot} htmlFor={el.id}>
 										<input
+											key={props.id}
 											className={classes.radio1}
 											id={el.id}
 											type={props.type}
@@ -149,17 +186,20 @@ const Input = props => {
 			case 'time':
 				return (
 					<input
+						key={props.id}
 						id={props.id}
 						type={props.type}
 						onClick={getTimeNow}
 						onChange={changeHandler}
 						onBlur={toucHandler}
-						value={inputState.value}
+						step='900'
+						value={inputState.value || getTimeNow()}
 					/>
 				);
 			case 'data':
 				return (
 					<input
+						key={props.id}
 						id={props.id}
 						type={props.type}
 						onClick={getDateNow}
@@ -171,6 +211,7 @@ const Input = props => {
 			case 'color':
 				return (
 					<input
+						key={props.id}
 						id={props.id}
 						type={props.type}
 						onChange={changeHandler}
@@ -180,10 +221,10 @@ const Input = props => {
 				);
 			case 'dropdown':
 				const list = getDropdownList();
-				console.log(list);
 				return (
 					<React.Fragment>
 						<input
+							key={props.id}
 							id={props.id}
 							list={props.label}
 							name={props.id}
@@ -192,10 +233,10 @@ const Input = props => {
 							onChange={changeHandler}
 							onBlur={toucHandler}
 							value={inputState.value}
+							className={`${classes[props.element]} ${classes[props.baseList]}`}
 						/>
 						<datalist id={props.label}>
 							{list.map(el => {
-								console.log(el);
 								return <option value={el.name} />;
 							})}
 						</datalist>
@@ -204,6 +245,7 @@ const Input = props => {
 			case 'textarea':
 				return (
 					<textarea
+						key={props.id}
 						id={props.id}
 						type={props.type}
 						rows={props.rows || 3}
@@ -221,7 +263,7 @@ const Input = props => {
 		<div
 			className={`${classes.formCtrl} ${
 				!inputState.isValid && inputState.isTuched && classes.formCtrl_invalid
-			}`}
+			} ${props.elementType && classes.formCtrl__small}`}
 		>
 			<label htmlFor={props.id}>{props.label}</label>
 

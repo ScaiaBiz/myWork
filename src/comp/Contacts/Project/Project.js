@@ -8,6 +8,7 @@ import Backdrop from '../../../utils/Backdrop';
 
 import Card from '../C_Utils/Card';
 import NewLog from './Elements/NewLog';
+import LogSummary from './Elements/LogSummary';
 
 import classes from './Project.module.css';
 
@@ -16,6 +17,7 @@ function Project({ project }) {
 	const [contact, setContact] = useState(null);
 	const [logs, setLogs] = useState(null);
 	const [showNewLogForm, setShowNewLogForm] = useState(false);
+	const [logSummary, setLogSummary] = useState(false);
 
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
@@ -24,9 +26,13 @@ function Project({ project }) {
 	 * ----------------*/
 
 	const getProjectLogs = async () => {
-		// console.log(project._id);
-		const l = await sendRequest(`api/log/logs/${project._id}`);
-		setLogs(l.projectLogs);
+		const logs = await sendRequest(`api/log/logs/${project._id}`);
+		// console.log('Rileggo tutti i dati log');
+		const l = logs.projectLogs.map(log => {
+			return <Card cardData={log} pause={''} stop={''} />;
+		});
+		// console.log('Log letti:');
+		setLogs(l);
 		return;
 	};
 
@@ -37,35 +43,58 @@ function Project({ project }) {
 
 	useEffect(() => {
 		if (toLoad) {
-			console.log(project);
-			getContact();
+			// console.log('Gestisco carico dati Log');
+			if (!contact) {
+				// console.log('Prendo informazioni contatto');
+				getContact();
+			}
 			getProjectLogs();
-
 			setToLoad(false);
 		}
-		// }, []);
 	}, [toLoad]);
 
 	/**-----------------
 	 * INVIO DATI
 	 * ----------------*/
 
-	const postNewActivity = () => {};
-
 	const addNewHandler = () => {
 		setShowNewLogForm(!showNewLogForm);
 	};
+	const logSummaryHandler = () => {
+		setLogSummary(!logSummary);
+	};
 
-	const addNewLog = () => {
-		console.log('Nuova attività?');
-		const formNewContat = (
+	const creatLogSummary = () => {
+		const formLogSummary = (
 			<React.Fragment>
-				<Backdrop onClick={addNewHandler} level='secondo' />
-				<NewLog clear={addNewHandler} succes={setToLoad} />
+				<Backdrop onClick={logSummaryHandler} level='secondo' />
+				<LogSummary
+					clear={logSummaryHandler}
+					succes={setToLoad}
+					projectId={project._id}
+					contactId={contact._id}
+				/>
 			</React.Fragment>
 		);
 		return ReactDOM.createPortal(
-			formNewContat,
+			formLogSummary,
+			document.getElementById('modal-hook_2')
+		);
+	};
+	const addNewLog = () => {
+		const formNewLog = (
+			<React.Fragment>
+				<Backdrop onClick={addNewHandler} level='secondo' />
+				<NewLog
+					clear={addNewHandler}
+					succes={setToLoad}
+					projectId={project._id}
+					contactId={contact._id}
+				/>
+			</React.Fragment>
+		);
+		return ReactDOM.createPortal(
+			formNewLog,
 			document.getElementById('modal-hook_2')
 		);
 	};
@@ -97,6 +126,7 @@ function Project({ project }) {
 			{error && <ErrorModal error={error} onClear={clearError} />}
 			{isLoading && <LoadingSpinner asOverlay />}
 			{showNewLogForm && addNewLog()}
+			{logSummary && logSummary}
 			{!toLoad && showProjectData()}
 		</React.Fragment>
 	);

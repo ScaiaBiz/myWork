@@ -4,7 +4,7 @@
 	--contrast: white;
 	--text: white;
 	--activeLink: #61dafb;
-	--activeLinkLight: #aeeeff;
+	--activeLinkLight: hsl(193, 100%, 95%);
 	--backdrop: rgba(40, 44, 52, 0.75);
 	--overlay: #3c5280;
 	--overlayBg: #3c528091;
@@ -22,11 +22,11 @@
 	/* --ButtonDngrBgColor: crimson; */
 	--ButtonDngrTxtColor: white;
 
-	--TODO: hsl(180, 50%, 50%);
 	--ONGOING: hsl(100, 50%, 50%);
 	--COMPLETED: hsl(0, 50%, 50%);
-	--SUSPENDED: hsl(51, 50%, 50%);
+	--PAUSED: hsl(51, 50%, 50%);
 	--ABORTED: hsl(0, 0%, 48%);
+	--TODO: hsl(180, 50%, 50%);
 }
 
 * {

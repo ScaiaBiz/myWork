@@ -53,13 +53,16 @@ const ModalOverlay = props => {
 		</div>
 	);
 
-	return ReactDOM.createPortal(content, document.getElementById('modal-hook'));
+	return ReactDOM.createPortal(
+		content,
+		document.getElementById('modal-message')
+	);
 };
 
 const Modal = props => {
 	return (
 		<React.Fragment>
-			{props.show && <Backdrop onClick={props.onCancel} />}
+			{props.show && <Backdrop onClick={props.onCancel} level='message' />}
 			{/* <CSSTransition
 				in={props.show}
 				mountOnEnter

@@ -1,7 +1,25 @@
+input {
+	font-size: inherit;
+}
+
+.formCtrl {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 12%;
+	/* width: 70%;	 */
+	font-size: inherit;
+	font-weight: bold;
+}
+
+.formCtrl__small {
+	width: 20%;
+}
+
 textarea {
-	display: block;
-	width: 100%;
-	height: 100%;
+	/* display: block; */
+	width: 80%;
+	height: 10rem;
 	max-width: 100%;
 	padding: 0.5%;
 	box-sizing: border-box;
@@ -12,14 +30,6 @@ textarea {
 .errorText {
 	color: crimson;
 	font-weight: bold;
-}
-
-.formCtrl {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	min-height: 12%;
-	width: 70%;
 }
 
 .radio_container {
@@ -38,4 +48,22 @@ textarea {
 	display: flex;
 	align-items: center;
 	/* justify-content: space-between; */
+}
+
+.dropdownTime {
+	display: flex;
+	border: solid 1px red;
+	background-color: chartreuse;
+}
+
+.dropdownTime_hours {
+	width: 25%;
+}
+
+.hours {
+	width: 75%;
+}
+
+.quarters {
+	width: 75%;
 }
