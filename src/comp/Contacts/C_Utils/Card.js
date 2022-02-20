@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import Controlls from '../../../utils/controlls/Controlls';
 
@@ -15,7 +15,6 @@ function Card({
 	stop,
 }) {
 	const cardResutlHandler = () => {
-		// setResultState(cardData);
 		clickHandler(!stateToHandle);
 	};
 
@@ -31,14 +30,14 @@ function Card({
 				key={cardData?._id}
 				onClick={cardResutlHandler}
 			>
-				<div className={classes.list} key={0}>
+				<div className={classes.first} key={0}>
 					<h2>Crea nuova attività</h2>
 				</div>
 			</div>
 		);
 	} else {
 		const getDueDate = () => {
-			new Date(cardData?.dueDate).toLocaleString('it-IT', {
+			return new Date(cardData?.dueDate).toLocaleString('it-IT', {
 				day: '2-digit',
 				month: '2-digit',
 				year: 'numeric',
@@ -57,27 +56,39 @@ function Card({
 			});
 		};
 
+		const convertToHour = () => {
+			const timeFormat = n => ('00' + n).slice(-2);
+			let min = cardData.minWorked;
+			let hour = Math.floor(min / 60);
+			min = min - hour * 60;
+			return timeFormat(hour) + ':' + timeFormat(min);
+
+			// let mill = cardData.minWorked * 60000;
+		};
+
 		return (
 			<div className={classes.card} key={cardData?._id}>
 				<div className={classes.list} key={cardData?._id}>
-					<p className={`${classes.workType} ${classes[cardData?.status]}`}>
-						{cardData?.workType}
-					</p>
-					<p className={classes.data}>{getDueDate()}</p>
-					<h2>{cardData?.title}</h2>
 					<div className={classes.description}>
+						<p className={`${classes.workType} ${classes[cardData?.status]}`}>
+							{cardData?.workType}
+						</p>
+						<p className={classes.date}>{getDueDate()}</p>
 						{cardData?.workDescription}
-						<br />
+						<hr />
+						{cardData.endWork && <p className={classes.date}>{getEndDate()}</p>}
+						{cardData?.workSummary}
 					</div>
-					{/* {cardData?.status !== 'COMPLETED' ? ( */}
-					<Controlls
-						status={cardStatus}
-						setCardStatus={setCardStatus}
-						log={cardData}
-					/>
-					{/* ) : ( */}
-					<p className={classes.data}>{getEndDate()}</p>
-					{/* )} */}
+					{cardData?.status !== 'COMPLETED' ? (
+						<Controlls
+							status={cardStatus}
+							setCardStatus={setCardStatus}
+							log={cardData}
+							statusToControl={cardStatus}
+						/>
+					) : (
+						<p>Impiegato: {convertToHour()}</p>
+					)}
 				</div>
 			</div>
 		);

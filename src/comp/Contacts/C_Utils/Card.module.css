@@ -16,7 +16,7 @@
 	box-shadow: 6px 6px 2px var(--maincolor);
 }
 
-.list {
+.first {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -24,14 +24,30 @@
 	text-align: center;
 	width: 95%;
 }
+.list {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	text-align: center;
+	width: 95%;
+	padding: 10px 0;
+}
 
 .description {
 	overflow: auto;
-	height: 40%;
+	/* height: 40%; */
+}
+
+.date {
+	color: var(--maincolor);
+	font-weight: 600;
+	font-size: 1.1rem;
 }
 
 .workType {
 	padding: 1% 5%;
+	margin-bottom: 10px;
 	border-radius: 100px;
 	border: #000 1px solid;
 }

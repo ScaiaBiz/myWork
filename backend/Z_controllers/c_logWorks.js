@@ -66,6 +66,7 @@ exports.postPauseLog = (req, res, next) => {
 
 exports.postStopLog = (req, res, next) => {
 	const logId = req.body.logId;
+	console.log(req.body.workSummary);
 	Log.findOne({ _id: logId })
 		.then(log => {
 			log.endWork = new Date();
@@ -74,8 +75,9 @@ exports.postStopLog = (req, res, next) => {
 			if (minWorked > 0) {
 				log.minWorked = minWorked.toFixed();
 			}
-			// log.workSummary = req.body.summary;
+			log.workSummary = req.body.workSummary;
 			log.status = 'COMPLETED';
+			log.summaryIsNeeded = req.body.summaryIsNeeded;
 			log.save().then(status => res.status(201).json({ status }));
 		})
 		.catch(err => {

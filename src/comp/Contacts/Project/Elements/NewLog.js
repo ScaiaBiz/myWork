@@ -21,7 +21,7 @@ function NewLog({ clear, succes, projectId, contactId }) {
 		quarters: { value: '', isValid: false },
 		workDescription: { value: '', isValid: false },
 		workType: { value: '', isValid: true },
-		status: { value: '', isValid: false },
+		// status: { value: '', isValid: false },
 	});
 
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -32,7 +32,6 @@ function NewLog({ clear, succes, projectId, contactId }) {
 		const hh = formState.inputs.hours.value;
 		const mm = formState.inputs.quarters.value;
 		let dueDate = new Date(date + ' ' + hh + ':' + mm);
-		console.log('Posto nuova attiità');
 		setNewData(
 			await sendRequest(
 				'api/log/newLog',
@@ -46,7 +45,7 @@ function NewLog({ clear, succes, projectId, contactId }) {
 					title: formState.inputs.title.value,
 					workDescription: formState.inputs.workDescription.value,
 					workType: formState.inputs.workType.value || '',
-					status: formState.inputs.status.value || '',
+					status: 'TODO',
 				},
 				{
 					'Content-Type': 'application/json',
@@ -138,7 +137,7 @@ function NewLog({ clear, succes, projectId, contactId }) {
 						initValue=''
 						initIsValid={false}
 					/>
-					<Input
+					{/* <Input
 						id='status'
 						element='dropdown'
 						type='dropdown'
@@ -149,7 +148,7 @@ function NewLog({ clear, succes, projectId, contactId }) {
 						onInput={inputHandler}
 						initValue=''
 						initIsValid={false}
-					/>
+					/> */}
 					<Input
 						id='workDescription'
 						element='textarea'
@@ -161,7 +160,7 @@ function NewLog({ clear, succes, projectId, contactId }) {
 						initIsValid={false}
 					/>
 					<Button
-						clname={'default big'}
+						clname={'default big _50'}
 						type='submit'
 						disabled={!formState.isValid}
 						onClick={postActivity}

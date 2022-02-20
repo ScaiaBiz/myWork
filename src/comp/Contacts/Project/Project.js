@@ -8,7 +8,6 @@ import Backdrop from '../../../utils/Backdrop';
 
 import Card from '../C_Utils/Card';
 import NewLog from './Elements/NewLog';
-import LogSummary from './Elements/LogSummary';
 
 import classes from './Project.module.css';
 
@@ -17,7 +16,6 @@ function Project({ project }) {
 	const [contact, setContact] = useState(null);
 	const [logs, setLogs] = useState(null);
 	const [showNewLogForm, setShowNewLogForm] = useState(false);
-	const [logSummary, setLogSummary] = useState(false);
 
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
@@ -27,11 +25,9 @@ function Project({ project }) {
 
 	const getProjectLogs = async () => {
 		const logs = await sendRequest(`api/log/logs/${project._id}`);
-		// console.log('Rileggo tutti i dati log');
 		const l = logs.projectLogs.map(log => {
 			return <Card cardData={log} pause={''} stop={''} />;
 		});
-		// console.log('Log letti:');
 		setLogs(l);
 		return;
 	};
@@ -43,15 +39,13 @@ function Project({ project }) {
 
 	useEffect(() => {
 		if (toLoad) {
-			// console.log('Gestisco carico dati Log');
 			if (!contact) {
-				// console.log('Prendo informazioni contatto');
 				getContact();
 			}
 			getProjectLogs();
 			setToLoad(false);
 		}
-	}, [toLoad]);
+	}, [toLoad, contact, getContact]);
 
 	/**-----------------
 	 * INVIO DATI
@@ -60,27 +54,7 @@ function Project({ project }) {
 	const addNewHandler = () => {
 		setShowNewLogForm(!showNewLogForm);
 	};
-	const logSummaryHandler = () => {
-		setLogSummary(!logSummary);
-	};
 
-	const creatLogSummary = () => {
-		const formLogSummary = (
-			<React.Fragment>
-				<Backdrop onClick={logSummaryHandler} level='secondo' />
-				<LogSummary
-					clear={logSummaryHandler}
-					succes={setToLoad}
-					projectId={project._id}
-					contactId={contact._id}
-				/>
-			</React.Fragment>
-		);
-		return ReactDOM.createPortal(
-			formLogSummary,
-			document.getElementById('modal-hook_2')
-		);
-	};
 	const addNewLog = () => {
 		const formNewLog = (
 			<React.Fragment>
@@ -126,18 +100,9 @@ function Project({ project }) {
 			{error && <ErrorModal error={error} onClear={clearError} />}
 			{isLoading && <LoadingSpinner asOverlay />}
 			{showNewLogForm && addNewLog()}
-			{logSummary && logSummary}
 			{!toLoad && showProjectData()}
 		</React.Fragment>
 	);
-
-	/**
-	 * Header
-	 * 	Project data
-	 * 	Client
-	 * Logs
-	 * 	Activity logs
-	 */
 }
 
 export default Project;
