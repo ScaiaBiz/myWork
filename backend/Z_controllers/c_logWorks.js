@@ -74,7 +74,7 @@ exports.postStopLog = (req, res, next) => {
 			if (minWorked > 0) {
 				log.minWorked = minWorked.toFixed();
 			}
-			console.log('>>> Invio tempo lavorato a Progetto:' + log.projectId);
+			console.log('<<< Invio tempo lavorato a Progetto:' + log.projectId);
 			Project.findOne({ _id: log.projectId })
 				.then(project => {
 					project.addWorkedTime(log.minWorked);

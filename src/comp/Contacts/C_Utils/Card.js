@@ -18,10 +18,10 @@ function Card({
 		clickHandler(!stateToHandle);
 	};
 
-	const [cardStatus, setCardStatus] = useState(null);
-	if (cardStatus?.endWork) {
-		cardData.endWork = cardStatus.endWork;
-	}
+	const [cardStatus, setCardStatus] = useState(cardData);
+	// if (cardStatus?.endWork) {
+	// 	cardStatus.endWork = cardStatus.endWork;
+	// }
 
 	if (!cardData) {
 		return (
@@ -47,7 +47,7 @@ function Card({
 		};
 
 		const getEndDate = () => {
-			return new Date(cardData?.endWork).toLocaleString('it-IT', {
+			return new Date(cardStatus?.endWork).toLocaleString('it-IT', {
 				day: '2-digit',
 				month: '2-digit',
 				year: 'numeric',
@@ -58,7 +58,7 @@ function Card({
 
 		const convertToHour = () => {
 			const timeFormat = n => ('00' + n).slice(-2);
-			let min = cardData.minWorked;
+			let min = cardStatus.minWorked;
 			let hour = Math.floor(min / 60);
 			min = min - hour * 60;
 			return timeFormat(hour) + ':' + timeFormat(min);
@@ -76,19 +76,21 @@ function Card({
 						<p className={classes.date}>{getDueDate()}</p>
 						{cardData?.workDescription}
 						<hr />
-						{cardData.endWork && <p className={classes.date}>{getEndDate()}</p>}
-						{cardData?.workSummary}
+						{cardStatus.endWork && (
+							<p className={classes.date}>{getEndDate()}</p>
+						)}
+						{cardStatus?.workSummary}
 					</div>
-					{/* {cardData?.status !== 'COMPLETED' ? ( */}
-					<Controlls
-						status={cardStatus}
-						setCardStatus={setCardStatus}
-						log={cardData}
-						statusToControl={cardStatus}
-					/>
-					{/* ) : ( */}
-					{/* <p>Impiegato: {convertToHour()}</p> */}
-					{/* )} */}
+					{cardData?.status !== 'COMPLETED' ? (
+						<Controlls
+							status={cardStatus}
+							setCardStatus={setCardStatus}
+							log={cardData}
+							statusToControl={cardStatus}
+						/>
+					) : (
+						<p>Impiegato: {convertToHour()}</p>
+					)}
 				</div>
 			</div>
 		);
