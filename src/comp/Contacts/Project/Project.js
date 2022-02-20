@@ -81,6 +81,8 @@ function Project({ project }) {
 						{contact?.name}
 						<h1 className={classes.headerH1}>{project.title}</h1>
 						<p className={classes[project.status]}>{project.status}</p>
+						TL: {project.totalTimeWorked} - DF: {project.totalTimeToInvoice} -
+						TF: {project.totalTimeInvoiced}
 					</div>
 					<div className={classes.description}>{project.description}</div>
 				</div>

@@ -1,4 +1,5 @@
 const Log = require('./../O_models/m_logWork');
+const Project = require('./../O_models/m_projects');
 const ObjectId = require('mongoose').Types.ObjectId;
 
 exports.postNewLog = (req, res, next) => {
@@ -8,7 +9,7 @@ exports.postNewLog = (req, res, next) => {
 
 	if (!req.body.projectId) {
 	}
-
+	console.log('>>> Creato nuova attività');
 	const log = new Log({
 		contactId: req.body.contactId,
 		projectId: req.body.projectId,
@@ -18,8 +19,6 @@ exports.postNewLog = (req, res, next) => {
 		dueDate: req.body.dueDate,
 		status: req.body.status,
 		title: req.body.title,
-		// start: req.body.startTime,
-		// activityId: req.body.activityId,
 	});
 	log
 		.save()
@@ -66,7 +65,7 @@ exports.postPauseLog = (req, res, next) => {
 
 exports.postStopLog = (req, res, next) => {
 	const logId = req.body.logId;
-	console.log(req.body.workSummary);
+	// console.log(req.body.workSummary);
 	Log.findOne({ _id: logId })
 		.then(log => {
 			log.endWork = new Date();
@@ -75,9 +74,19 @@ exports.postStopLog = (req, res, next) => {
 			if (minWorked > 0) {
 				log.minWorked = minWorked.toFixed();
 			}
+			console.log('>>> Invio tempo lavorato a Progetto:' + log.projectId);
+			Project.findOne({ _id: log.projectId })
+				.then(project => {
+					project.addWorkedTime(log.minWorked);
+					// project.save();
+				})
+				.catch(err => {
+					console.log(err);
+				});
 			log.workSummary = req.body.workSummary;
 			log.status = 'COMPLETED';
 			log.summaryIsNeeded = req.body.summaryIsNeeded;
+			// return;
 			log.save().then(status => res.status(201).json({ status }));
 		})
 		.catch(err => {

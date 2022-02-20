@@ -79,16 +79,16 @@ function Card({
 						{cardData.endWork && <p className={classes.date}>{getEndDate()}</p>}
 						{cardData?.workSummary}
 					</div>
-					{cardData?.status !== 'COMPLETED' ? (
-						<Controlls
-							status={cardStatus}
-							setCardStatus={setCardStatus}
-							log={cardData}
-							statusToControl={cardStatus}
-						/>
-					) : (
-						<p>Impiegato: {convertToHour()}</p>
-					)}
+					{/* {cardData?.status !== 'COMPLETED' ? ( */}
+					<Controlls
+						status={cardStatus}
+						setCardStatus={setCardStatus}
+						log={cardData}
+						statusToControl={cardStatus}
+					/>
+					{/* ) : ( */}
+					{/* <p>Impiegato: {convertToHour()}</p> */}
+					{/* )} */}
 				</div>
 			</div>
 		);

@@ -19,4 +19,13 @@ const projectSchema = new Schema({
 	totalTimeToInvoice: { type: Number, default: 0 },
 });
 
+projectSchema.methods.addWorkedTime = function addWorkedTime(minWorked) {
+	console.log(this.title);
+	console.log(minWorked);
+	this.totalTimeWorked += minWorked;
+	this.save().then(l => {
+		console.log(this.totalTimeWorked);
+	});
+};
+
 module.exports = mongoose.model('Project', projectSchema);
