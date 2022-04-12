@@ -37,17 +37,20 @@
 }
 
 .ONGOING {
-	background-color: hsl(100, 50%, 50%);
+	background-color: var(--ONGOING);
 }
 
 .COMPLETED {
-	background-color: hsl(0, 50%, 50%);
+	background-color: var(--COMPLETED);
 }
 
-.SUSPENDED {
-	background-color: hsl(51, 50%, 50%);
+.PAUSED {
+	background-color: var(--PAUSED);
 }
 
 .ABORTED {
-	background-color: hsl(0, 0%, 48%);
+	background-color: var(--ABORTED);
+}
+.TODO {
+	background-color: var(--TODO);
 }

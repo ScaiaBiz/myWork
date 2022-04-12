@@ -19,9 +19,6 @@ function Card({
 	};
 
 	const [cardStatus, setCardStatus] = useState(cardData);
-	// if (cardStatus?.endWork) {
-	// 	cardStatus.endWork = cardStatus.endWork;
-	// }
 
 	if (!cardData) {
 		return (
@@ -62,8 +59,6 @@ function Card({
 			let hour = Math.floor(min / 60);
 			min = min - hour * 60;
 			return timeFormat(hour) + ':' + timeFormat(min);
-
-			// let mill = cardData.minWorked * 60000;
 		};
 
 		return (

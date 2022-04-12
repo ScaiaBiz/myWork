@@ -118,13 +118,19 @@ function Controlls({ log, setCardStatus }) {
 		active = true;
 	}
 
+	let stoppable = false;
+	if (log.status !== 'TODO') {
+		stoppable = true;
+	}
+
 	return (
 		<React.Fragment>
 			{error && <ErrorModal error={error} onClear={clearError} />}
 			{isLoading && <LoadingSpinner asOverlay />}
 			{summaryIsNeeded && createSummary()}
 			<div className={classes.controls}>
-				{active ? pause : play} {stop}
+				{active ? pause : play}
+				{stoppable && stop}
 			</div>
 		</React.Fragment>
 	);

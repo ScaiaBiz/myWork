@@ -65,10 +65,16 @@ exports.postPauseLog = (req, res, next) => {
 
 exports.postStopLog = (req, res, next) => {
 	const logId = req.body.logId;
-	// console.log(req.body.workSummary);
 	Log.findOne({ _id: logId })
 		.then(log => {
 			log.endWork = new Date();
+			if (log.status === 'PAUSED') {
+				const delta = new Date() - log.startBreak;
+				log.breaksTime += delta;
+				console.log(
+					'> Calcolo tempo di pausa prima di eseguire STOP: ' + logId
+				);
+			}
 			let minWorked = (log.endWork - log.startWork - log.breaksTime) / 60000;
 			console.log('<<< Invio comando STOP per log: ' + logId);
 			if (minWorked > 0) {
@@ -77,8 +83,9 @@ exports.postStopLog = (req, res, next) => {
 			console.log('<<< Invio tempo lavorato a Progetto:' + log.projectId);
 			Project.findOne({ _id: log.projectId })
 				.then(project => {
-					project.addWorkedTime(log.minWorked);
-					// project.save();
+					// project.addWorkedTime(log.minWorked);
+					//todo:
+					console.log('Funzione da riattivare');
 				})
 				.catch(err => {
 					console.log(err);
@@ -137,4 +144,39 @@ exports.getLogs = (req, res, next) => {
 		.catch(err => {
 			console.log(err);
 		});
+};
+
+exports.getDailyPlan = async (req, res, next) => {
+	console.log(Number(req.params.day));
+	const day = new Date(Number(req.params.day));
+	// console.log(day.setHours(0, 0, 0));
+	let minDate = new Date(
+		day.getFullYear(),
+		day.getMonth(),
+		day.getDate(),
+		0,
+		0,
+		0
+	);
+	let maxDate = new Date(
+		day.getFullYear(),
+		day.getMonth(),
+		day.getDate(),
+		23,
+		59,
+		59
+	);
+
+	console.log(minDate);
+	console.log(maxDate);
+
+	// if (!day) return;
+	const logs = await Log.find({
+		dueDate: {
+			$gte: minDate,
+			$lte: maxDate,
+		},
+	});
+	res.status(201).json({ logs: logs });
+	// res.status(201).json('ok');
 };

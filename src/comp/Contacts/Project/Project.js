@@ -29,7 +29,7 @@ function Project({ project }) {
 			return <Card cardData={log} pause={''} stop={''} />;
 		});
 		setLogs(l);
-		return;
+		return setToLoad(false);
 	};
 
 	const getContact = async () => {
@@ -43,7 +43,6 @@ function Project({ project }) {
 				getContact();
 			}
 			getProjectLogs();
-			setToLoad(false);
 		}
 	}, [toLoad, contact, getContact]);
 
@@ -53,6 +52,10 @@ function Project({ project }) {
 
 	const addNewHandler = () => {
 		setShowNewLogForm(!showNewLogForm);
+		if (showNewLogForm) {
+			console.log('Modificlo TO LOAD');
+			setToLoad(true);
+		}
 	};
 
 	const addNewLog = () => {
@@ -63,6 +66,7 @@ function Project({ project }) {
 					clear={addNewHandler}
 					succes={setToLoad}
 					projectId={project._id}
+					projectTitle={project.title}
 					contactId={contact._id}
 				/>
 			</React.Fragment>

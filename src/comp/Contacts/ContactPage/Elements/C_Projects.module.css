@@ -8,7 +8,11 @@
 }
 
 .header {
-	justify-content: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	flex-direction: row;
 	width: 100%;
 	font-size: 2rem;
 }
@@ -16,8 +20,14 @@
 .header__content {
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
+	width: 33%;
 	height: 2.5rem;
+	cursor: pointer;
+}
+
+.header__content:hover {
+	font-weight: bold;
 }
 
 .card {
@@ -58,7 +68,7 @@
 	border: #000 1px solid;
 }
 
-.ONGOING {
+/* .ONGOING {
 	background-color: var(--ONGOING);
 }
 
@@ -66,10 +76,13 @@
 	background-color: var(--COMPLETED);
 }
 
-.SUSPENDED {
-	background-color: var(--SUSPENDED);
+.PAUSED {
+	background-color: var(--PAUSED);
 }
 
 .ABORTED {
 	background-color: var(--ABORTED);
 }
+.TODO {
+	background-color: var(--TODO);
+} */

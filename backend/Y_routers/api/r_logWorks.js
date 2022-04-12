@@ -14,4 +14,6 @@ router.get('/customerLogs/:custId', logWorksCtrl.getCustomerLogs);
 router.get('/logs/:projectId', logWorksCtrl.getProjectsLogs);
 router.get('/getLogs', logWorksCtrl.getLogs);
 
+router.get('/getDailyPlan/:day', logWorksCtrl.getDailyPlan);
+
 module.exports = router;

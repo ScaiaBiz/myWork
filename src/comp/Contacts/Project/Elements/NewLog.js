@@ -11,11 +11,11 @@ import LoadingSpinner from '../../../../utils/LoadingSpinner';
 
 import classes from './NewLog.module.css';
 
-function NewLog({ clear, succes, projectId, contactId }) {
+function NewLog({ clear, succes, projectId, projectTitle, contactId }) {
 	const [newData, setNewData] = useState(null);
 
 	const [formState, inputHandler, setFormData] = useForm({
-		title: { value: '', isValid: false },
+		// title: { value: { projectTitle }, isValid: true },
 		dueDate: { value: '', isValid: false },
 		hours: { value: '', isValid: false },
 		quarters: { value: '', isValid: false },
@@ -42,7 +42,8 @@ function NewLog({ clear, succes, projectId, contactId }) {
 					dueDate: dueDate,
 					hours: formState.inputs.hours.value || '',
 					quarters: formState.inputs.quarters.value || '',
-					title: formState.inputs.title.value,
+					// title: formState.inputs.title.value,
+					title: projectTitle,
 					workDescription: formState.inputs.workDescription.value,
 					workType: formState.inputs.workType.value || '',
 					status: 'TODO',
@@ -57,7 +58,6 @@ function NewLog({ clear, succes, projectId, contactId }) {
 
 	useEffect(() => {
 		if (newData) {
-			console.log('Lancio chiusura maschera');
 			succes(true);
 			clear();
 		}
@@ -67,7 +67,7 @@ function NewLog({ clear, succes, projectId, contactId }) {
 		return (
 			<div className={classes.container}>
 				<form className={classes.form}>
-					<Input
+					{/* <Input
 						id='title'
 						element='input'
 						type='text'
@@ -75,9 +75,9 @@ function NewLog({ clear, succes, projectId, contactId }) {
 						validators={[VALIDATOR_REQUIRE()]}
 						errorText='Campo obbligatorio'
 						onInput={inputHandler}
-						initValue=''
+						initValue={projectTitle}
 						initIsValid={false}
-					/>
+					/> */}
 					<Input
 						id='dueDate'
 						element='input'

@@ -21,9 +21,3 @@
 	align-items: center;
 	font-size: x-large;
 }
-
-.dropdownTime {
-	min-height: 12%;
-	display: flex;
-	justify-content: center;
-}

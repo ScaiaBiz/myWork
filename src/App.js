@@ -6,9 +6,16 @@ import { UserCxt } from './cxt/UserCxt';
 import Login from './comp/Login/Login';
 
 import Menu from './comp/Menu/Menu';
+
+//Calendario
+import Calendar from './comp/Calendar/Calendar';
+
+//Contatti
 import Contacts from './comp/Contacts/Contacts';
 import ContactPage from './comp/Contacts/ContactPage/ContactPage';
 import C_Projects from './comp/Contacts/ContactPage/Elements/C_Projects';
+import C_Logs from './comp/Contacts/ContactPage/Elements/C_Logs';
+
 // import Day from './comp/page/Day';
 // import Week from './comp/page/Week';
 // import Backdrop from './comp/common/Backdrop';
@@ -46,11 +53,12 @@ function App() {
 				<Menu />
 				<div className='Content'>
 					<Routes>
+						<Route path='/Calendar' element={<Calendar />} />
 						<Route path='/Contacts' element={<Contacts />} />
 						<Route path='/Contacts/:contactId/*' element={<ContactPage />}>
 							<Route path='Data' />
 							<Route path='Projects' element={<C_Projects />} />
-							<Route path='Logs' />
+							<Route path='Logs' element={<C_Logs />} />
 							<Route path='Balance' />
 						</Route>
 						{/* <Route path='/backdrop' element={<Backdrop />} /> */}

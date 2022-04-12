@@ -7,7 +7,7 @@ import classes from './Menu.module.css';
 
 function Menu() {
 	const menuItems = [
-		{ _id: 10, value: ' Attività ', address: '/' },
+		{ _id: 10, value: ' Attività ', address: '/Calendar' },
 		{ _id: 20, value: ' Contatti ', address: '/Contacts' },
 		{ _id: 30, value: ' Registri ', address: '/Logs' },
 		{ _id: 40, value: ' Impostazioni ', address: '/Setups' },

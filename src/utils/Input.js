@@ -79,6 +79,8 @@ const Input = props => {
 						{ id: 3, name: 'Consulenza' },
 						{ id: 4, name: 'Progettazione' },
 						{ id: 5, name: 'Programmazione' },
+						{ id: 6, name: 'Amministrtazione' },
+						{ id: 7, name: 'Formazione' },
 					];
 
 				case 'status':

@@ -60,3 +60,22 @@ html {
 	background-color: #eee;
 	overflow: auto;
 }
+
+.ONGOING {
+	background-color: var(--ONGOING);
+}
+
+.COMPLETED {
+	background-color: var(--COMPLETED);
+}
+
+.PAUSED {
+	background-color: var(--PAUSED);
+}
+
+.ABORTED {
+	background-color: var(--ABORTED);
+}
+.TODO {
+	background-color: var(--TODO);
+}
