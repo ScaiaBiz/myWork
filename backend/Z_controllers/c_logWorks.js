@@ -2,6 +2,8 @@ const Log = require('./../O_models/m_logWork');
 const Project = require('./../O_models/m_projects');
 const ObjectId = require('mongoose').Types.ObjectId;
 
+const HttpError = require('../O_models/m_error');
+
 exports.postNewLog = (req, res, next) => {
 	//todo: Da sistemare!
 	if (!req.body.activityId) {
@@ -34,10 +36,28 @@ exports.postStartLog = (req, res, next) => {
 };
 exports.postPauseLog = (req, res, next) => {
 	const logId = req.body.logId;
+	const checkActiveLog = async () => {
+		console.log('> Verifico presenza attività in corso');
+		const activeLogs = await Log.findOne({ status: 'ONGOING' });
+		if (activeLogs.lenght > 0) {
+			return [true, activeLogs];
+		}
+		return [true, activeLogs];
+	};
 	Log.findOne({ _id: logId })
-		.then(log => {
+		.then(async log => {
+			const activeLog = await checkActiveLog();
 			switch (log.status) {
 				case 'TODO':
+					if (activeLog[0]) {
+						console.log('>>> Errore! Attività già in corso!');
+						return next(
+							new HttpError(
+								`Impossibile avviare una nuova attività. Già attivo: ${activeLog[1]}`,
+								404
+							)
+						);
+					}
 					log.startWork = new Date();
 					log.status = 'ONGOING';
 					console.log('<<< Invio comando START per log: ' + logId);
@@ -48,6 +68,15 @@ exports.postPauseLog = (req, res, next) => {
 					console.log('<<< Invio comando PAUSE per log: ' + logId);
 					break;
 				case 'PAUSED':
+					if (activeLog[0]) {
+						console.log('>>> Errore! Attività già in corso!');
+						return next(
+							new HttpError(
+								`Impossibile avviare una nuova attività. Già attivo: ${activeLog[1]}`,
+								404
+							)
+						);
+					}
 					const delta = new Date() - log.startBreak;
 					log.breaksTime += delta;
 					log.status = 'ONGOING';
