@@ -39,10 +39,10 @@ exports.postPauseLog = (req, res, next) => {
 	const checkActiveLog = async () => {
 		console.log('> Verifico presenza attività in corso');
 		const activeLogs = await Log.findOne({ status: 'ONGOING' });
-		if (activeLogs.lenght > 0) {
+		if (activeLogs) {
 			return [true, activeLogs];
 		}
-		return [true, activeLogs];
+		return [false, activeLogs];
 	};
 	Log.findOne({ _id: logId })
 		.then(async log => {
