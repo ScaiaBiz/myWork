@@ -109,7 +109,7 @@ function ContactProjects() {
 					{/* <div className={classes.header__content}>Interruttori di filtro</div>
 					<div className={classes.header__content}>Altro</div> */}
 				</div>
-				{projects}
+				<div className={classes.cards}>{projects}</div>
 			</div>
 		</React.Fragment>
 	);
