@@ -39,8 +39,8 @@ function Controlls({ log, setCardStatus }) {
 		);
 	};
 
-	const postPlay = () => {
-		sendRequest(
+	const postPlay = async () => {
+		let prova = await sendRequest(
 			'api/log/pause',
 			'POST',
 			{
@@ -50,6 +50,9 @@ function Controlls({ log, setCardStatus }) {
 				'Content-Type': 'application/json',
 			}
 		);
+
+		console.log(prova);
+
 		if (log.status === 'ONGOING') {
 			log.status = 'PAUSED';
 		} else {
