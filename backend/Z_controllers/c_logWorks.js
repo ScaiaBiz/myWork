@@ -104,9 +104,9 @@ exports.postStopLog = (req, res, next) => {
 exports.getCustomerLogs = (req, res, next) => {
 	const customerId = req.params.custId;
 	console.log(req.params);
-	Log.find({ customerId: customerId })
-		.sort({ _id: -1 })
-		.limit(10)
+	Log.find({ contactId: customerId })
+		.sort({ startWork: -1 })
+		// .limit(10)
 		.then(logs => {
 			res.status(201).json({ logs });
 		})
