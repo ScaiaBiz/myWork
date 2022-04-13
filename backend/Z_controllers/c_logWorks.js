@@ -112,9 +112,7 @@ exports.postStopLog = (req, res, next) => {
 			console.log('<<< Invio tempo lavorato a Progetto:' + log.projectId);
 			Project.findOne({ _id: log.projectId })
 				.then(project => {
-					// project.addWorkedTime(log.minWorked);
-					//todo:
-					console.log('Funzione da riattivare');
+					project.addWorkedTime(log.minWorked);
 				})
 				.catch(err => {
 					console.log(err);
