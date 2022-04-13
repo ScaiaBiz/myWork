@@ -13,6 +13,7 @@ function Card({
 	postPlay,
 	pause,
 	stop,
+	type,
 }) {
 	const cardResutlHandler = () => {
 		clickHandler(!stateToHandle);
@@ -61,34 +62,101 @@ function Card({
 			return timeFormat(hour) + ':' + timeFormat(min);
 		};
 
-		return (
-			<div className={classes.card} key={cardData?._id}>
-				<div className={classes.list} key={cardData?._id}>
-					<div className={classes.description}>
-						<p className={`${classes.workType} ${classes[cardData?.status]}`}>
-							{cardData?.workType}
-						</p>
-						<p className={classes.date}>{getDueDate()}</p>
-						{cardData?.workDescription}
-						<hr />
-						{cardStatus.endWork && (
-							<p className={classes.date}>{getEndDate()}</p>
+		const formatTime = time => {
+			return new Date(time).toLocaleString('it-IT', {
+				// day: '2-digit',
+				// month: '2-digit',
+				// year: 'numeric',
+				hour: '2-digit',
+				minute: '2-digit',
+			});
+		};
+
+		switch (type) {
+			case 'CALENDAR':
+				return (
+					<div className={`${classes.task} ${classes[cardData?.status]}`}>
+						Avvio:{' '}
+						{cardData?.startWork
+							? formatTime(cardData?.startWork)
+							: formatTime(cardData?.dueDate)}
+						<br />
+						{cardData?.title} - {cardData?.workDescription}
+						<br />
+						{/* {cardData?.minWorked > 0 ? 'TL: ' + convertToHour(cardData?.minWorked) : ''} */}
+						{cardData?.status !== 'COMPLETED' ? (
+							<Controlls
+								status={cardStatus}
+								setCardStatus={setCardStatus}
+								log={cardData}
+								statusToControl={cardStatus}
+							/>
+						) : (
+							<p>Impiegato: {convertToHour()}</p>
 						)}
-						{cardStatus?.workSummary}
 					</div>
-					{cardData?.status !== 'COMPLETED' ? (
-						<Controlls
-							status={cardStatus}
-							setCardStatus={setCardStatus}
-							log={cardData}
-							statusToControl={cardStatus}
-						/>
-					) : (
-						<p>Impiegato: {convertToHour()}</p>
-					)}
-				</div>
-			</div>
-		);
+					// <div className={classes.card} key={cardData?._id}>
+					// 	<div className={classes.list} key={cardData?._id}>
+					// 		<div className={classes.description}>
+					// 			<p
+					// 				className={`${classes.workType} ${classes[cardData?.status]}`}
+					// 			>
+					// 				{cardData?.workType}
+					// 			</p>
+					// 			<p className={classes.date}>{getDueDate()}</p>
+					// 			{cardData?.workDescription}
+					// 			<hr />
+					// 			{cardStatus.endWork && (
+					// 				<p className={classes.date}>{getEndDate()}</p>
+					// 			)}
+					// 			{cardStatus?.workSummary}
+					// 		</div>
+					// 		{cardData?.status !== 'COMPLETED' ? (
+					// 			<Controlls
+					// 				status={cardStatus}
+					// 				setCardStatus={setCardStatus}
+					// 				log={cardData}
+					// 				statusToControl={cardStatus}
+					// 			/>
+					// 		) : (
+					// 			<p>Impiegato: {convertToHour()}</p>
+					// 		)}
+					// 	</div>
+					// </div>
+				);
+
+			default:
+				return (
+					<div className={classes.card} key={cardData?._id}>
+						<div className={classes.list} key={cardData?._id}>
+							<div className={classes.description}>
+								<p
+									className={`${classes.workType} ${classes[cardData?.status]}`}
+								>
+									{cardData?.workType}
+								</p>
+								<p className={classes.date}>{getDueDate()}</p>
+								{cardData?.workDescription}
+								<hr />
+								{cardStatus.endWork && (
+									<p className={classes.date}>{getEndDate()}</p>
+								)}
+								{cardStatus?.workSummary}
+							</div>
+							{cardData?.status !== 'COMPLETED' ? (
+								<Controlls
+									status={cardStatus}
+									setCardStatus={setCardStatus}
+									log={cardData}
+									statusToControl={cardStatus}
+								/>
+							) : (
+								<p>Impiegato: {convertToHour()}</p>
+							)}
+						</div>
+					</div>
+				);
+		}
 	}
 }
 export default Card;

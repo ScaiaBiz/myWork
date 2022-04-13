@@ -8,6 +8,10 @@
 	font-size: 2rem;
 }
 
+.icons:hover{
+	text-shadow: 0px 0px 5px black;
+}
+
 .play:hover {
 	color: var(--ONGOING);
 }
@@ -15,5 +19,5 @@
 	color: var(--PAUSED);
 }
 .stop:hover {
-	color: var(--COMPLETED);
+	color: var(--ABORTED);
 }

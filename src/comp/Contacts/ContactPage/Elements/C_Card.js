@@ -37,7 +37,6 @@ function C_Card({
 			);
 
 		case 'logs':
-			console.log(cardData);
 			return (
 				<div
 					className={classes.card}

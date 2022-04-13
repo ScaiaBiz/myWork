@@ -23,9 +23,12 @@
 	--ButtonDngrTxtColor: white;
 
 	--ONGOING: hsl(100, 50%, 50%);
-	--COMPLETED: hsl(0, 50%, 50%);
+	/* --COMPLETED: hsl(0, 50%, 50%); */
+	--COMPLETED: hsl(0, 0%, 80%);
+	--COMPLETEDtext: hsl(0, 0%, 60%);
 	--PAUSED: hsl(51, 50%, 50%);
-	--ABORTED: hsl(0, 0%, 48%);
+	/* --ABORTED: hsl(0, 0%, 48%); */
+	--ABORTED: hsl(0, 50%, 50%);
 	--TODO: hsl(180, 50%, 50%);
 }
 

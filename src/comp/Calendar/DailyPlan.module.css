@@ -1,0 +1,30 @@
+.task{
+    font-size: 14px;
+    line-height: normal;
+    border: 1px solid;
+    margin-right: 3%;
+    margin-top: 2%;
+    padding: 1%;
+    border-radius: 4px;
+}
+
+
+.ONGOING {
+	background-color: var(--ONGOING);
+}
+
+.COMPLETED {
+	background-color: var(--COMPLETED);
+    color: VAR(--COMPLETEDtext);
+}
+
+.PAUSED {
+	background-color: var(--PAUSED);
+}
+
+.ABORTED {
+	background-color: var(--ABORTED);
+}
+.TODO {
+	background-color: var(--TODO);
+}
