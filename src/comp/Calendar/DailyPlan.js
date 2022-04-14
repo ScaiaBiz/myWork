@@ -55,12 +55,22 @@ function DailyPlan({ day }) {
 	useEffect(() => {
 		console.log('Carico dati');
 		getDailyPlan();
-	}, []);
+	}, [day]);
+
+	const showLoading = () => {
+		setTimeout(() => {
+			if (isLoading) {
+				return <LoadingSpinner asOverlay />;
+			}
+		}, 500);
+	};
 
 	return (
 		<React.Fragment>
 			{error && <ErrorModal error={error} onClear={clearError} />}
-			{isLoading && <LoadingSpinner asOverlay />}
+			{/* {isLoading && <LoadingSpinner asOverlay />} */}
+			{isLoading && showLoading()}
+
 			<div>{plan}</div>
 		</React.Fragment>
 	);

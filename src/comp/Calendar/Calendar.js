@@ -66,7 +66,6 @@ function Calendar() {
 				startDay.getMonth(),
 				startDay.getDate() + i + 1 - startDay.getDay()
 			);
-			console.log(_date);
 			let _name = getDayName(_date.getDay());
 			let _month = getMonthName(_date.getMonth());
 			weekDates.push({
@@ -100,6 +99,7 @@ function Calendar() {
 		console.log(weekDates);
 
 		return weekDates.map(day => {
+			console.log(day);
 			return (
 				<div key={day.id} className={`${classes.day} ${classes[day.name]}`}>
 					<div key={day.id} className={classes.date}>
