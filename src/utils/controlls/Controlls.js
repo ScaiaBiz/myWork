@@ -51,8 +51,6 @@ function Controlls({ log, setCardStatus }) {
 			}
 		);
 
-		console.log(prova);
-
 		if (log.status === 'ONGOING') {
 			log.status = 'PAUSED';
 		} else {

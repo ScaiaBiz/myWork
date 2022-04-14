@@ -89,17 +89,8 @@ function Calendar() {
  */
 
 	const getFullWeek = () => {
-		// const weekStart = new Date(
-		// 	startDay.getFullYear(),
-		// 	startDay.getMonth(),
-		// 	startDay.getDate() - startDay.getDay() + 1
-		// );
-
 		const weekDates = getWeekDates();
-		console.log(weekDates);
-
 		return weekDates.map(day => {
-			console.log(day);
 			return (
 				<div key={day.id} className={`${classes.day} ${classes[day.name]}`}>
 					<div key={day.id} className={classes.date}>
@@ -110,7 +101,6 @@ function Calendar() {
 							day.month}
 					</div>
 					<DailyPlan day={day.date} />
-					{/* {getDailyPlan(day.date)} */}
 				</div>
 			);
 		});
@@ -118,7 +108,6 @@ function Calendar() {
 
 	useEffect(() => {
 		let dal = getFullWeek();
-		// console.log(dal);
 		setDays(dal);
 	}, [startDay]);
 
@@ -145,7 +134,6 @@ function Calendar() {
 						{'>>'}
 					</p>
 				</div>
-				{/* <div className={classes.calendar}>{getFullWeek()}</div> */}
 				<div className={classes.calendar}>{days}</div>
 			</div>
 		</div>

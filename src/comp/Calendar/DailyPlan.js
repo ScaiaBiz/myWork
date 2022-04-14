@@ -16,9 +16,6 @@ function DailyPlan({ day }) {
 
 	const formatTime = time => {
 		return new Date(time).toLocaleString('it-IT', {
-			// day: '2-digit',
-			// month: '2-digit',
-			// year: 'numeric',
 			hour: '2-digit',
 			minute: '2-digit',
 		});
@@ -38,38 +35,18 @@ function DailyPlan({ day }) {
 		);
 		const data = dailyPlan_data.logs.map(l => {
 			return <Card cardData={l} type={'CALENDAR'} />;
-			// return (
-			// 	<div className={`${classes.task} ${classes[l.status]}`}>
-			// 		Avvio: {l.startWork ? formatTime(l.startWork) : formatTime(l.dueDate)}
-			// 		<br />
-			// 		{l.title} - {l.workDescription}
-			// 		<br />
-			// 		{l.minWorked > 0 ? 'TL: ' + convertToHour(l.minWorked) : ''}
-			// 		{/* <Controlls /> */}
-			// 	</div>
-			// );
 		});
 		setPlan(data);
 	};
 
 	useEffect(() => {
-		console.log('Carico dati');
 		getDailyPlan();
 	}, [day]);
-
-	const showLoading = () => {
-		setTimeout(() => {
-			if (isLoading) {
-				return <LoadingSpinner asOverlay />;
-			}
-		}, 500);
-	};
 
 	return (
 		<React.Fragment>
 			{error && <ErrorModal error={error} onClear={clearError} />}
-			{/* {isLoading && <LoadingSpinner asOverlay />} */}
-			{isLoading && showLoading()}
+			{isLoading && <LoadingSpinner asOverlay />}
 
 			<div>{plan}</div>
 		</React.Fragment>
