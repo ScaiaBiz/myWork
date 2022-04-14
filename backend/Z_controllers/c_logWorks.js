@@ -203,7 +203,7 @@ exports.getDailyPlan = async (req, res, next) => {
 			$gte: minDate,
 			$lte: maxDate,
 		},
-	});
+	}).sort({ dueDate: 1 });
 	res.status(201).json({ logs: logs });
 	// res.status(201).json('ok');
 };
