@@ -64,6 +64,7 @@ function NewLog({ clear, succes, projectId, projectTitle, contactId }) {
 	}, [newData]);
 
 	const showForm = () => {
+		const today = new Date();
 		return (
 			<div className={classes.container}>
 				<form className={classes.form}>
@@ -85,7 +86,13 @@ function NewLog({ clear, succes, projectId, projectTitle, contactId }) {
 						label='Data'
 						validators={[VALIDATOR_REQUIRE()]}
 						onInput={inputHandler}
-						initValue=''
+						initValue={
+							today.getFullYear() +
+							'-' +
+							('0' + (today.getMonth() + 1)).slice(-2) +
+							'-' +
+							today.getDate()
+						}
 						initIsValid={false}
 					/>
 					{/* <Input
@@ -109,7 +116,7 @@ function NewLog({ clear, succes, projectId, projectTitle, contactId }) {
 							label='Ora'
 							validators={[VALIDATOR_REQUIRE()]}
 							onInput={inputHandler}
-							initValue=''
+							initValue={today.getHours()}
 							initIsValid={false}
 						/>
 						<Input
@@ -121,7 +128,9 @@ function NewLog({ clear, succes, projectId, projectTitle, contactId }) {
 							label='Minuti'
 							validators={[VALIDATOR_REQUIRE()]}
 							onInput={inputHandler}
-							initValue=''
+							initValue={('0' + Math.round(today.getMinutes() / 15) * 15).slice(
+								-2
+							)}
 							initIsValid={false}
 						/>
 					</div>
