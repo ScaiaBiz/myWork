@@ -15,10 +15,18 @@ export const useHttpClient = () => {
 
 	const sendRequest = useCallback(
 		async (url, method = 'GET', body = undefined, headers = {}) => {
+			//> Tempo minimo di caricamento
+			const endLoading = () => {
+				setTimeout(() => {
+					setIsLoading(false);
+				}, 250);
+			};
+
 			setIsLoading(true);
 			if (APP_name !== currentAppName) {
 				setError('Nome applicazione errato. Verificare variabili ambientali');
-				setIsLoading(false);
+				// setIsLoading(false)
+				endLoading();
 				return;
 			}
 			const httpAbortCtrl = new AbortController();
@@ -40,11 +48,14 @@ export const useHttpClient = () => {
 				if (responseData.message && responseData.errorStatus) {
 					throw new Error(responseData.message);
 				}
-				setIsLoading(false);
+				// setIsLoading(false)
+				endLoading();
+
 				return responseData;
 			} catch (err) {
 				setError(err.message || 'Something went wrong, please try again');
-				setIsLoading(false);
+				// setIsLoading(false)
+				endLoading();
 				throw err;
 			}
 		},
