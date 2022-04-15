@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
 
 import DailyPlan from './DailyPlan';
+//TODO:Valutare rimozione
+
+import { useHttpClient } from '../../hooks/http-hooks';
+import LoadingSpinner from '../../utils/LoadingSpinner';
+import ErrorModal from '../../utils/ErrorModal';
 
 import classes from './Calendar.module.css';
 
 function Calendar() {
+	const { isLoading, error, sendRequest, clearError } = useHttpClient();
+
 	const [startDay, setStartDay] = useState(new Date());
 	const [days, setDays] = useState(null);
 
@@ -60,6 +67,8 @@ function Calendar() {
 			}
 		};
 
+		console.log(new Date(startDay));
+
 		for (let i = 0; i < 7; i++) {
 			let _date = new Date(
 				startDay.getFullYear(),
@@ -88,9 +97,30 @@ function Calendar() {
 			})
  */
 
-	const getFullWeek = () => {
+	const getTasks = async (start, end) => {
+		const startDay =
+			start.getFullYear() + 'e' + start.getMonth() + 'e' + start.getDate();
+		const endDay =
+			end.getFullYear() + 'e' + end.getMonth() + 'e' + end.getDate();
+
+		console.log(startDay + ' - ' + endDay);
+		const logs = await sendRequest(
+			'api/log/getDailyPlan/' + startDay + '-' + endDay
+		);
+		return logs.logs;
+	};
+
+	const getFullWeek = async () => {
 		const weekDates = getWeekDates();
+		const tasks = await getTasks(
+			weekDates[0].date,
+			weekDates[weekDates.length - 1].date
+		);
 		return weekDates.map(day => {
+			const dayTasks = tasks.filter(t => {
+				return Number(t.dueDate.slice(8, 10)) === Number(day.date.getDate());
+			});
+			console.log(dayTasks);
 			return (
 				<div key={day.id} className={`${classes.day} ${classes[day.name]}`}>
 					<div key={day.id} className={classes.date}>
@@ -100,43 +130,44 @@ function Calendar() {
 							' - ' +
 							day.month}
 					</div>
-					<DailyPlan day={day.date} />
+					<DailyPlan day={day.date} data={dayTasks} />
 				</div>
 			);
 		});
 	};
 
-	useEffect(() => {
-		let dal = getFullWeek();
-		setDays(dal);
-	}, [startDay]);
-
 	const gotoNextWeek = () => {
-		startDay.setDate(startDay.getDate() + 7);
-		setStartDay(startDay);
-		setDays(getFullWeek());
+		let t = startDay.setDate(startDay.getDate() + 7);
+		setStartDay(new Date(t));
 	};
 	const gotoPrevWeek = () => {
-		startDay.setDate(startDay.getDate() - 7);
-		setStartDay(startDay);
-		setDays(getFullWeek());
+		let t = startDay.setDate(startDay.getDate() - 7);
+		setStartDay(new Date(t));
 	};
 
+	useEffect(async () => {
+		let dal = await getFullWeek();
+		setDays(dal);
+	}, [startDay]);
 	return (
-		<div className={classes.conteiner}>
-			<div className={classes.main}>
-				<div className={classes.controls}>
-					<p className={classes.navArrow} onClick={gotoPrevWeek}>
-						{'<<'}
-					</p>
-					<p>Settimana in corso</p>
-					<p className={classes.navArrow} onClick={gotoNextWeek}>
-						{'>>'}
-					</p>
+		<React.Fragment>
+			{error && <ErrorModal error={error} onClear={clearError} />}
+			{isLoading && <LoadingSpinner asOverlay />}
+			<div className={classes.conteiner}>
+				<div className={classes.main}>
+					<div className={classes.controls}>
+						<p className={classes.navArrow} onClick={gotoPrevWeek}>
+							{'<<'}
+						</p>
+						<p>Settimana in corso</p>
+						<p className={classes.navArrow} onClick={gotoNextWeek}>
+							{'>>'}
+						</p>
+					</div>
+					<div className={classes.calendar}>{days}</div>
 				</div>
-				<div className={classes.calendar}>{days}</div>
 			</div>
-		</div>
+		</React.Fragment>
 	);
 }
 

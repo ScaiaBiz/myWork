@@ -75,7 +75,10 @@ function Card({
 		switch (type) {
 			case 'CALENDAR':
 				return (
-					<div className={`${classes.task} ${classes[cardData?.status]}`}>
+					<div
+						key={cardData?._id}
+						className={`${classes.task} ${classes[cardData?.status]}`}
+					>
 						Avvio:{' '}
 						{cardData?.startWork
 							? formatTime(cardData?.startWork)
