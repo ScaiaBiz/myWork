@@ -84,6 +84,8 @@ function Card({
 							? formatTime(cardData?.startWork)
 							: formatTime(cardData?.dueDate)}
 						<br />
+						{cardData?.endWork && 'Stop: ' + formatTime(cardData?.endWork)}
+						{cardData?.endWork && <br />}
 						{cardData?.title} - {cardData?.workDescription}
 						<br />
 						{/* {cardData?.minWorked > 0 ? 'TL: ' + convertToHour(cardData?.minWorked) : ''} */}
@@ -98,34 +100,6 @@ function Card({
 							<p>Impiegato: {convertToHour()}</p>
 						)}
 					</div>
-					// <div className={classes.card} key={cardData?._id}>
-					// 	<div className={classes.list} key={cardData?._id}>
-					// 		<div className={classes.description}>
-					// 			<p
-					// 				className={`${classes.workType} ${classes[cardData?.status]}`}
-					// 			>
-					// 				{cardData?.workType}
-					// 			</p>
-					// 			<p className={classes.date}>{getDueDate()}</p>
-					// 			{cardData?.workDescription}
-					// 			<hr />
-					// 			{cardStatus.endWork && (
-					// 				<p className={classes.date}>{getEndDate()}</p>
-					// 			)}
-					// 			{cardStatus?.workSummary}
-					// 		</div>
-					// 		{cardData?.status !== 'COMPLETED' ? (
-					// 			<Controlls
-					// 				status={cardStatus}
-					// 				setCardStatus={setCardStatus}
-					// 				log={cardData}
-					// 				statusToControl={cardStatus}
-					// 			/>
-					// 		) : (
-					// 			<p>Impiegato: {convertToHour()}</p>
-					// 		)}
-					// 	</div>
-					// </div>
 				);
 
 			default:
