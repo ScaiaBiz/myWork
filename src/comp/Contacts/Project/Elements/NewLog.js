@@ -15,13 +15,11 @@ function NewLog({ clear, succes, projectId, projectTitle, contactId }) {
 	const [newData, setNewData] = useState(null);
 
 	const [formState, inputHandler, setFormData] = useForm({
-		// title: { value: { projectTitle }, isValid: true },
 		dueDate: { value: '', isValid: false },
 		hours: { value: '', isValid: false },
 		quarters: { value: '', isValid: false },
 		workDescription: { value: '', isValid: false },
 		workType: { value: '', isValid: true },
-		// status: { value: '', isValid: false },
 	});
 
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -68,17 +66,6 @@ function NewLog({ clear, succes, projectId, projectTitle, contactId }) {
 		return (
 			<div className={classes.container}>
 				<form className={classes.form}>
-					{/* <Input
-						id='title'
-						element='input'
-						type='text'
-						label='Titolo'
-						validators={[VALIDATOR_REQUIRE()]}
-						errorText='Campo obbligatorio'
-						onInput={inputHandler}
-						initValue={projectTitle}
-						initIsValid={false}
-					/> */}
 					<Input
 						id='dueDate'
 						element='input'
@@ -93,19 +80,8 @@ function NewLog({ clear, succes, projectId, projectTitle, contactId }) {
 							'-' +
 							today.getDate()
 						}
-						initIsValid={false}
-					/>
-					{/* <Input
-						id='time'
-						element='input'
-						type='time'
-						label='Orario'
-						step='900'
-						validators={[VALIDATOR_NO()]}
-						onInput={inputHandler}
-						initValue=''
 						initIsValid={true}
-					/> */}
+					/>
 					<div className={classes.dropdownTime}>
 						<Input
 							id='hours'
@@ -117,7 +93,7 @@ function NewLog({ clear, succes, projectId, projectTitle, contactId }) {
 							validators={[VALIDATOR_REQUIRE()]}
 							onInput={inputHandler}
 							initValue={today.getHours()}
-							initIsValid={false}
+							initIsValid={true}
 						/>
 						<Input
 							id='quarters'
@@ -131,7 +107,7 @@ function NewLog({ clear, succes, projectId, projectTitle, contactId }) {
 							initValue={('0' + Math.round(today.getMinutes() / 15) * 15).slice(
 								-2
 							)}
-							initIsValid={false}
+							initIsValid={true}
 						/>
 					</div>
 					<Input
@@ -146,18 +122,6 @@ function NewLog({ clear, succes, projectId, projectTitle, contactId }) {
 						initValue=''
 						initIsValid={false}
 					/>
-					{/* <Input
-						id='status'
-						element='dropdown'
-						type='dropdown'
-						baseList='status'
-						label='Status'
-						validators={[VALIDATOR_REQUIRE()]}
-						errorText='Campo obbligatorio'
-						onInput={inputHandler}
-						initValue=''
-						initIsValid={false}
-					/> */}
 					<Input
 						id='workDescription'
 						element='textarea'
