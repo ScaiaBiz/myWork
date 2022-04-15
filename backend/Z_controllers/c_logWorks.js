@@ -120,7 +120,6 @@ exports.postStopLog = (req, res, next) => {
 			log.workSummary = req.body.workSummary;
 			log.status = 'COMPLETED';
 			log.summaryIsNeeded = req.body.summaryIsNeeded;
-			// return;
 			log.save().then(status => res.status(201).json({ status }));
 		})
 		.catch(err => {
@@ -174,30 +173,13 @@ exports.getLogs = (req, res, next) => {
 };
 
 exports.getDailyPlan = async (req, res, next) => {
-	console.log(Number(req.params.day));
-	const day = new Date(Number(req.params.day));
-	// console.log(day.setHours(0, 0, 0));
-	let minDate = new Date(
-		day.getFullYear(),
-		day.getMonth(),
-		day.getDate(),
-		0,
-		0,
-		0
-	);
-	let maxDate = new Date(
-		day.getFullYear(),
-		day.getMonth(),
-		day.getDate(),
-		23,
-		59,
-		59
-	);
+	const param = req.params.day.split('-');
+	console.log(param);
+	const start = param[0].split('e');
+	const end = param[1].split('e');
+	let minDate = new Date(start[0], start[1], start[2], 0 + 2, 0, 01);
+	let maxDate = new Date(end[0], end[1], end[2], 23 + 2, 59, 59);
 
-	console.log(minDate);
-	console.log(maxDate);
-
-	// if (!day) return;
 	const logs = await Log.find({
 		dueDate: {
 			$gte: minDate,
@@ -205,5 +187,4 @@ exports.getDailyPlan = async (req, res, next) => {
 		},
 	}).sort({ dueDate: 1 });
 	res.status(201).json({ logs: logs });
-	// res.status(201).json('ok');
 };
