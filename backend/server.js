@@ -22,7 +22,10 @@ const projectsRts = require('./Y_routers/api/r_projects');
 const appName = process.env.npm_package_config_dbname;
 const db_loc = process.env.npm_package_config_dblocal;
 const port = process.env.npm_package_config_port;
-const MONGODB_URI = `${db_loc}/${appName}`;
+// const MONGODB_URI = `${db_loc}/${appName}`;
+const MONGODB_URI = `mongodb+srv://myWorkDbAdmin:jRuXhJvjKyaIvLCZ@cluster0.waacw.mongodb.net/myWork?retryWrites=true&w=majority`;
+//PW:jRuXhJvjKyaIvLCZ
+
 const SRV_PORT = process.env.PORT || port;
 console.log('descr: ' + process.env.npm_package_config_dbname);
 console.log('port: ' + process.env.npm_package_config_port);
