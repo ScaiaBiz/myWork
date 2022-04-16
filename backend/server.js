@@ -48,6 +48,10 @@ app.use('/api/project', projectsRts);
 // app.use('/api/activity', activityRts);
 app.use('/', authRts);
 
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('../build'));
+}
+
 //Error handler
 //>> Check route
 app.use((req, res, next) => {
