@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "config":{
-    "srvport":3103,
+    "srvport":3104,
     "srvname": "localhost"
   },
   "dependencies": {

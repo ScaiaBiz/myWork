@@ -11,8 +11,9 @@ export const useHttpClient = () => {
 
 	const currentAppName = 'my-work';
 
-	const SRV = `http://${SRV_name}:${SRV_port}/`;
-	// const SRV = `https://my-work-testing.herokuapp.com/`;
+	// const SRV = `http://${SRV_name}:${SRV_port}/`;
+	// const SRV = `http://${SRV_name}:5000/`;
+	const SRV = `https://my-work-server.herokuapp.com/`;
 
 	const sendRequest = useCallback(
 		async (url, method = 'GET', body = undefined, headers = {}) => {
