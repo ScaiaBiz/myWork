@@ -29,6 +29,9 @@
     "install-client": "cd.. && npm install",
     "heroku-postbuild":"npm run install-client && npm run build"
   },
+  "engines": {
+    "node": "16.x"
+  },
   "author": "Scaia Emilio",
   "license": "ISC"
 }

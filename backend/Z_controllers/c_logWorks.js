@@ -96,12 +96,18 @@ exports.postStopLog = (req, res, next) => {
 	const logId = req.body.logId;
 	Log.findOne({ _id: logId })
 		.then(log => {
+			console.log(log.breaksTime);
+			console.log(log.startBreak);
+
 			log.endWork = new Date();
 			if (log.status === 'PAUSED') {
 				const delta = new Date() - log.startBreak;
 				log.breaksTime += delta;
 				console.log(
-					'> Calcolo tempo di pausa prima di eseguire STOP: ' + logId
+					'> Calcolo tempo di pausa prima di eseguire STOP: ' +
+						delta +
+						' per ' +
+						logId
 				);
 			}
 			let minWorked = (log.endWork - log.startWork - log.breaksTime) / 60000;

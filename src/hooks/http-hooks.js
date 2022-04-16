@@ -11,8 +11,8 @@ export const useHttpClient = () => {
 
 	const currentAppName = 'my-work';
 
-	// const SRV = `http://${SRV_name}:${SRV_port}/`;
-	const SRV = `https://my-work-testing.herokuapp.com/`;
+	const SRV = `http://${SRV_name}:${SRV_port}/`;
+	// const SRV = `https://my-work-testing.herokuapp.com/`;
 
 	const sendRequest = useCallback(
 		async (url, method = 'GET', body = undefined, headers = {}) => {
@@ -35,8 +35,8 @@ export const useHttpClient = () => {
 			try {
 				const response = await fetch(SRV + url, {
 					method: method,
-					// body: JSON.stringify(body),
-					body: body,
+					body: JSON.stringify(body),
+					// body: body,
 					headers: headers,
 					signal: httpAbortCtrl.signal,
 				});
