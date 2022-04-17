@@ -1,9 +1,16 @@
+.container{
+	overflow-y: auto;
+	overflow-x: hidden;
+    height: 100%;
+    margin-top: 2%;
+}
+
 .task{
     font-size: 14px;
     line-height: normal;
     border: 1px solid;
     margin-right: 3%;
-    margin-top: 2%;
+    margin-bottom: 2%;
     padding: 1%;
     border-radius: 4px;
 }

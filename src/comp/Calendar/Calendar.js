@@ -70,11 +70,20 @@ function Calendar() {
 		console.log(new Date(startDay));
 
 		for (let i = 0; i < 7; i++) {
-			let _date = new Date(
-				startDay.getFullYear(),
-				startDay.getMonth(),
-				startDay.getDate() + i + 1 - startDay.getDay()
-			);
+			let _date;
+			if (startDay.getDay() === 0) {
+				_date = new Date(
+					startDay.getFullYear(),
+					startDay.getMonth(),
+					startDay.getDate() + i - startDay.getDay() - 6
+				);
+			} else {
+				_date = new Date(
+					startDay.getFullYear(),
+					startDay.getMonth(),
+					startDay.getDate() + i - startDay.getDay() + 1
+				);
+			}
 			let _name = getDayName(_date.getDay());
 			let _month = getMonthName(_date.getMonth());
 			weekDates.push({

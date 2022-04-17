@@ -33,7 +33,7 @@ function DailyPlan({ day, data }) {
 		getDailyPlan();
 	}, [day]);
 
-	return <div>{plan}</div>;
+	return <div className={classes.container}>{plan}</div>;
 }
 
 export default DailyPlan;
