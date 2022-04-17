@@ -11,12 +11,21 @@ export const useHttpClient = () => {
 
 	const currentAppName = 'my-work';
 
-	// const SRV = `http://${SRV_name}:${SRV_port}/`;
-	// const SRV = `http://${SRV_name}:5000/`;
-	const SRV = `https://my-work-server.herokuapp.com/`;
+	const evalSrv = () => {
+		if (process.env.NODE_ENV === 'production') {
+			return `https://my-work-server.herokuapp.com/`;
+		}
+		return `http://${SRV_name}:${SRV_port}/`;
+		// const SRV = `http://${SRV_name}:5000/`;
+	};
+
+	const SRV = evalSrv();
+
+	console.log(SRV);
 
 	const sendRequest = useCallback(
 		async (url, method = 'GET', body = undefined, headers = {}) => {
+			console.log('Url: ' + url);
 			//> Tempo minimo di caricamento
 			const endLoading = () => {
 				setTimeout(() => {
