@@ -12,9 +12,10 @@ export const useHttpClient = () => {
 	const currentAppName = 'my-work';
 
 	const evalSrv = () => {
-		console.log(process.env);
+		// console.log(process.env);
+		// return `http://192.168.1.21:${SRV_port}/`;
 		return `https://my-work-server.herokuapp.com/`;
-		return `http://${SRV_name}:${SRV_port}/`;
+		// return `http://${SRV_name}:${SRV_port}/`;
 		if (process.env.NODE_ENV === 'production') {
 		}
 		// const SRV = `http://${SRV_name}:5000/`;
@@ -22,12 +23,12 @@ export const useHttpClient = () => {
 
 	const SRV = evalSrv();
 
-	console.log(SRV);
-
 	const sendRequest = useCallback(
 		async (url, method = 'GET', body = undefined, headers = {}) => {
-			console.log('Url: ' + url);
-			//> Tempo minimo di caricamento
+			// console.log(SRV);
+			// console.log('Url: ' + url);
+
+			//> Gestione tempo minimo di caricamento
 			const endLoading = () => {
 				setTimeout(() => {
 					setIsLoading(false);
