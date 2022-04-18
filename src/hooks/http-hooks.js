@@ -13,10 +13,11 @@ export const useHttpClient = () => {
 
 	const evalSrv = () => {
 		console.log(process.env.NODE_ENV);
+		console.log(process.env);
 		return `https://my-work-server.herokuapp.com/`;
+		return `http://${SRV_name}:${SRV_port}/`;
 		if (process.env.NODE_ENV === 'production') {
 		}
-		return `http://${SRV_name}:${SRV_port}/`;
 		// const SRV = `http://${SRV_name}:5000/`;
 	};
 
