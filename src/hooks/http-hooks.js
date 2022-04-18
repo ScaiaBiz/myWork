@@ -12,7 +12,6 @@ export const useHttpClient = () => {
 	const currentAppName = 'my-work';
 
 	const evalSrv = () => {
-		console.log(process.env.NODE_ENV);
 		console.log(process.env);
 		return `https://my-work-server.herokuapp.com/`;
 		return `http://${SRV_name}:${SRV_port}/`;
