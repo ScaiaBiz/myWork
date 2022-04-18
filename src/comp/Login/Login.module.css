@@ -12,6 +12,7 @@
 	justify-content: space-evenly;
 	height: 100%;
 	width: 30%;
+	font-size: 1.2rem;
 }
 
 .logout {
@@ -26,10 +27,14 @@
 
 @media (max-width: 768px) {
 	form {
-		width: 80%;
+		width: 100%;
 	}
 
 	.container {
-		height: 60vh;
+		height: 70vh;
+	}
+
+	.formContainer {
+		width: 80%;
 	}
 }

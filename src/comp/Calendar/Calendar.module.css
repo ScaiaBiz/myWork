@@ -38,7 +38,6 @@
 .day {
 	text-align: center;
 	width: 15%;
-	font-weight: bold;
 	overflow: hidden;
 }
 
@@ -53,9 +52,31 @@
 
 .date {
 	border-bottom: 0.5px solid #ccc;
+	font-weight: bold;
 }
 
 .navArrow:hover {
 	cursor: pointer;
 	font-weight: 900;
+}
+
+@media (max-width: 768px) {
+
+	.controls {
+		border-bottom: none;
+	}
+.calendar{
+	flex-direction: column;
+	overflow: auto;
+}
+.day {
+	width: auto;
+	overflow: visible;
+}
+
+.date {
+	font-size: 1.2rem;
+	border-top: 1.5px solid #333;
+}
+
 }

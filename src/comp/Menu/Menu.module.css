@@ -12,6 +12,25 @@
 	padding: 0 1%;
 }
 
+.burger {
+	position:absolute;
+	top: 0.5rem;
+	right: 1rem;
+	display: none;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 30px;
+	height: 21px;
+}
+
+.burger_bar {
+	height: 4px;
+	width: 100%;
+	/* background-color: white; */
+	background-color: var(--maincolor);
+	border-radius: 10px;
+}
+
 .list {
 	width: 100%;
 	display: flex;
@@ -40,9 +59,23 @@
 @media (max-width: 768px) {
 	.container {
 		min-width: 100%;
+		/* height: fit-content; */
+		display: none;
+	}
+
+	.show{
+		display: flex;
+	}
+
+	.burger{
+		display: flex;
+	}
+
+	.hide{
+		display: none;
 	}
 
 	.list {
-		width: 50%;
+		width: 100%;
 	}
 }

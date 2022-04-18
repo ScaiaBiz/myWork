@@ -33,3 +33,14 @@
 	justify-content: space-around;
 	text-align: center;
 }
+
+@media(max-width: 768px){
+	.contactsCointainer{
+		padding-top: 30px;
+	}
+
+	.card{
+		width: 80%;
+		height: 100px;
+	}
+}

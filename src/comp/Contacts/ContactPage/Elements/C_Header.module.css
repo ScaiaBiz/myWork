@@ -2,12 +2,31 @@
 	height: 15%;
 	width: 100%;
 	border-bottom: solid 4px #fff;
-
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
 }
 
 .contactName {
+	width: 50%;
 	font-size: 4rem;
+}
+
+.contactData{
+	width: 50%;
+}
+
+@media(max-width: 768px){
+	.contactName{
+		width: 45%;
+		font-size: 2rem;
+	}
+
+	.contactData{
+		font-size: .8rem;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		justify-content: center;
+	}
 }
