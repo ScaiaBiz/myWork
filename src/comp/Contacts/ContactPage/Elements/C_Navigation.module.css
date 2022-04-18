@@ -19,6 +19,8 @@
 	color: #000;
 	text-decoration: none;
 	text-align: center;
+	width: fit-content;
+	padding: 0 1%;
 }
 
 .a:hover {

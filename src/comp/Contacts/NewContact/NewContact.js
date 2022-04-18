@@ -51,74 +51,79 @@ function NewContact({ clear, succes }) {
 		return (
 			<div className={classes.container}>
 				<form className={classes.form}>
-					<Input
-						id='name'
-						element='input'
-						type='text'
-						label='Nome'
-						validators={[VALIDATOR_REQUIRE()]}
-						errorText='Campo obbligatorio'
-						onInput={inputHandler}
-						initValue=''
-						initIsValid={false}
-					/>
-					<Input
-						id='street'
-						element='input'
-						type='text'
-						label='Indirizzo'
-						validators={[VALIDATOR_NO()]}
-						onInput={inputHandler}
-						initValue=''
-						initIsValid={true}
-					/>
-					<Input
-						id='number'
-						element='input'
-						type='text'
-						label='Numero civico'
-						validators={[VALIDATOR_NO()]}
-						onInput={inputHandler}
-						initValue=''
-						initIsValid={true}
-					/>
-					<Input
-						id='city'
-						element='input'
-						type='text'
-						label='Città'
-						validators={[VALIDATOR_NO()]}
-						onInput={inputHandler}
-						initValue=''
-						initIsValid={true}
-					/>
-					<Input
-						id='postCode'
-						element='input'
-						type='text'
-						label='Cap'
-						validators={[VALIDATOR_NO()]}
-						onInput={inputHandler}
-						initValue=''
-						initIsValid={true}
-					/>
-					<Input
-						id='nation'
-						element='input'
-						type='text'
-						label='Nazione'
-						validators={[VALIDATOR_NO()]}
-						onInput={inputHandler}
-						initValue=''
-						initIsValid={true}
-					/>
+					<div className={classes.inputs}>
+						<Input
+							id='name'
+							element='input'
+							type='text'
+							label='Nome'
+							validators={[VALIDATOR_REQUIRE()]}
+							errorText='Campo obbligatorio'
+							onInput={inputHandler}
+							initValue=''
+							initIsValid={false}
+						/>
+						<Input
+							id='street'
+							element='input'
+							type='text'
+							label='Indirizzo'
+							validators={[VALIDATOR_NO()]}
+							onInput={inputHandler}
+							initValue=''
+							initIsValid={true}
+						/>
+						<Input
+							id='number'
+							element='input'
+							type='text'
+							label='Numero civico'
+							validators={[VALIDATOR_NO()]}
+							onInput={inputHandler}
+							initValue=''
+							initIsValid={true}
+						/>
+						<Input
+							id='city'
+							element='input'
+							type='text'
+							label='Città'
+							validators={[VALIDATOR_NO()]}
+							onInput={inputHandler}
+							initValue=''
+							initIsValid={true}
+						/>
+						<Input
+							id='postCode'
+							element='input'
+							type='text'
+							label='Cap'
+							validators={[VALIDATOR_NO()]}
+							onInput={inputHandler}
+							initValue=''
+							initIsValid={true}
+						/>
+						<Input
+							id='nation'
+							element='input'
+							type='text'
+							label='Nazione'
+							validators={[VALIDATOR_NO()]}
+							onInput={inputHandler}
+							initValue=''
+							initIsValid={true}
+						/>
+					</div>
 					<Button
 						clname={'default big'}
 						type='submit'
 						disabled={!formState.isValid}
 						onClick={postClient}
 					>
-						Save
+						Salva
+					</Button>
+					<Button clname={'danger big'} type='submit' onClick={clear}>
+						Chiudi
 					</Button>
 				</form>
 			</div>

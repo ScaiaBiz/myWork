@@ -54,40 +54,42 @@ function NewProject({ contactId, clear, reload }) {
 			{isLoading && <LoadingSpinner asOverlay />}
 			<div className={classes.container}>
 				<form className={classes.form}>
-					<Input
-						id='title'
-						element='input'
-						type='text'
-						label='Titolo'
-						validators={[VALIDATOR_REQUIRE()]}
-						errorText='Campo obbligatorio'
-						onInput={inputHandler}
-						initValue=''
-						initIsValid={false}
-					/>
-					<Input
-						id='description'
-						element='textarea'
-						type='textarea'
-						label='Descrizione progetto'
-						validators={[VALIDATOR_REQUIRE()]}
-						errorText='Campo obbligatorio'
-						onInput={inputHandler}
-						initValue=''
-						initIsValid={false}
-					/>
-					<Input
-						id='workType'
-						element='dropdown'
-						type='dropdown'
-						baseList='workType'
-						label='Tipo attività'
-						validators={[VALIDATOR_REQUIRE()]}
-						errorText='Campo obbligatorio'
-						onInput={inputHandler}
-						initValue=''
-						initIsValid={false}
-					/>
+					<div className={classes.inputs}>
+						<Input
+							id='title'
+							element='input'
+							type='text'
+							label='Titolo'
+							validators={[VALIDATOR_REQUIRE()]}
+							errorText='Campo obbligatorio'
+							onInput={inputHandler}
+							initValue=''
+							initIsValid={false}
+						/>
+						<Input
+							id='description'
+							element='textarea'
+							type='textarea'
+							label='Descrizione progetto'
+							validators={[VALIDATOR_REQUIRE()]}
+							errorText='Campo obbligatorio'
+							onInput={inputHandler}
+							initValue=''
+							initIsValid={false}
+						/>
+						<Input
+							id='workType'
+							element='dropdown'
+							type='dropdown'
+							baseList='workType'
+							label='Tipo attività'
+							validators={[VALIDATOR_REQUIRE()]}
+							errorText='Campo obbligatorio'
+							onInput={inputHandler}
+							initValue=''
+							initIsValid={false}
+						/>
+					</div>
 					<Button
 						clname={'default big _50'}
 						type='submit'
@@ -95,6 +97,9 @@ function NewProject({ contactId, clear, reload }) {
 						onClick={postNewProject}
 					>
 						Crea
+					</Button>
+					<Button clname={'danger big'} type='submit' onClick={clear}>
+						Chiudi
 					</Button>
 				</form>
 			</div>

@@ -66,72 +66,75 @@ function NewLog({ clear, succes, projectId, projectTitle, contactId }) {
 		return (
 			<div className={classes.container}>
 				<form className={classes.form}>
-					<Input
-						id='dueDate'
-						element='input'
-						type='date'
-						label='Data'
-						validators={[VALIDATOR_REQUIRE()]}
-						onInput={inputHandler}
-						initValue={
-							today.getFullYear() +
-							'-' +
-							('0' + (today.getMonth() + 1)).slice(-2) +
-							'-' +
-							today.getDate()
-						}
-						initIsValid={true}
-					/>
-					<div className={classes.dropdownTime}>
+					<div className={classes.inputs}>
 						<Input
-							id='hours'
-							element='dropdown'
-							type='dropdown'
-							baseList='hours'
-							elementType='selectTime'
-							label='Ora'
+							id='dueDate'
+							element='input'
+							type='date'
+							label='Data'
 							validators={[VALIDATOR_REQUIRE()]}
 							onInput={inputHandler}
-							initValue={today.getHours()}
+							initValue={
+								today.getFullYear() +
+								'-' +
+								('0' + (today.getMonth() + 1)).slice(-2) +
+								'-' +
+								today.getDate()
+							}
 							initIsValid={true}
 						/>
+						<div className={classes.dropdownTime}>
+							<Input
+								id='hours'
+								element='dropdown'
+								type='dropdown'
+								baseList='hours'
+								elementType='selectTime'
+								label='Ora'
+								validators={[VALIDATOR_REQUIRE()]}
+								onInput={inputHandler}
+								initValue={today.getHours()}
+								initIsValid={true}
+							/>
+							<Input
+								id='quarters'
+								element='dropdown'
+								type='dropdown'
+								baseList='quarters'
+								elementType='selectTime'
+								label='Minuti'
+								validators={[VALIDATOR_REQUIRE()]}
+								onInput={inputHandler}
+								initValue={(
+									'0' +
+									Math.round(today.getMinutes() / 15) * 15
+								).slice(-2)}
+								initIsValid={true}
+							/>
+						</div>
 						<Input
-							id='quarters'
+							id='workType'
 							element='dropdown'
 							type='dropdown'
-							baseList='quarters'
-							elementType='selectTime'
-							label='Minuti'
+							baseList='workType'
+							label='Tipo attività'
 							validators={[VALIDATOR_REQUIRE()]}
+							errorText='Campo obbligatorio'
 							onInput={inputHandler}
-							initValue={('0' + Math.round(today.getMinutes() / 15) * 15).slice(
-								-2
-							)}
-							initIsValid={true}
+							initValue=''
+							initIsValid={false}
+						/>
+						<Input
+							id='workDescription'
+							element='textarea'
+							type='textarea'
+							label='Descrizione attività'
+							validators={[VALIDATOR_NO()]}
+							onInput={inputHandler}
+							initValue=''
+							initIsValid={false}
 						/>
 					</div>
-					<Input
-						id='workType'
-						element='dropdown'
-						type='dropdown'
-						baseList='workType'
-						label='Tipo attività'
-						validators={[VALIDATOR_REQUIRE()]}
-						errorText='Campo obbligatorio'
-						onInput={inputHandler}
-						initValue=''
-						initIsValid={false}
-					/>
-					<Input
-						id='workDescription'
-						element='textarea'
-						type='textarea'
-						label='Descrizione attività'
-						validators={[VALIDATOR_NO()]}
-						onInput={inputHandler}
-						initValue=''
-						initIsValid={false}
-					/>
 					<Button
 						clname={'default big _50'}
 						type='submit'
@@ -139,6 +142,9 @@ function NewLog({ clear, succes, projectId, projectTitle, contactId }) {
 						onClick={postActivity}
 					>
 						Save
+					</Button>
+					<Button clname={'danger big'} type='submit' onClick={clear}>
+						Chiudi
 					</Button>
 				</form>
 			</div>

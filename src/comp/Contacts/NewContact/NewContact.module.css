@@ -19,3 +19,24 @@
 	align-items: center;
 	justify-content: flex-start;
 }
+
+.inputs{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	height: 75%;
+}
+
+@media(max-width: 768px){
+	.container{
+		left: 2%;
+		top: 2%;
+		width: 96%;
+		height: 96%;
+		overflow: auto;
+	}
+	
+	.inputs{
+		min-height: 450px;
+	}
+}
