@@ -40,6 +40,9 @@ function LogSummary({ setData, clear }) {
 				>
 					Salva
 				</Button>
+				<Button clname={'danger big'} type='submit' onClick={clear}>
+					Chiudi
+				</Button>
 			</form>
 		</div>
 	);

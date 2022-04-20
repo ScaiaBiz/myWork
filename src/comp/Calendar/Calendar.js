@@ -127,6 +127,11 @@ function Calendar() {
 		);
 		return weekDates.map(day => {
 			const dayTasks = tasks.filter(t => {
+				if (t.startWork) {
+					return (
+						Number(t.startWork.slice(8, 10)) === Number(day.date.getDate())
+					);
+				}
 				return Number(t.dueDate.slice(8, 10)) === Number(day.date.getDate());
 			});
 			console.log(dayTasks);

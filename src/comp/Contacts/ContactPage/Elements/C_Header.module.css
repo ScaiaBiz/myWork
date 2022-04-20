@@ -10,6 +10,7 @@
 .contactName {
 	width: 50%;
 	font-size: 4rem;
+	line-height: 1;
 }
 
 .contactData{
