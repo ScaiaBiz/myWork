@@ -21,3 +21,7 @@
 .stop:hover {
 	color: var(--ABORTED);
 }
+
+.edit:hover {
+	color: var(--TODO);
+}

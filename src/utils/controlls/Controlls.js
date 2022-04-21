@@ -14,22 +14,29 @@ function Controlls({ log, setCardStatus }) {
 
 	const [summaryIsNeeded, setSummaryIsNeeded] = useState(false);
 	const [summaryDescription, setSummaryDescription] = useState('');
+	const [notaDescription, setNotaDescription] = useState('');
+	const [nota, setNota] = useState(false);
 
 	const summaryIsNeededHandler = () => {
 		setSummaryIsNeeded(!summaryIsNeeded);
 	};
 
-	useEffect(() => {
-		console.log(summaryIsNeeded);
-	}, [summaryIsNeeded]);
+	const notaHandler = () => {
+		setNota(!nota);
+	};
 
 	const createSummary = () => {
 		const formLogSummary = (
 			<React.Fragment>
-				<Backdrop onClick={summaryIsNeededHandler} level='secondo' />
+				<Backdrop
+					onClick={nota ? notaHandler : summaryIsNeededHandler}
+					level='secondo'
+				/>
 				<LogSummary
-					setData={setSummaryDescription}
-					clear={summaryIsNeededHandler}
+					setData={nota ? setNotaDescription : setSummaryDescription}
+					clear={nota ? notaHandler : summaryIsNeededHandler}
+					data={log}
+					button={nota ? 'Aggiungi' : 'Salva'}
 				/>
 			</React.Fragment>
 		);
@@ -60,6 +67,22 @@ function Controlls({ log, setCardStatus }) {
 		setCardStatus(log.status);
 	};
 
+	const postNote = async () => {
+		console.log(notaDescription);
+		let prova = await sendRequest(
+			'api/log/nota',
+			'POST',
+			{
+				logId: log._id,
+				workSummary: notaDescription,
+			},
+			{
+				'Content-Type': 'application/json',
+			}
+		);
+		log.workSummary = notaDescription;
+	};
+
 	const postStop = async () => {
 		console.log(summaryDescription);
 		const stopped = await sendRequest(
@@ -81,10 +104,14 @@ function Controlls({ log, setCardStatus }) {
 		if (summaryDescription !== '') {
 			postStop();
 		}
-		// return () => {
-		// 	console.log(summaryDescription);
-		// };
 	}, [summaryDescription]);
+
+	useEffect(() => {
+		if (notaDescription !== '') {
+			console.log('Cerco di postare la nota');
+			postNote();
+		}
+	}, [notaDescription]);
 
 	const play = (
 		<i
@@ -114,6 +141,15 @@ function Controlls({ log, setCardStatus }) {
 		</i>
 	);
 
+	const note = (
+		<i
+			class={`material-icons ${classes.icons} ${classes.edit}`}
+			onClick={notaHandler}
+		>
+			edit_note
+		</i>
+	);
+
 	let active = false;
 	if (log.status === 'ONGOING') {
 		active = true;
@@ -129,8 +165,10 @@ function Controlls({ log, setCardStatus }) {
 			{error && <ErrorModal error={error} onClear={clearError} />}
 			{isLoading && <LoadingSpinner asOverlay />}
 			{summaryIsNeeded && createSummary()}
+			{nota && createSummary()}
 			<div className={classes.controls}>
 				{active ? pause : play}
+				{note}
 				{stoppable && stop}
 			</div>
 		</React.Fragment>

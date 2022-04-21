@@ -8,10 +8,12 @@ import Button from '../../../../utils/Button';
 
 import classes from './LogSummary.module.css';
 
-function LogSummary({ setData, clear }) {
+function LogSummary({ setData, clear, data, button }) {
 	const [formState, inputHandler] = useForm({
-		summary: { value: '', isValid: false },
+		summary: { value: data?.workSummary || '', isValid: false },
 	});
+
+	const desc = data?.workSummary;
 
 	const handleConfirm = e => {
 		e.preventDefault();
@@ -29,7 +31,7 @@ function LogSummary({ setData, clear }) {
 					label='Attività svolta'
 					validators={[VALIDATOR_REQUIRE()]}
 					onInput={inputHandler}
-					initValue=''
+					initValue={desc || ''}
 					initIsValid={false}
 				/>
 				<Button
@@ -38,7 +40,7 @@ function LogSummary({ setData, clear }) {
 					disabled={!formState.isValid}
 					onClick={handleConfirm}
 				>
-					Salva
+					{button}
 				</Button>
 				<Button clname={'danger big'} type='submit' onClick={clear}>
 					Chiudi
