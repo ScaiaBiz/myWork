@@ -33,7 +33,14 @@ function DailyPlan({ day, data }) {
 		getDailyPlan();
 	}, [day]);
 
-	return <div className={classes.container}>{plan}</div>;
+	return (
+		<div className={classes.container}>
+			{plan}
+			<span class={`material-icons ${classes.iconAdd}`}>
+				add_circle_outline
+			</span>
+		</div>
+	);
 }
 
 export default DailyPlan;
