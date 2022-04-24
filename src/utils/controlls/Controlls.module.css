@@ -6,6 +6,7 @@
 
 .icons {
 	font-size: 2rem;
+	cursor: pointer;
 }
 
 .icons:hover{
