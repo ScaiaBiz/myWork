@@ -4,7 +4,7 @@ import Card from '../Contacts/C_Utils/Card';
 
 import classes from './DailyPlan.module.css';
 
-function DailyPlan({ day, data }) {
+function DailyPlan({ day, data, add, addHandler }) {
 	const [plan, setPlan] = useState(null);
 
 	const formatTime = time => {
@@ -36,9 +36,14 @@ function DailyPlan({ day, data }) {
 	return (
 		<div className={classes.container}>
 			{plan}
-			<span class={`material-icons ${classes.iconAdd}`}>
-				add_circle_outline
-			</span>
+			{add && (
+				<span
+					class={`material-icons ${classes.iconAdd}`}
+					onClick={() => addHandler(day)}
+				>
+					add_circle_outline
+				</span>
+			)}
 		</div>
 	);
 }

@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import ReactDom from 'react-dom';
 
 import DailyPlan from './DailyPlan';
+import NewActivity from './New/NewActivity';
 //TODO:Valutare rimozione
 
 import { useHttpClient } from '../../hooks/http-hooks';
 import LoadingSpinner from '../../utils/LoadingSpinner';
 import ErrorModal from '../../utils/ErrorModal';
+import Backdrop from '../../utils/Backdrop';
 
 import classes from './Calendar.module.css';
 
@@ -13,7 +16,32 @@ function Calendar() {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
 	const [startDay, setStartDay] = useState(new Date());
+	const [today, setToday] = useState(new Date());
 	const [days, setDays] = useState(null);
+	const [dayAdd, setDayAdd] = useState(null);
+	useEffect(() => {
+		setToday(today?.setDate(today?.getDate() - 1));
+	}, []);
+
+	const [showNewLogForm, setSetshowNewLogForm] = useState(false);
+
+	const addNewHandler = day => {
+		setDayAdd(day);
+		setSetshowNewLogForm(!showNewLogForm);
+	};
+
+	const addNewActivity = () => {
+		const formNewActivity = (
+			<React.Fragment>
+				<Backdrop onClick={addNewHandler} />
+				<NewActivity clear={addNewHandler} day={dayAdd} />
+			</React.Fragment>
+		);
+		return ReactDom.createPortal(
+			formNewActivity,
+			document.getElementById('modal-hook')
+		);
+	};
 
 	const getWeekDates = () => {
 		const weekDates = [];
@@ -134,7 +162,9 @@ function Calendar() {
 				}
 				return Number(t.dueDate.slice(8, 10)) === Number(day.date.getDate());
 			});
-			console.log(dayTasks);
+			// console.log(dayTasks);
+			// console.log(day.date);
+			// console.log(today);
 			return (
 				<div key={day.id} className={`${classes.day} ${classes[day.name]}`}>
 					<div key={day.id} className={classes.date}>
@@ -144,7 +174,12 @@ function Calendar() {
 							' - ' +
 							day.month}
 					</div>
-					<DailyPlan day={day.date} data={dayTasks} />
+					<DailyPlan
+						day={day.date}
+						data={dayTasks}
+						add={day.date >= today}
+						addHandler={addNewHandler}
+					/>
 				</div>
 			);
 		});
@@ -167,6 +202,7 @@ function Calendar() {
 		<React.Fragment>
 			{error && <ErrorModal error={error} onClear={clearError} />}
 			{isLoading && <LoadingSpinner asOverlay />}
+			{showNewLogForm && addNewActivity()}
 			<div className={classes.conteiner}>
 				<div className={classes.main}>
 					<div className={classes.controls}>
