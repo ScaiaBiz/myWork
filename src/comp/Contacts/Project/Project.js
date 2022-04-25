@@ -44,7 +44,7 @@ function Project({ project }) {
 			}
 			getProjectLogs();
 		}
-	}, [toLoad, contact, getContact]);
+	}, [toLoad]);
 
 	/**-----------------
 	 * INVIO DATI
