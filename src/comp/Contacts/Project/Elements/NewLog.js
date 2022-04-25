@@ -63,6 +63,19 @@ function NewLog({ clear, succes, projectId, projectTitle, contactId }) {
 
 	const showForm = () => {
 		const today = new Date();
+		let _minutes = ('0' + Math.round(today.getMinutes() / 15) * 15).slice(-2);
+		let _hours = today.getHours();
+		if (_minutes === '60') {
+			_minutes = '00';
+			_hours += 1;
+		}
+		let _date =
+			today.getFullYear() +
+			'-' +
+			('0' + (today.getMonth() + 1)).slice(-2) +
+			'-' +
+			today.getDate();
+
 		return (
 			<div className={classes.container}>
 				<form className={classes.form}>
@@ -74,13 +87,7 @@ function NewLog({ clear, succes, projectId, projectTitle, contactId }) {
 							label='Data'
 							validators={[VALIDATOR_REQUIRE()]}
 							onInput={inputHandler}
-							initValue={
-								today.getFullYear() +
-								'-' +
-								('0' + (today.getMonth() + 1)).slice(-2) +
-								'-' +
-								today.getDate()
-							}
+							initValue={_date}
 							initIsValid={true}
 						/>
 						<div className={classes.dropdownTime}>
@@ -93,7 +100,7 @@ function NewLog({ clear, succes, projectId, projectTitle, contactId }) {
 								label='Ora'
 								validators={[VALIDATOR_REQUIRE()]}
 								onInput={inputHandler}
-								initValue={today.getHours()}
+								initValue={_hours}
 								initIsValid={true}
 							/>
 							<Input
@@ -105,10 +112,7 @@ function NewLog({ clear, succes, projectId, projectTitle, contactId }) {
 								label='Minuti'
 								validators={[VALIDATOR_REQUIRE()]}
 								onInput={inputHandler}
-								initValue={(
-									'0' +
-									Math.round(today.getMinutes() / 15) * 15
-								).slice(-2)}
+								initValue={_minutes}
 								initIsValid={true}
 							/>
 						</div>
