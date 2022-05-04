@@ -19,6 +19,7 @@ function Calendar() {
 	const [today, setToday] = useState(new Date());
 	const [days, setDays] = useState(null);
 	const [dayAdd, setDayAdd] = useState(null);
+	const [reload, setReload] = useState(false);
 	useEffect(() => {
 		setToday(today?.setDate(today?.getDate() - 1));
 	}, []);
@@ -34,7 +35,12 @@ function Calendar() {
 		const formNewActivity = (
 			<React.Fragment>
 				<Backdrop onClick={addNewHandler} />
-				<NewActivity clear={addNewHandler} day={dayAdd} />
+				<NewActivity
+					clear={addNewHandler}
+					day={dayAdd}
+					setReload={setReload}
+					reload={reload}
+				/>
 			</React.Fragment>
 		);
 		return ReactDom.createPortal(
@@ -162,9 +168,6 @@ function Calendar() {
 				}
 				return Number(t.dueDate.slice(8, 10)) === Number(day.date.getDate());
 			});
-			// console.log(dayTasks);
-			// console.log(day.date);
-			// console.log(today);
 			return (
 				<div key={day.id} className={`${classes.day} ${classes[day.name]}`}>
 					<div key={day.id} className={classes.date}>
@@ -175,10 +178,12 @@ function Calendar() {
 							day.month}
 					</div>
 					<DailyPlan
+						key={day.date}
 						day={day.date}
 						data={dayTasks}
 						add={day.date >= today}
 						addHandler={addNewHandler}
+						reload={reload}
 					/>
 				</div>
 			);
@@ -198,6 +203,14 @@ function Calendar() {
 		let dal = await getFullWeek();
 		setDays(dal);
 	}, [startDay]);
+
+	useEffect(async () => {
+		if (reload) {
+			let dal = await getFullWeek();
+			setDays(dal);
+		}
+	}, [reload]);
+
 	return (
 		<React.Fragment>
 			{error && <ErrorModal error={error} onClear={clearError} />}

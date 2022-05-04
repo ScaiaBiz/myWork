@@ -87,3 +87,7 @@
 .ABORTED {
 	background-color: var(--ABORTED);
 }
+
+.hide {
+	display: none;
+}

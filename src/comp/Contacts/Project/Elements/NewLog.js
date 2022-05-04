@@ -74,7 +74,7 @@ function NewLog({ clear, succes, projectId, projectTitle, contactId }) {
 			'-' +
 			('0' + (today.getMonth() + 1)).slice(-2) +
 			'-' +
-			today.getDate();
+			('0' + (today.getDate() + 1)).slice(-2);
 
 		return (
 			<div className={classes.container}>

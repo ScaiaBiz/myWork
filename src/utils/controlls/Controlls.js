@@ -100,6 +100,21 @@ function Controlls({ log, setCardStatus }) {
 		setCardStatus(stopped.status);
 	};
 
+	const postDelete = async () => {
+		const deleted = await sendRequest(
+			'api/log/delete',
+			'POST',
+			{
+				logId: log._id,
+			},
+			{
+				'Content-Type': 'application/json',
+			}
+		);
+		console.log('Cancello: ' + log._id);
+		setCardStatus('hide');
+	};
+
 	useEffect(() => {
 		if (summaryDescription !== '') {
 			postStop();
@@ -149,6 +164,14 @@ function Controlls({ log, setCardStatus }) {
 			edit_note
 		</i>
 	);
+	const cancel = (
+		<i
+			class={`material-icons ${classes.icons} ${classes.stop}`}
+			onClick={postDelete}
+		>
+			delete_forever
+		</i>
+	);
 
 	let active = false;
 	if (log.status === 'ONGOING') {
@@ -169,7 +192,7 @@ function Controlls({ log, setCardStatus }) {
 			<div className={classes.controls}>
 				{active ? pause : play}
 				{note}
-				{stoppable && stop}
+				{stoppable ? stop : cancel}
 			</div>
 		</React.Fragment>
 	);

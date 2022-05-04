@@ -74,10 +74,13 @@ function Card({
 
 		switch (type) {
 			case 'CALENDAR':
+				console.log(cardStatus);
 				return (
 					<div
 						key={cardData?._id}
-						className={`${classes.task} ${classes[cardData?.status]}`}
+						className={`${classes.task} ${classes[cardData?.status]} ${
+							classes[cardStatus]
+						}`}
 					>
 						Avvio:{' '}
 						{cardData?.startWork

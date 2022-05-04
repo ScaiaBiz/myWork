@@ -163,7 +163,7 @@ const Input = props => {
 			case 'radio':
 				return (
 					<div className={props.radio_dot}>
-						{props.list.map(el => {
+						{props.list?.map(el => {
 							return (
 								<div className={classes.radio_container}>
 									<label className={classes.radio_dot} htmlFor={el.id}>
@@ -238,7 +238,7 @@ const Input = props => {
 							className={`${classes[props.element]} ${classes[props.baseList]}`}
 						/>
 						<datalist id={props.label}>
-							{list.map(el => {
+							{list?.map(el => {
 								return <option value={el.name} />;
 							})}
 						</datalist>
