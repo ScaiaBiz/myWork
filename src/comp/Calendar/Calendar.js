@@ -24,11 +24,13 @@ function Calendar() {
 		setToday(today?.setDate(today?.getDate() - 1));
 	}, []);
 
-	const [showNewLogForm, setSetshowNewLogForm] = useState(false);
+	const [showNewLogForm, setShowNewLogForm] = useState(false);
 
 	const addNewHandler = day => {
-		setDayAdd(day);
-		setSetshowNewLogForm(!showNewLogForm);
+		if (day) {
+			setDayAdd(day);
+		}
+		setShowNewLogForm(!showNewLogForm);
 	};
 
 	const addNewActivity = () => {
@@ -159,7 +161,9 @@ function Calendar() {
 			weekDates[0].date,
 			weekDates[weekDates.length - 1].date
 		);
+		let i = 0;
 		return weekDates.map(day => {
+			i++;
 			const dayTasks = tasks.filter(t => {
 				if (t.startWork) {
 					return (
@@ -169,8 +173,11 @@ function Calendar() {
 				return Number(t.dueDate.slice(8, 10)) === Number(day.date.getDate());
 			});
 			return (
-				<div key={day.id} className={`${classes.day} ${classes[day.name]}`}>
-					<div key={day.id} className={classes.date}>
+				<div
+					key={'calendar_' + i}
+					className={`${classes.day} ${classes[day.name]}`}
+				>
+					<div key={'calendar_' + i * 1000} className={classes.date}>
 						{day.name}
 						<br />{' '}
 						{day.date.toLocaleString('it-IT', { day: '2-digit' }) +
@@ -178,7 +185,7 @@ function Calendar() {
 							day.month}
 					</div>
 					<DailyPlan
-						key={day.date}
+						key={'calendar_' + i + i * 1000}
 						day={day.date}
 						data={dayTasks}
 						add={day.date >= today}
@@ -204,10 +211,21 @@ function Calendar() {
 		setDays(dal);
 	}, [startDay]);
 
-	useEffect(async () => {
+	const reloadHandler = async () => {
+		console.log('showNewLogForm: ' + showNewLogForm);
+		// if (showNewLogForm) {
+		// 	setShowNewLogForm(false);
+		// }
+		let dal = await getFullWeek();
+		setDays(dal);
+		setReload(false);
+	};
+
+	useEffect(() => {
+		console.log('here for reload: ' + reload);
 		if (reload) {
-			let dal = await getFullWeek();
-			setDays(dal);
+			reloadHandler();
+			setReload(!reload);
 		}
 	}, [reload]);
 

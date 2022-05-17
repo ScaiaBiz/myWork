@@ -17,41 +17,20 @@ function NewActivity({ clear, day, setReload }) {
 	const [contactId, setContactId] = useState(null);
 	const [projectId, setProjectId] = useState(null);
 	const [projectTitle, setProjectTitle] = useState(null);
+	const [workDate, setWorkDate] = useState(new Date());
 
 	const [formState, inputHandler, setFormData] = useForm({
 		contactId: { value: contactId, isValid: true },
 		projectId: { value: projectId, isValid: true },
-		// title: { value: projectTitle, isValid: true },
 		workDescription: { value: '', isValid: false },
 		workType: { value: '', isValid: false },
-		// status: { value: '', isValid: true },
-		// active: { value: '', isValid: true },
-		// creationDate: { value: '', isValid: true },
 	});
 
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
-
-	const today = day;
-
-	function debounce(cb, delay = 1000) {
-		let timeout;
-
-		return (...args) => {
-			clearTimeout(timeout);
-			timeout = setTimeout(() => {
-				cb(...args);
-			}, delay);
-		};
+	if (!day) {
+		clear();
 	}
-
-	const findContact = () => {
-		return [
-			{ id: 1, name: 'a' },
-			{ id: 2, name: 'b' },
-			{ id: 3, name: 'c' },
-			{ id: 4, name: 'd' },
-		];
-	};
+	const today = day;
 
 	const postActivity = async e => {
 		e.preventDefault();
@@ -77,12 +56,17 @@ function NewActivity({ clear, day, setReload }) {
 				'Content-Type': 'application/json',
 			}
 		);
-		// );
 		console.log('Postato');
-		console.log(el);
-		setReload(true);
+		// console.log(el);
 		clear();
+		// setDone(true);
 	};
+
+	useEffect(() => {
+		return () => {
+			setReload(true);
+		};
+	}, []);
 
 	return (
 		<React.Fragment>
@@ -138,7 +122,7 @@ function NewActivity({ clear, day, setReload }) {
 												label='Ora'
 												validators={[VALIDATOR_REQUIRE()]}
 												onInput={inputHandler}
-												initValue={'08'}
+												initValue={('0' + workDate.getHours()).slice(-2)}
 												initIsValid={true}
 											/>
 											<Input
@@ -152,7 +136,7 @@ function NewActivity({ clear, day, setReload }) {
 												onInput={inputHandler}
 												initValue={(
 													'0' +
-													Math.round(today?.getMinutes() / 15) * 15
+													Math.round(workDate?.getMinutes() / 15) * 15
 												).slice(-2)}
 												initIsValid={true}
 											/>
