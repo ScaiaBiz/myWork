@@ -74,7 +74,6 @@ function Card({
 
 		switch (type) {
 			case 'CALENDAR':
-				console.log(cardStatus);
 				return (
 					<div
 						key={cardData?._id}

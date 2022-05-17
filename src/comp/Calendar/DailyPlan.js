@@ -38,7 +38,7 @@ function DailyPlan({ day, data, add, addHandler }) {
 			{plan}
 			{add && (
 				<span
-					class={`material-icons ${classes.iconAdd}`}
+					className={`material-icons ${classes.iconAdd}`}
 					onClick={() => addHandler(day)}
 				>
 					add_circle_outline

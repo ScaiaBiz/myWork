@@ -123,7 +123,6 @@ function Controlls({ log, setCardStatus }) {
 
 	useEffect(() => {
 		if (notaDescription !== '') {
-			console.log('Cerco di postare la nota');
 			postNote();
 		}
 	}, [notaDescription]);
@@ -158,7 +157,7 @@ function Controlls({ log, setCardStatus }) {
 
 	const note = (
 		<i
-			class={`material-icons ${classes.icons} ${classes.edit}`}
+			className={`material-icons ${classes.icons} ${classes.edit}`}
 			onClick={notaHandler}
 		>
 			edit_note
@@ -166,7 +165,7 @@ function Controlls({ log, setCardStatus }) {
 	);
 	const cancel = (
 		<i
-			class={`material-icons ${classes.icons} ${classes.stop}`}
+			className={`material-icons ${classes.icons} ${classes.stop}`}
 			onClick={postDelete}
 		>
 			delete_forever
