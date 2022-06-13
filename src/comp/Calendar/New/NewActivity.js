@@ -32,6 +32,13 @@ function NewActivity({ clear, day, setReload }) {
 	}
 	const today = day;
 
+	let _minutes = ('0' + Math.round(workDate.getMinutes() / 15) * 15).slice(-2);
+	let _hours = workDate.getHours();
+	if (_minutes === '60') {
+		_minutes = '00';
+		_hours += 1;
+	}
+
 	const postActivity = async e => {
 		e.preventDefault();
 		const date = formState.inputs.dueDate.value;
@@ -122,7 +129,8 @@ function NewActivity({ clear, day, setReload }) {
 												label='Ora'
 												validators={[VALIDATOR_REQUIRE()]}
 												onInput={inputHandler}
-												initValue={('0' + workDate.getHours()).slice(-2)}
+												// initValue={('0' + workDate.getHours()).slice(-2)}
+												initValue={_hours}
 												initIsValid={true}
 											/>
 											<Input
@@ -134,10 +142,11 @@ function NewActivity({ clear, day, setReload }) {
 												label='Minuti'
 												validators={[VALIDATOR_REQUIRE()]}
 												onInput={inputHandler}
-												initValue={(
-													'0' +
-													Math.round(workDate?.getMinutes() / 15) * 15
-												).slice(-2)}
+												// initValue={(
+												// 	'0' +
+												// 	Math.round(workDate?.getMinutes() / 15) * 15
+												// ).slice(-2)}
+												initValue={_minutes}
 												initIsValid={true}
 											/>
 										</div>

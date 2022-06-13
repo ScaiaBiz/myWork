@@ -112,6 +112,7 @@ function Controlls({ log, setCardStatus }) {
 			}
 		);
 		console.log('Cancello: ' + log._id);
+		console.log({ deleted });
 		setCardStatus('hide');
 	};
 

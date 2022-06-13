@@ -30,13 +30,18 @@
 }
 
 .description {
-	width: 50%;
+	/* width: 50%; */
 	display: flex;
 	align-items: center;
 }
 /*-------------------------
 Colori status progetto
 -------------------------*/
+
+.todolist{
+	width: 90%;
+	border-bottom: var(--maincolor) solid 1px;
+}
 
 .logs {
 	width: 100%;
@@ -78,4 +83,10 @@ Colori status progetto
 	background-color: var(--ABORTED);
 	width: min-content;
 	margin-bottom: 1%;
+}
+
+@media(max-width: 768px){
+.header{
+	flex-direction: column;
+}
 }

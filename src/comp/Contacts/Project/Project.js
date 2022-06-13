@@ -8,6 +8,7 @@ import Backdrop from '../../../utils/Backdrop';
 
 import Card from '../C_Utils/Card';
 import NewLog from './Elements/NewLog';
+import TodoList from '../../Todo/TodoList';
 
 import classes from './Project.module.css';
 
@@ -89,6 +90,9 @@ function Project({ project }) {
 						TF: {project.totalTimeInvoiced}
 					</div>
 					<div className={classes.description}>{project.description}</div>
+				</div>
+				<div className={classes.todolist}>
+					<TodoList parentId={project._id} />
 				</div>
 				<div className={classes.logs}>
 					<Card
