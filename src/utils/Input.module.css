@@ -31,6 +31,12 @@ textarea {
 	font-weight: bold;
 }
 
+.radio {
+	display: flex;
+	width: 30%;
+	justify-content: space-around;
+}
+
 .radio_container {
 	justify-content: space-evenly;
 	width: 50%;
@@ -39,14 +45,20 @@ textarea {
 .radio_dot {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
-	margin-left: 90%;
+	justify-content: center;
+	width: 10%;
+	min-width: 36px;
+	/* margin-left: 90%; */
+}
+
+.radio_input {
+	border: 1px solid red;
 }
 .radio_label {
-	width: 33%;
+	/* width: 33%; */
 	display: flex;
 	align-items: center;
-	/* justify-content: space-between; */
+	margin-left: 5%;
 }
 
 .dropdownTime {

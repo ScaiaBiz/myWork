@@ -3,6 +3,7 @@ import React from 'react';
 import { useHttpClient } from '../../hooks/http-hooks';
 import ErrorModal from '../../utils/ErrorModal';
 import LoadingSpinner from '../../utils/LoadingSpinner';
+import IconController from '../../utils/IconController';
 
 import classes from './Todo.module.css';
 
@@ -21,6 +22,16 @@ function Todo({ data, updateList }) {
 		updateList(deleted.data._id);
 	};
 
+	const doneTodo = async () => {
+		const done = await sendRequest(
+			'api/todo/done/',
+			'POST',
+			{ todoId: data._id },
+			{ 'Content-Type': 'application/json' }
+		);
+		updateList(done.data._id);
+	};
+
 	return (
 		<React.Fragment>
 			{error && <ErrorModal error={error} onClear={clearError} />}
@@ -35,12 +46,23 @@ function Todo({ data, updateList }) {
 					<h3>{_date.toLocaleDateString('it-IT')}</h3>
 					<p className={classes.text}>{data.text}</p>
 				</div>
-				<div className={classes.controllers}>
-					<div className={classes.done}>Fatto</div>
-					<div className={classes.del} onClick={deleteTodo}>
-						Elimina
+				{!data.done && (
+					<div className={classes.controllers}>
+						<IconController
+							type='DONE'
+							size='rem3'
+							color='green'
+							action={doneTodo}
+						/>
+						<IconController type='EDIT' size='rem2' color='sky' />
+						<IconController
+							type='DELETE'
+							size='rem3'
+							color='red'
+							action={deleteTodo}
+						/>
 					</div>
-				</div>
+				)}
 			</div>
 		</React.Fragment>
 	);

@@ -38,9 +38,10 @@
 Colori status progetto
 -------------------------*/
 
-.todolist{
+.todolist {
 	width: 90%;
 	border-bottom: var(--maincolor) solid 1px;
+	padding-bottom: 1rem;
 }
 
 .logs {
@@ -85,8 +86,8 @@ Colori status progetto
 	margin-bottom: 1%;
 }
 
-@media(max-width: 768px){
-.header{
-	flex-direction: column;
-}
+@media (max-width: 768px) {
+	.header {
+		flex-direction: column;
+	}
 }

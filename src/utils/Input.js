@@ -162,24 +162,34 @@ const Input = props => {
 				);
 			case 'radio':
 				return (
-					<div className={props.radio_dot}>
+					<div className={classes.radio}>
 						{props.list?.map(el => {
 							return (
-								<div className={classes.radio_container}>
-									<label className={classes.radio_dot} htmlFor={el.id}>
-										<input
-											key={props.id}
-											className={classes.radio1}
-											id={el.id}
-											type={props.type}
-											onChange={changeHandler}
-											onBlur={toucHandler}
-											value={inputState.value}
-											name={props.label}
-										/>
-										<div className={classes.radio_label}>{el.name}</div>
-									</label>
-								</div>
+								<label
+									key={el.id}
+									className={classes.radio_dot}
+									htmlFor={props.id}
+								>
+									<input
+										className={classes.radio_input}
+										id={el.id}
+										radioValue={el.name}
+										type={props.type}
+										onChange={changeHandler}
+										onBlur={toucHandler}
+										// onClick={e => {
+										// 	console.log('Dispaccio');
+										// 	dispatch({
+										// 		type: 'CHANGE',
+										// 		val: e.target.radioValue,
+										// 		validators: props.validators,
+										// 	});
+										// }}
+										value={el.name}
+										name={props.label}
+									/>
+									<div className={classes.radio_label}>{el.name}</div>
+								</label>
 							);
 						})}
 					</div>

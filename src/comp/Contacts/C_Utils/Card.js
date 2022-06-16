@@ -88,9 +88,9 @@ function Card({
 						<br />
 						{cardData?.endWork && 'Stop: ' + formatTime(cardData?.endWork)}
 						{cardData?.endWork && <br />}
-						{cardData?.title} - {cardData?.workDescription}
+						<p className={classes.calendar_pTitle}>{cardData?.title}</p>{' '}
+						<p>{cardData?.workDescription}</p>
 						<br />
-						{/* {cardData?.minWorked > 0 ? 'TL: ' + convertToHour(cardData?.minWorked) : ''} */}
 						{cardData?.status !== 'COMPLETED' ? (
 							<Controlls
 								status={cardStatus}

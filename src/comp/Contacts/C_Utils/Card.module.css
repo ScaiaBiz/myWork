@@ -52,20 +52,23 @@
 	border: #000 1px solid;
 }
 
-
 /*
 * ---------------------------
 * Type: CLENDAR
 * ---------------------------
 */
 
-.task{
-    font-size: 14px;
-    line-height: normal;
-    border: 1px solid;
-    margin: 2% 3%;
-    padding: 1%;
-    border-radius: 4px;
+.task {
+	font-size: 14px;
+	line-height: normal;
+	border: 1px solid;
+	margin: 2% 3%;
+	padding: 1%;
+	border-radius: 4px;
+}
+
+.calendar_pTitle {
+	font-weight: bold;
 }
 
 .TODO {

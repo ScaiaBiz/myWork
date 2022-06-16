@@ -5,10 +5,21 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
+	border-radius: 20px;
 }
 
+.priority3 {
+	border: 5px solid var(--TODO);
+}
+.priority2 {
+	border: 5px solid var(--PAUSED);
+}
 .priority1 {
-	border: 1px solid red;
+	border: 5px solid var(--ABORTED);
+}
+
+.priority9 {
+	border: 5px solid var(--ONGOING);
 }
 
 .content {
@@ -33,15 +44,19 @@
 	height: fit-content;
 	width: fit-content;
 	cursor: pointer;
-	padding: 5%;
-	margin: 10% 0;
+	padding: 2% 5%;
+	margin: 5% 0;
 	background-color: var(--ABORTED);
+	border: 1px solid var(--maincolor);
+	border-radius: 12px;
 }
 .done {
 	height: fit-content;
 	width: fit-content;
 	cursor: pointer;
-	padding: 5%;
-	margin: 10% 0;
+	padding: 2% 5%;
+	margin: 5% 0;
 	background-color: var(--ONGOING);
+	border: 1px solid var(--maincolor);
+	border-radius: 12px;
 }

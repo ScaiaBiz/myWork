@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { VALIDATOR_REQUIRE } from '../../utils/validators';
+import { VALIDATOR_NO, VALIDATOR_REQUIRE } from '../../utils/validators';
 import { useForm } from '../../hooks/form-hook';
 import { useHttpClient } from '../../hooks/http-hooks';
 import LoadingSpinner from '../../utils/LoadingSpinner';
@@ -20,6 +20,7 @@ function TodoList({ parentId }) {
 
 	const [formState, inputHandler, setFormData] = useForm({
 		todoDescription: { value: '', isValid: false },
+		todoPriority: { value: '3', isValid: false },
 	});
 
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -48,6 +49,7 @@ function TodoList({ parentId }) {
 			{
 				projectId: parentId,
 				text: formState.inputs.todoDescription.value,
+				priority: formState.inputs.todoPriority.value,
 			},
 			{
 				'Content-Type': 'application/json',
@@ -86,6 +88,22 @@ function TodoList({ parentId }) {
 						validators={[VALIDATOR_REQUIRE()]}
 						onInput={inputHandler}
 						initValue={''}
+						initIsValid={false}
+					/>
+					<Input
+						id='todoPriority'
+						element='radio'
+						type='radio'
+						label='Priorità'
+						list={[
+							{ name: '1', id: 1 },
+							{ name: '2', id: 2 },
+							{ name: '3', id: 3 },
+						]}
+						// name='Urgente'
+						validators={[VALIDATOR_NO()]}
+						onInput={inputHandler}
+						initValue={'3'}
 						initIsValid={false}
 					/>
 					<Button

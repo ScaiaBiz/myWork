@@ -1,34 +1,34 @@
-.container{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-    /* background-color: salmon; */
+.container {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	width: 100%;
+	/* background-color: salmon; */
 }
 
-.input{
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    width: 80%;
+.input {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	flex-direction: column;
+	width: 80%;
 }
 
 .input textarea {
-    height: auto;
-    width: 80%;
-    font-size: large;
+	height: auto;
+	width: 80%;
+	font-size: large;
 }
 
-.input input{
-    width: 80%;
+.input input {
+	width: 80%;
 }
 
-.list{
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    flex-wrap: wrap;
+.list {
+	width: 100%;
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: row;
+	flex-wrap: wrap;
 }
-
