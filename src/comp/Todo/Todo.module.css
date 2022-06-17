@@ -60,3 +60,9 @@
 	border: 1px solid var(--maincolor);
 	border-radius: 12px;
 }
+
+@media (max-width: 768px) {
+	.container {
+		width: 100%;
+	}
+}

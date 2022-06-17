@@ -16,7 +16,6 @@
 }
 
 .input textarea {
-	height: auto;
 	width: 80%;
 	font-size: large;
 }
@@ -31,4 +30,14 @@
 	justify-content: flex-start;
 	flex-direction: row;
 	flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+	.input {
+		width: 100%;
+	}
+
+	.input textarea {
+		width: 100%;
+	}
 }

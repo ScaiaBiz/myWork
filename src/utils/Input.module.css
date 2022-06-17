@@ -78,3 +78,17 @@ textarea {
 .quarters {
 	width: 90%;
 }
+
+@media (max-width: 768px) {
+	.radio {
+		width: 100%;
+	}
+
+	.radio_dot {
+		font-size: 24px;
+	}
+
+	textarea {
+		height: 10rem;
+	}
+}
