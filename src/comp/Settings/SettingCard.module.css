@@ -1,0 +1,38 @@
+h1 {
+	height: fit-content;
+	padding-bottom: 1rem;
+}
+
+.container {
+	display: flex;
+	flex-wrap: wrap;
+	height: fit-content;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--COMPLETEDtext);
+	padding: 2%;
+	max-width: 720px;
+	border-radius: 20px;
+	text-align: center;
+}
+
+.values {
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	align-items: center;
+	justify-content: space-around;
+	border-bottom: 1px solid var(--contrast);
+	color: var(--contrast);
+}
+
+.gridHeader {
+	font-weight: bold;
+	background-color: var(--COMPLETED);
+	color: var(--maincolor);
+}
+.val {
+	min-width: 10%;
+	border-right: 1px solid var(--contrast);
+	padding-top: 4%;
+}

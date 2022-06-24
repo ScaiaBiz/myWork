@@ -16,6 +16,9 @@ import ContactPage from './comp/Contacts/ContactPage/ContactPage';
 import C_Projects from './comp/Contacts/ContactPage/Elements/C_Projects';
 import C_Logs from './comp/Contacts/ContactPage/Elements/C_Logs';
 
+//Impostazioni
+import Settings from './comp/Settings/Settings';
+
 // import Day from './comp/page/Day';
 // import Week from './comp/page/Week';
 // import Backdrop from './comp/common/Backdrop';
@@ -56,11 +59,12 @@ function App() {
 						<Route path='/Calendar' element={<Calendar />} />
 						<Route path='/Contacts' element={<Contacts />} />
 						<Route path='/Contacts/:contactId/*' element={<ContactPage />}>
-							<Route path='Data' />
 							<Route path='Projects' element={<C_Projects />} />
 							<Route path='Logs' element={<C_Logs />} />
 							<Route path='Balance' />
+							<Route path='Data' />
 						</Route>
+						<Route path='/Settings' element={<Settings />} />
 						{/* <Route path='/backdrop' element={<Backdrop />} /> */}
 					</Routes>
 				</div>
