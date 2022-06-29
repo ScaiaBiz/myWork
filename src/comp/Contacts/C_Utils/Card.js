@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import Controlls from '../../../utils/controlls/Controlls';
+import IconController from '../../../utils/IconController';
 
 import classes from './Card.module.css';
 
@@ -81,6 +82,9 @@ function Card({
 							classes[cardStatus]
 						}`}
 					>
+						<div className={classes.cheklist}>
+							<IconController type='CHEKLIST' />
+						</div>
 						Avvio:{' '}
 						{cardData?.startWork
 							? formatTime(cardData?.startWork)

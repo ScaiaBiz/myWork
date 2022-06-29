@@ -52,6 +52,14 @@
 	border: #000 1px solid;
 }
 
+.cheklist {
+	border: 1px solid red;
+	background-color: yellow;
+
+	width: fit-content;
+	float: right;
+}
+
 /*
 * ---------------------------
 * Type: CLENDAR
