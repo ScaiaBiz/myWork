@@ -28,16 +28,20 @@ import './App.css';
 function App() {
 	const LS_Area = useContext(UserCxt).LS_Area;
 	const [user, setUser] = useState(JSON.parse(localStorage.getItem(LS_Area)));
+	const [projectTodos, setProjectTodos] = useState('Prova');
+	const [showProjectTodos, setShowProjectTodos] = useState(false);
+
+	const contextData = {
+		user: [user, setUser],
+		LS_Area: LS_Area,
+		ProjectTodos: [projectTodos, setProjectTodos],
+		showProjectTodos: [showProjectTodos, setShowProjectTodos],
+	};
 
 	if (!user) {
 		return (
 			<div className='App'>
-				<UserCxt.Provider
-					value={{
-						user: [user, setUser],
-						LS_Area: LS_Area,
-					}}
-				>
+				<UserCxt.Provider value={contextData}>
 					<Login />
 				</UserCxt.Provider>
 				<br />
@@ -47,12 +51,7 @@ function App() {
 
 	return (
 		<div className='App'>
-			<UserCxt.Provider
-				value={{
-					user: [user, setUser],
-					LS_Area: LS_Area,
-				}}
-			>
+			<UserCxt.Provider value={contextData}>
 				<Menu />
 				<div className='Content'>
 					<Routes>
