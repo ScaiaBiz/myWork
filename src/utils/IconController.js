@@ -17,6 +17,8 @@ function IconController({ type, size, color, action }) {
 				return 'delete_forever';
 			case 'DONE':
 				return 'done';
+			case 'CHEKLIST':
+				return 'checklist';
 		}
 	};
 
@@ -27,8 +29,12 @@ function IconController({ type, size, color, action }) {
 	};
 
 	const doAction = () => {
-		console.log('Done');
-		action();
+		if (action) {
+			console.log('Done');
+			action();
+		} else {
+			console.log('No IconController action');
+		}
 	};
 
 	return (

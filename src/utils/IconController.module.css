@@ -17,6 +17,14 @@
 	text-shadow: 0px 0px 6px var(--COMPLETEDtext);
 }
 
+.black {
+	color: black;
+}
+
+.black:hover {
+	color: var(--contrast);
+}
+
 .green:hover {
 	color: var(--ONGOING);
 }
