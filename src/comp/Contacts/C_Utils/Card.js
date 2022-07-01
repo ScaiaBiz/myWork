@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+
+import { UserCxt } from '../../../cxt/UserCxt';
 
 import Controlls from '../../../utils/controlls/Controlls';
 import IconController from '../../../utils/IconController';
@@ -21,6 +23,10 @@ function Card({
 	};
 
 	const [cardStatus, setCardStatus] = useState(cardData);
+
+	//Calendar: Aprire direttamente lista TODO del progetto di riferimento
+	const [showTodosCxt, setShowTodosCxt] = useContext(UserCxt).showProjectTodos;
+	const [projectCtx, setProjectCtx] = useContext(UserCxt).ProjectTodos;
 
 	if (!cardData) {
 		return (
@@ -73,6 +79,11 @@ function Card({
 			});
 		};
 
+		const getTodoList = () => {
+			setProjectCtx({ id: cardData?.projectId, title: cardData?.title });
+			setShowTodosCxt(true);
+		};
+
 		switch (type) {
 			case 'CALENDAR':
 				return (
@@ -83,7 +94,11 @@ function Card({
 						}`}
 					>
 						<div className={classes.cheklist}>
-							<IconController type='CHEKLIST' />
+							<IconController
+								type='CHEKLIST'
+								color='black'
+								action={getTodoList}
+							/>
 						</div>
 						Avvio:{' '}
 						{cardData?.startWork

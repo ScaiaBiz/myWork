@@ -60,23 +60,41 @@
 	font-weight: 900;
 }
 
-@media (max-width: 768px) {
+.hoverTodolist {
+	position: fixed;
+	left: 25%;
+	top: 5%;
+	width: 50%;
+	height: 90%;
+	z-index: 80;
+	background-color: #ffffff;
+	border: 1px solid black;
+	border-radius: 4px;
+	overflow: auto;
+}
 
+@media (max-width: 768px) {
 	.controls {
 		border-bottom: none;
 	}
-.calendar{
-	flex-direction: column;
-	overflow: auto;
-}
-.day {
-	width: auto;
-	overflow: visible;
-}
+	.calendar {
+		flex-direction: column;
+		overflow: auto;
+	}
+	.day {
+		width: auto;
+		overflow: visible;
+	}
 
-.date {
-	font-size: 1.2rem;
-	border-top: 1.5px solid #333;
-}
-
+	.date {
+		font-size: 1.2rem;
+		border-top: 1.5px solid #333;
+	}
+	.hoverTodolist {
+		left: 5%;
+		top: 5%;
+		width: 90%;
+		height: 90%;
+		padding: 2%;
+	}
 }

@@ -13,7 +13,7 @@ import Button from '../../utils/Button';
 import classes from './TodoList.module.css';
 import Todo from './Todo';
 
-function TodoList({ parentId }) {
+function TodoList({ parentId, projectName }) {
 	const [todos, setTodos] = useState(null);
 	const [todosEl, setTodosEl] = useState(null);
 	const [animateLoading, setAnimateLoading] = useState(false);
@@ -78,6 +78,7 @@ function TodoList({ parentId }) {
 			{error && <ErrorModal error={error} onClear={clearError} />}
 			{animateLoading && isLoading && <LoadingSpinner asOverlay />}
 			<div className={classes.container}>
+				{projectName && <h2>{projectName}</h2>}
 				Aggiungi nota:
 				<div className={classes.input}>
 					<Input

@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ReactDom from 'react-dom';
 
 import DailyPlan from './DailyPlan';
 import NewActivity from './New/NewActivity';
-//TODO:Valutare rimozione
+//TODO:Valutare rimozione - - ?Perchè era da togliere?
+
+import TodoList from '../Todo/TodoList';
+
+import { UserCxt } from '../../cxt/UserCxt';
 
 import { useHttpClient } from '../../hooks/http-hooks';
 import LoadingSpinner from '../../utils/LoadingSpinner';
@@ -49,6 +53,26 @@ function Calendar() {
 			formNewActivity,
 			document.getElementById('modal-hook')
 		);
+	};
+
+	const [showTodosCxt, setShowTodosCxt] = useContext(UserCxt).showProjectTodos;
+	const [projectCtx, setProjectCtx] = useContext(UserCxt).ProjectTodos;
+
+	const showTodoListHandler = () => {
+		setShowTodosCxt(!showTodosCxt);
+	};
+
+	const openTodoList = () => {
+		console.log(projectCtx);
+		const todos = (
+			<React.Fragment>
+				<Backdrop onClick={showTodoListHandler} />
+				<div className={classes.hoverTodolist}>
+					<TodoList parentId={projectCtx?.id} projectName={projectCtx.title} />
+				</div>
+			</React.Fragment>
+		);
+		return ReactDom.createPortal(todos, document.getElementById('modal-hook'));
 	};
 
 	const getWeekDates = () => {
@@ -234,6 +258,7 @@ function Calendar() {
 			{error && <ErrorModal error={error} onClear={clearError} />}
 			{isLoading && <LoadingSpinner asOverlay />}
 			{showNewLogForm && addNewActivity()}
+			{showTodosCxt && openTodoList()}
 			<div className={classes.conteiner}>
 				<div className={classes.main}>
 					<div className={classes.controls}>
