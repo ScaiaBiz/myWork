@@ -205,7 +205,7 @@ function Calendar() {
 						{day.name}
 						<br />{' '}
 						{day.date.toLocaleString('it-IT', { day: '2-digit' }) +
-							' - ' +
+							'-' +
 							day.month}
 					</div>
 					<DailyPlan
@@ -265,7 +265,12 @@ function Calendar() {
 						<p className={classes.navArrow} onClick={gotoPrevWeek}>
 							{'<<'}
 						</p>
-						<p>Settimana in corso</p>
+						<p
+							className={classes.navHeader}
+							// style={{ 'font-size': 30, 'font-weight': 'bold' }}
+						>
+							{new Date().getFullYear()}
+						</p>
 						<p className={classes.navArrow} onClick={gotoNextWeek}>
 							{'>>'}
 						</p>

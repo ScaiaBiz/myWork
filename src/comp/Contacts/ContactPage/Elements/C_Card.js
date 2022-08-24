@@ -25,7 +25,7 @@ function C_Card({
 					onClick={cardResutlHandler}
 				>
 					<div className={classes.list} key={cardData._id}>
-						<h2>{cardData.title}</h2>
+						<h3>{cardData.title}</h3>
 						TL: {cardData.totalTimeWorked} - DF: {cardData.totalTimeToInvoice} -
 						TF: {cardData.totalTimeInvoiced}
 						<p className={classes.description}>{cardData.description}</p>

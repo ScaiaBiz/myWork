@@ -19,6 +19,8 @@ function IconController({ type, size, color, action }) {
 				return 'done';
 			case 'CHEKLIST':
 				return 'checklist';
+			case 'MANUALREG':
+				return 'app_registration';
 		}
 	};
 
@@ -30,7 +32,6 @@ function IconController({ type, size, color, action }) {
 
 	const doAction = () => {
 		if (action) {
-			console.log('Done');
 			action();
 		} else {
 			console.log('No IconController action');

@@ -47,7 +47,7 @@ function Controlls({ log, setCardStatus }) {
 	};
 
 	const postPlay = async () => {
-		let prova = await sendRequest(
+		let returnData = await sendRequest(
 			'api/log/pause',
 			'POST',
 			{
@@ -64,7 +64,7 @@ function Controlls({ log, setCardStatus }) {
 			log.status = 'ONGOING';
 		}
 
-		setCardStatus(log.status);
+		setCardStatus(returnData.status);
 	};
 
 	const postNote = async () => {
@@ -193,6 +193,7 @@ function Controlls({ log, setCardStatus }) {
 				{active ? pause : play}
 				{note}
 				{stoppable ? stop : cancel}
+				{/* {cancel} */}
 			</div>
 		</React.Fragment>
 	);
