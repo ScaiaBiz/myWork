@@ -28,7 +28,7 @@ function TodoList({ parentId, projectName }) {
 	const updateTodos = id => {
 		const newTodos = todos.filter(t => {
 			if (t._id != id) {
-				return true;
+				return false;
 			}
 		});
 		console.log({ newTodos });
