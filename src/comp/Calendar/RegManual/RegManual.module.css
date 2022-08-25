@@ -1,0 +1,65 @@
+.background {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 70;
+	background-color: var(--backdrop);
+}
+
+.container {
+	position: fixed;
+	left: 25%;
+	top: 5%;
+	width: 50%;
+	height: 90%;
+	z-index: 80;
+	background-color: #ffffff;
+	border: 1px solid black;
+	border-radius: 4px;
+	overflow: auto;
+}
+
+.form {
+	display: flex;
+	height: 100%;
+	width: 100%;
+	flex-direction: column;
+	/* justify-content: flex-start; */
+	justify-content: flex-start;
+	align-items: center;
+	font-size: x-large;
+}
+
+.inputs {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	height: 75%;
+	overflow: auto;
+	text-align: center;
+}
+
+.timeBox {
+	text-align: center;
+}
+
+.dropdownTime {
+	min-height: 12%;
+	display: flex;
+	justify-content: center;
+}
+
+@media (max-width: 768px) {
+	.container {
+		left: 2%;
+		top: 2%;
+		width: 96%;
+		height: 96%;
+		overflow: auto;
+	}
+	.inputs {
+		min-height: 450px;
+	}
+}
