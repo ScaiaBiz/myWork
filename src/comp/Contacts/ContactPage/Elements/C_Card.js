@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { convertMinToHour } from '../../../../functions/MainFunctions';
+
 import classes from './C_Card.module.css';
 
 function C_Card({
@@ -20,14 +22,15 @@ function C_Card({
 		case 'project':
 			return (
 				<div
-					className={classes.card}
+					className={`${classes.card} ${classes.c_project}`}
 					key={cardData._id}
 					onClick={cardResutlHandler}
 				>
 					<div className={classes.list} key={cardData._id}>
 						<h3>{cardData.title}</h3>
-						TL: {cardData.totalTimeWorked} - DF: {cardData.totalTimeToInvoice} -
-						TF: {cardData.totalTimeInvoiced}
+						TL: {convertMinToHour(cardData.totalTimeWorked)}
+						{/* <br /> */} | DF: {convertMinToHour(cardData.totalTimeToInvoice)}
+						{/* <br /> */} | TF: {convertMinToHour(cardData.totalTimeInvoiced)}
 						<p className={classes.description}>{cardData.description}</p>
 						<p className={`${classes.workType} ${classes[cardData.status]}`}>
 							{cardData.workType}

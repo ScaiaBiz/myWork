@@ -4,6 +4,8 @@ import { VALIDATOR_REQUIRE, VALIDATOR_NO } from '../../../utils/validators';
 import { useForm } from '../../../hooks/form-hook';
 import { useHttpClient } from '../../../hooks/http-hooks';
 
+import { convertMinToHour } from '../../../functions/MainFunctions';
+
 import Find from '../../../utils/finder/Find';
 
 import Input from '../../../utils/Input';
@@ -159,22 +161,10 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 		clear();
 	};
 
-	const convertToHour = value => {
-		const timeFormat = n => ('00' + n).slice(-2);
-		let min = value;
-		let hour = Math.floor(min / 60);
-		min = min - hour * 60;
-		return timeFormat(hour) + ':' + timeFormat(min);
-	};
-
 	return (
 		<React.Fragment>
 			{error && <ErrorModal error={error} onClear={clearError} />}
 			{isLoading && <LoadingSpinner asOverlay />}
-			{/* {console.log({ start_h })}
-			{console.log({ start_min })}
-			{console.log({ end_h })}
-			{console.log({ end_min })} */}
 			<div className={classes.background} onClick={clear}></div>
 			<div className={classes.container}>
 				<form className={classes.form}>
@@ -240,10 +230,12 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 						{Number(cardStatus.breaksTime) > 0 && (
 							<div>
 								Sospensione:{' '}
-								{convertToHour(Math.round(cardStatus.breaksTime / 60000))}
+								{convertMinToHour(Math.round(cardStatus.breaksTime / 60000))}
 							</div>
 						)}
-						<div>Totale impiegato: {convertToHour(cardStatus.minWorked)}</div>
+						<div>
+							Totale impiegato: {convertMinToHour(cardStatus.minWorked)}
+						</div>
 						<Input
 							id='workSummary'
 							element='textarea'
