@@ -37,8 +37,9 @@
 .description__icons {
 	height: 100%;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: space-around;
 }
 /*-------------------------
 Colori status progetto
@@ -95,5 +96,10 @@ Colori status progetto
 @media (max-width: 768px) {
 	.header {
 		flex-direction: column;
+	}
+
+	.description__icons {
+		width: 100%;
+		flex-direction: row;
 	}
 }
