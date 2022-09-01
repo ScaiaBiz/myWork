@@ -10,7 +10,10 @@ import Card from '../C_Utils/Card';
 import NewLog from './Elements/NewLog';
 import TodoList from '../../Todo/TodoList';
 
+import { convertMinToHour } from '../../../functions/MainFunctions';
+
 import classes from './Project.module.css';
+import IconController from '../../../utils/IconController';
 
 function Project({ project }) {
 	const [toLoad, setToLoad] = useState(true);
@@ -86,10 +89,14 @@ function Project({ project }) {
 						{contact?.name}
 						<h1 className={classes.headerH1}>{project.title}</h1>
 						<p className={classes[project.status]}>{project.status}</p>
-						TL: {project.totalTimeWorked} - DF: {project.totalTimeToInvoice} -
-						TF: {project.totalTimeInvoiced}
+						TL: {convertMinToHour(project.totalTimeWorked)} - DF:{' '}
+						{convertMinToHour(project.totalTimeToInvoice)} - TF:{' '}
+						{convertMinToHour(project.totalTimeInvoiced)}
 					</div>
 					<div className={classes.description}>{project.description}</div>
+					<div className={classes.description__icons}>
+						<IconController type='EDIT' color='sky' size='rem2' />
+					</div>
 				</div>
 				<div className={classes.todolist}>
 					<TodoList parentId={project._id} />
