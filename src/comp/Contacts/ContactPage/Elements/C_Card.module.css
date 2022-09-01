@@ -11,6 +11,9 @@
 	justify-content: space-around;
 	cursor: pointer;
 }
+.c_project {
+	width: 400px;
+}
 
 .card:hover {
 	box-shadow: 6px 6px 2px var(--maincolor);
@@ -55,9 +58,9 @@
 	background-color: var(--TODO);
 }
 
-@media(max-width: 768px){
-	.card{
+@media (max-width: 768px) {
+	.card {
 		width: 100%;
-	height: 180px;
+		height: 180px;
 	}
 }

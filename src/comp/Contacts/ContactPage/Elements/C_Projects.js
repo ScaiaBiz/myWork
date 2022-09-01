@@ -11,6 +11,11 @@ import C_Card from './C_Card';
 import Project from '../../Project/Project';
 import NewProject from '../../Project/NewProject';
 
+import {
+	convertMillisecondsToHours,
+	convertMinToHour,
+} from '../../../../functions/MainFunctions';
+
 import classes from './C_Projects.module.css';
 
 function ContactProjects() {
