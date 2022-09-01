@@ -17,6 +17,8 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 	const [workDate, setWorkDate] = useState(new Date(day));
 	const [lStartWork, setLStartWork] = useState(null);
 	const [lEndWork, setLEndWork] = useState(null);
+	const [updateTimes, setUpdateTimes] = useState(false);
+	const [formTimes, setFormTimes] = useState(null);
 
 	useEffect(() => {
 		console.log(cardStatus);
@@ -28,12 +30,16 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 		if (cardStatus?.endWork) {
 			setLEndWork(new Date(cardStatus?.endWork));
 		} else {
+			console.error('Non trovo endWork!');
 			setLEndWork(new Date(cardStatus?.dueDate));
 		}
-
-		evalTimes();
+		setUpdateTimes(!updateTimes);
 		return () => {};
 	}, []);
+
+	useEffect(() => {
+		evalTimes();
+	}, [updateTimes]);
 
 	const [formState, inputHandler, setFormData] = useForm({
 		workSummary: { value: '', isValid: false },
@@ -47,16 +53,14 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 	if (!day) {
 		clear();
 	}
-	const today = new Date(day);
-
-	let start_min;
-	let start_h;
-	let end_min;
-	let end_h;
 
 	const evalTimes = () => {
+		let start_min;
+		let start_h;
+		let end_min;
+		let end_h;
+		// console.log({ lStartWork });
 		if (lStartWork) {
-			console.log({ lStartWork });
 			start_min = lStartWork?.getMinutes();
 			start_h = lStartWork?.getHours();
 		} else {
@@ -70,8 +74,8 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 			}
 		}
 
+		// console.log({ lEndWork });
 		if (lEndWork) {
-			console.log({ lEndWork });
 			end_min = lEndWork?.getMinutes();
 			end_h = lEndWork?.getHours();
 		} else {
@@ -85,7 +89,30 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 				end_h += 1;
 			}
 		}
+
+		// console.log({ start_h });
+		// console.log({ start_min });
+		// console.log({ end_h });
+		// console.log({ end_min });
+
+		setFormTimes({
+			start_h: start_h,
+			start_min: start_min,
+			end_h: end_h,
+			end_min: end_min,
+		});
 	};
+
+	useEffect(() => {
+		console.log('Prima');
+		if (formTimes) {
+			console.log('True');
+			document.getElementById('s_hours').value = formTimes?.start_h;
+			document.getElementById('s_quarters').value = formTimes?.start_min;
+			document.getElementById('e_hours').value = formTimes?.end_h;
+			document.getElementById('e_quarters').value = formTimes?.end_min;
+		}
+	}, [formTimes]);
 
 	const evalDateString = date => {
 		const _d =
@@ -107,10 +134,7 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 		const e_mm = formState.inputs.e_quarters.value;
 		let t_endWork = new Date(e_date + ' ' + e_hh + ':' + e_mm);
 
-		console.log({ t_startWork });
-		console.log({ t_endWork });
-
-		console.log(formState.inputs);
+		// console.log(formState.inputs);
 
 		const el = await sendRequest(
 			'api/log/regManual',
@@ -125,8 +149,6 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 				'Content-Type': 'application/json',
 			}
 		);
-		console.log('Aggiornato');
-		console.log(el);
 
 		setCardStatus(el.newData);
 		clear();
@@ -136,13 +158,6 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 		e.preventDefault();
 		clear();
 	};
-
-	useEffect(() => {
-		console.log(cardStatus);
-		return () => {
-			setReload(true);
-		};
-	}, []);
 
 	const convertToHour = value => {
 		const timeFormat = n => ('00' + n).slice(-2);
@@ -156,7 +171,6 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 		<React.Fragment>
 			{error && <ErrorModal error={error} onClear={clearError} />}
 			{isLoading && <LoadingSpinner asOverlay />}
-			{evalTimes()}
 			{/* {console.log({ start_h })}
 			{console.log({ start_min })}
 			{console.log({ end_h })}
@@ -174,10 +188,10 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 									type='dropdown'
 									baseList='hours'
 									elementType='selectTime'
-									label={`Ora: ${start_h}`}
+									label={`Ora: ${formTimes?.start_h}`}
 									validators={[VALIDATOR_REQUIRE()]}
 									onInput={inputHandler}
-									initValue={start_h}
+									initValue={''}
 									initIsValid={true}
 								/>
 								<Input
@@ -186,10 +200,10 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 									type='dropdown'
 									baseList='quarters'
 									elementType='selectTime'
-									label={`Minuti: ${start_min}`}
+									label={`Minuti: ${formTimes?.start_min}`}
 									validators={[VALIDATOR_REQUIRE()]}
 									onInput={inputHandler}
-									initValue={start_min}
+									initValue={''}
 									initIsValid={true}
 								/>
 							</div>
@@ -203,10 +217,10 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 									type='dropdown'
 									baseList='hours'
 									elementType='selectTime'
-									label={`Ora: ${end_h}`}
+									label={`Ora: ${formTimes?.end_h}`}
 									validators={[VALIDATOR_REQUIRE()]}
 									onInput={inputHandler}
-									initValue={end_h}
+									initValue={''}
 									initIsValid={true}
 								/>
 								<Input
@@ -215,10 +229,10 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 									type='dropdown'
 									baseList='quarters'
 									elementType='selectTime'
-									label={`Minuti: ${end_min}`}
+									label={`Minuti: ${formTimes?.end_min}`}
 									validators={[VALIDATOR_REQUIRE()]}
 									onInput={inputHandler}
-									initValue={end_min}
+									initValue={''}
 									initIsValid={true}
 								/>
 							</div>
