@@ -22,23 +22,24 @@
 	font-size: x-large;
 }
 
-.inputs{
+.inputs {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 	height: 75%;
+	width: 80%;
 	overflow: auto;
 }
 
-@media(max-width: 768px){
-	.container{
+@media (max-width: 768px) {
+	.container {
 		left: 2%;
 		top: 2%;
 		width: 96%;
 		height: 96%;
 		overflow: auto;
 	}
-	.inputs{
+	.inputs {
 		min-height: 450px;
 	}
 }
