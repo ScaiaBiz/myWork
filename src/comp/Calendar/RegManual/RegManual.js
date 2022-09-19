@@ -4,7 +4,10 @@ import { VALIDATOR_REQUIRE, VALIDATOR_NO } from '../../../utils/validators';
 import { useForm } from '../../../hooks/form-hook';
 import { useHttpClient } from '../../../hooks/http-hooks';
 
-import { convertMinToHour } from '../../../functions/MainFunctions';
+import {
+	convertMinToHour,
+	convertTimeStringToMilliseconds,
+} from '../../../functions/MainFunctions';
 
 import Find from '../../../utils/finder/Find';
 
@@ -61,6 +64,9 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 		let start_h;
 		let end_min;
 		let end_h;
+		let pause_min;
+		let pause_h;
+
 		// console.log({ lStartWork });
 		if (lStartWork) {
 			start_min = lStartWork?.getMinutes();
@@ -92,6 +98,15 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 			}
 		}
 
+		if (cardStatus.breaksTime) {
+			let p_string = convertMinToHour(
+				Math.round(cardStatus.breaksTime / 60000)
+			);
+
+			pause_h = p_string.split(':')[0];
+			pause_min = p_string.split(':')[1];
+		}
+
 		// console.log({ start_h });
 		// console.log({ start_min });
 		// console.log({ end_h });
@@ -102,6 +117,8 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 			start_min: start_min,
 			end_h: end_h,
 			end_min: end_min,
+			pause_h: pause_h,
+			pause_min: pause_min,
 		});
 	};
 
@@ -113,6 +130,11 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 			document.getElementById('s_quarters').value = formTimes?.start_min;
 			document.getElementById('e_hours').value = formTimes?.end_h;
 			document.getElementById('e_quarters').value = formTimes?.end_min;
+			if (formTimes?.pause_h || formTimes.pause_min) {
+				document.getElementById('p_hours').value = formTimes?.pause_h;
+
+				document.getElementById('p_quarters').value = formTimes?.pause_min;
+			}
 		}
 	}, [formTimes]);
 
@@ -136,6 +158,13 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 		const e_mm = formState.inputs.e_quarters.value;
 		let t_endWork = new Date(e_date + ' ' + e_hh + ':' + e_mm);
 
+		const p_mls = convertTimeStringToMilliseconds(
+			formState.inputs.p_hours.value,
+			formState.inputs.p_quarters.value
+		);
+
+		console.log(p_mls);
+
 		// console.log(formState.inputs);
 
 		const el = await sendRequest(
@@ -146,6 +175,7 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 				startWork: t_startWork,
 				endWork: t_endWork,
 				workSummary: formState.inputs.workSummary.value,
+				breaksTime: p_mls,
 			},
 			{
 				'Content-Type': 'application/json',
@@ -178,7 +208,7 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 									type='dropdown'
 									baseList='hours'
 									elementType='selectTime'
-									label={`Ora: ${formTimes?.start_h}`}
+									label={`Ore: ${formTimes?.start_h}`}
 									validators={[VALIDATOR_REQUIRE()]}
 									onInput={inputHandler}
 									initValue={''}
@@ -190,7 +220,7 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 									type='dropdown'
 									baseList='quarters'
 									elementType='selectTime'
-									label={`Minuti: ${formTimes?.start_min}`}
+									label={`Min: ${formTimes?.start_min}`}
 									validators={[VALIDATOR_REQUIRE()]}
 									onInput={inputHandler}
 									initValue={''}
@@ -207,7 +237,7 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 									type='dropdown'
 									baseList='hours'
 									elementType='selectTime'
-									label={`Ora: ${formTimes?.end_h}`}
+									label={`Ore: ${formTimes?.end_h}`}
 									validators={[VALIDATOR_REQUIRE()]}
 									onInput={inputHandler}
 									initValue={''}
@@ -219,7 +249,7 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 									type='dropdown'
 									baseList='quarters'
 									elementType='selectTime'
-									label={`Minuti: ${formTimes?.end_min}`}
+									label={`Min: ${formTimes?.end_min}`}
 									validators={[VALIDATOR_REQUIRE()]}
 									onInput={inputHandler}
 									initValue={''}
@@ -229,8 +259,33 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 						</div>
 						{Number(cardStatus.breaksTime) > 0 && (
 							<div>
-								Sospensione:{' '}
-								{convertMinToHour(Math.round(cardStatus.breaksTime / 60000))}
+								Sospensione:
+								<div className={classes.dropdownTime}>
+									<Input
+										id='p_hours'
+										element='dropdown'
+										type='dropdown'
+										baseList='hours'
+										elementType='selectTime'
+										label={`Ore: ${formTimes?.pause_h}`}
+										validators={[VALIDATOR_REQUIRE()]}
+										onInput={inputHandler}
+										initValue={''}
+										initIsValid={true}
+									/>
+									<Input
+										id='p_quarters'
+										element='dropdown'
+										type='dropdown'
+										baseList='quarters'
+										elementType='selectTime'
+										label={`Min: ${formTimes?.pause_min}`}
+										validators={[VALIDATOR_REQUIRE()]}
+										onInput={inputHandler}
+										initValue={''}
+										initIsValid={true}
+									/>
+								</div>
 							</div>
 						)}
 						<div>
