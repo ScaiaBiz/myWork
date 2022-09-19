@@ -106,3 +106,7 @@ export const FullDateTimeFromDateString = date => {
 		minute: '2-digit',
 	});
 };
+
+export const convertTimeStringToMilliseconds = (h, m) => {
+	return (Number(h) * 60 + Number(m)) * 60000;
+};
