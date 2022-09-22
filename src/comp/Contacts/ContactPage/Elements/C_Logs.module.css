@@ -7,3 +7,77 @@
 	flex-wrap: wrap;
 	height: 79%;
 }
+
+.filters {
+	width: 90%;
+	height: fit-content;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.dataRow {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	width: 80%;
+	border-bottom: 1px solid lightgrey;
+	height: fit-content;
+}
+
+/* .dataRow p {
+	border: 1px solid red;
+	width: 10%;
+	min-width: 150px;
+} */
+
+.logDate {
+	width: 10%;
+}
+
+.dataCell {
+	width: 10%;
+	min-width: 180px;
+}
+
+.typeDate {
+	min-width: fit-content;
+	max-width: fit-content;
+	padding: 0 1%;
+}
+.typeDescription {
+	word-wrap: break-word;
+	width: 50%;
+	white-space: pre-line;
+}
+
+.typeStatus {
+	font-size: small;
+	text-decoration: underline;
+	max-width: fit-content;
+	min-width: fit-content;
+	border: 1px solid gray;
+	border-radius: 3px;
+	padding: 0 10px;
+	margin-bottom: 10px;
+	box-shadow: 1px 1px 2px black;
+}
+
+.typeWorkDesc {
+	font-weight: bold;
+	width: 100%;
+}
+
+.Invalid {
+	color: #0000ff00;
+}
+
+.active {
+	color: Brown;
+	border: 1px solid red;
+	box-shadow: 1px 1px 2px brown;
+}
+
+.inactive {
+	color: grey;
+}
