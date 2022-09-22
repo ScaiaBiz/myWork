@@ -18,6 +18,7 @@ function Find({
 	inputId,
 	driver,
 	trigger,
+	resName = 'data',
 }) {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
@@ -31,15 +32,16 @@ function Find({
 
 	const getData = async () => {
 		const d = await sendRequest(url);
+		console.log(d);
 		setFullRess(d);
-		const res = d?.data.map(el => {
+		const res = d[resName]?.map(el => {
 			return (
 				<p key={el._id} id={el._id}>
 					{el.name}
 				</p>
 			);
 		});
-		const l = d?.data.map(el => {
+		const l = d[resName]?.map(el => {
 			return { key: el._id, id: el._id, name: el[driver] };
 		});
 		setList(l);
