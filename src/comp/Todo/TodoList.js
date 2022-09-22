@@ -36,6 +36,7 @@ function TodoList({ parentId, projectName }) {
 	};
 
 	const loadTodos = async () => {
+		console.log(formState);
 		const _todos = await sendRequest('api/todo/list/' + parentId);
 		setTodos(_todos.data);
 	};
@@ -55,6 +56,10 @@ function TodoList({ parentId, projectName }) {
 				'Content-Type': 'application/json',
 			}
 		);
+		formState.inputs.todoDescription.value = '';
+		formState.inputs.todoDescription.isValid = false;
+		formState.inputs.todoPriority.value = '';
+		formState.inputs.todoPriority.isValid = false;
 		setAnimateLoading(true);
 		loadTodos();
 	};
