@@ -55,15 +55,18 @@ function App() {
 				<Menu />
 				<div className='Content'>
 					<Routes>
-						<Route path='/Calendar' element={<Calendar />} />
-						<Route path='/Contacts' element={<Contacts />} />
-						<Route path='/Contacts/:contactId/*' element={<ContactPage />}>
+						<Route path='/myWork/Calendar' element={<Calendar />} />
+						<Route path='/myWork/Contacts' element={<Contacts />} />
+						<Route
+							path='/myWork/Contacts/:contactId/*'
+							element={<ContactPage />}
+						>
 							<Route path='Projects' element={<C_Projects />} />
 							<Route path='Logs' element={<C_Logs />} />
 							<Route path='Balance' />
 							<Route path='Data' />
 						</Route>
-						<Route path='/Settings' element={<Settings />} />
+						<Route path='/myWork/Settings' element={<Settings />} />
 						{/* <Route path='/backdrop' element={<Backdrop />} /> */}
 					</Routes>
 				</div>
