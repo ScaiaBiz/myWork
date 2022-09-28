@@ -7,10 +7,10 @@ import classes from './Menu.module.css';
 
 function Menu() {
 	const menuItems = [
-		{ _id: 10, value: ' Attività ', address: 'myWork/Calendar' },
-		{ _id: 20, value: ' Contatti ', address: 'myWork/Contacts' },
-		{ _id: 30, value: ' Registri ', address: 'myWork/Logs' },
-		{ _id: 40, value: ' Impostazioni ', address: 'myWork/Settings' },
+		{ _id: 10, value: ' Attività ', address: '/Calendar' },
+		{ _id: 20, value: ' Contatti ', address: '/Contacts' },
+		{ _id: 30, value: ' Registri ', address: '/Logs' },
+		{ _id: 40, value: ' Impostazioni ', address: '/Settings' },
 	];
 
 	const [isActive, setIsActive] = useState(false);

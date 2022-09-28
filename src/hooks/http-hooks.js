@@ -13,8 +13,8 @@ export const useHttpClient = () => {
 
 	const evalSrv = () => {
 		// return `http://192.168.1.14:${SRV_port}/`;
-		return `https://my-work-server.herokuapp.com/`;
-		// return `https://sbiz-myworksrv.azurewebsites.net/`;
+		// return `https://my-work-server.herokuapp.com/`;
+		return `https://sbiz-myworksrv.azurewebsites.net/`;
 		// return `http://${SRV_name}:${SRV_port}/`;
 		if (process.env.NODE_ENV === 'production') {
 		}
