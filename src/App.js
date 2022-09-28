@@ -26,6 +26,7 @@ import Settings from './comp/Settings/Settings';
 import './App.css';
 
 function App() {
+	console.log('App avviata');
 	const LS_Area = useContext(UserCxt).LS_Area;
 	const [user, setUser] = useState(JSON.parse(localStorage.getItem(LS_Area)));
 	const [projectTodos, setProjectTodos] = useState('Prova');

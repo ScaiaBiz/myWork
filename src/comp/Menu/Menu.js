@@ -6,8 +6,6 @@ import Login from '../Login/Login';
 import classes from './Menu.module.css';
 
 function Menu() {
-	console.log(env);
-
 	const menuItems = [
 		{ _id: 10, value: ' Attività ', address: 'myWork/Calendar' },
 		{ _id: 20, value: ' Contatti ', address: 'myWork/Contacts' },
