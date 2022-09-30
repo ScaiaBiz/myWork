@@ -257,37 +257,37 @@ function RegManual({ clear, day, cardStatus, setCardStatus, setReload }) {
 								/>
 							</div>
 						</div>
-						{Number(cardStatus.breaksTime) > 0 && (
-							<div>
-								Sospensione:
-								<div className={classes.dropdownTime}>
-									<Input
-										id='p_hours'
-										element='dropdown'
-										type='dropdown'
-										baseList='hours'
-										elementType='selectTime'
-										label={`Ore: ${formTimes?.pause_h}`}
-										validators={[VALIDATOR_REQUIRE()]}
-										onInput={inputHandler}
-										initValue={''}
-										initIsValid={true}
-									/>
-									<Input
-										id='p_quarters'
-										element='dropdown'
-										type='dropdown'
-										baseList='quarters'
-										elementType='selectTime'
-										label={`Min: ${formTimes?.pause_min}`}
-										validators={[VALIDATOR_REQUIRE()]}
-										onInput={inputHandler}
-										initValue={''}
-										initIsValid={true}
-									/>
-								</div>
+						{/* {Number(cardStatus.breaksTime) && ( */}
+						<div>
+							Sospensione:
+							<div className={classes.dropdownTime}>
+								<Input
+									id='p_hours'
+									element='dropdown'
+									type='dropdown'
+									baseList='hours'
+									elementType='selectTime'
+									label={`Ore: ${formTimes?.pause_h || 0}`}
+									validators={[VALIDATOR_REQUIRE()]}
+									onInput={inputHandler}
+									initValue={''}
+									initIsValid={true}
+								/>
+								<Input
+									id='p_quarters'
+									element='dropdown'
+									type='dropdown'
+									baseList='quarters'
+									elementType='selectTime'
+									label={`Min: ${formTimes?.pause_min || 0}`}
+									validators={[VALIDATOR_REQUIRE()]}
+									onInput={inputHandler}
+									initValue={''}
+									initIsValid={true}
+								/>
 							</div>
-						)}
+						</div>
+						{/* )} */}
 						<div>
 							Totale impiegato: {convertMinToHour(cardStatus.minWorked)}
 						</div>
