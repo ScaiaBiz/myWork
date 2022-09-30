@@ -158,6 +158,7 @@ const Input = props => {
 						onChange={changeHandler}
 						onBlur={toucHandler}
 						value={inputState.value}
+						className={classes.checkbox}
 					/>
 				);
 			case 'radio':
