@@ -8,15 +8,35 @@
 	height: 79%;
 	border-top: 1px solid lightgrey;
 	padding-top: 1%;
+	padding-bottom: 10%;
 }
 
 .filters {
-	width: 90%;
+	width: 96%;
 	height: fit-content;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	padding: 1.5% 0;
+}
+
+.filters__inputs {
+	display: flex;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: fit-content;
+	width: 100%;
+}
+
+.filtersHandler {
+	display: none;
+}
+
+.filterButton {
+	background-color: var(--activeLink);
+	padding: 1%;
+	width: 100%;
 }
 
 .dataRow {
@@ -89,6 +109,31 @@
 }
 
 @media (max-width: 768px) {
+	.container {
+		padding-bottom: 15%;
+	}
+
+	.filters {
+		flex-direction: column;
+		padding: 1.5% 0;
+	}
+	.filters__inputs {
+		flex-direction: column;
+	}
+
+	.filtersHandler {
+		display: block;
+		width: 100%;
+		text-align: right;
+		font-weight: bold;
+		text-decoration: underline;
+		padding: 1% 0;
+	}
+
+	.inputs__hidden {
+		display: none;
+	}
+
 	.dataRow {
 		width: 100%;
 		flex-direction: column;
@@ -102,4 +147,24 @@
 	.typeDate {
 		text-align: center;
 	}
+
+	.typeSummary {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		padding-right: 5%;
+	}
+}
+
+@keyframes openFiltersPannel {
+	0% {
+		height: 20%;
+	}
+	100% {
+		height: 100%;
+	}
+}
+
+.fadeIn {
+	animation: openFiltersPannel 5000ms alternate;
 }

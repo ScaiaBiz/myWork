@@ -7,6 +7,7 @@ import { useHttpClient } from './../../../../hooks/http-hooks';
 import Input from '../../../../utils/Input';
 import LoadingSpinner from '../../../../utils/LoadingSpinner';
 import ErrorModal from '../../../../utils/ErrorModal';
+import Button from '../../../../utils/Button';
 
 // import C_Card from './C_Card';
 
@@ -24,6 +25,15 @@ function C_Logs() {
 	const param = useParams();
 	const [activity, setActivity] = useState(null);
 	const [projectId, setProjectId] = useState(null);
+	const [filtersHide, setFiltersHide] = useState(true);
+	const handleHideFilters = () => {
+		setFiltersHide(!filtersHide);
+		// document
+		// 	.getElementById('my_filters')
+		// 	.classList.toggle(classes.inputs__hidden);
+	};
+
+	const [totalWorked, settotalWorked] = useState(0);
 
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
@@ -48,20 +58,23 @@ function C_Logs() {
 				'Content-Type': 'application/json',
 			}
 		);
+
+		let workSum = 0;
 		const ac = l.logs.map(a => {
 			// return <C_Card type='logs' key={a._id} cardData={a} />;
 
 			if (a.status !== 'TODO') {
+				workSum += a.minWorked;
 				return (
 					<div className={classes.dataRow} key={a._id}>
 						<p className={`${classes.dataCell}`}>
 							<p className={classes.typeProject}>{a.title}</p>
 							<p className={`${classes.typeDate}`}>
 								{DDMMYYFromDateString(a.startWork || a.dueDate)}
-								{' - '}
+								{' dalle '}
 								{HourMinFromDateString(a.startWork || a.dueDate)}
 							</p>
-							<p className={classes.typeStatus}>{a.status}</p>
+							{/* <p className={classes.typeStatus}>{a.status}</p> */}
 						</p>
 						<p className={`${classes.dataCell} ${classes.typeDescription}`}>
 							<p className={`${classes.dataCell} ${classes.typeWorkDesc}`}>
@@ -69,7 +82,7 @@ function C_Logs() {
 							</p>
 							{a.workSummary}
 						</p>
-						<p className={`${classes.dataCell}`}>
+						<p className={`${classes.dataCell} ${classes.typeSummary}`}>
 							<p>Dedicato {convertMinToHour(a.minWorked)}</p>
 							<p
 								className={`${classes.typeStatus} ${
@@ -78,12 +91,14 @@ function C_Logs() {
 							>
 								{Number(a.minToInvoice) === 0 ? 'Da fatturare' : 'Fatturarto'}
 							</p>
+							{/* <p>Progressivo {convertMinToHour(workSum)}</p> */}
 						</p>
 					</div>
 				);
 			}
 			return;
 		});
+		settotalWorked(workSum);
 		setActivity(ac);
 	};
 
@@ -91,52 +106,90 @@ function C_Logs() {
 		getCard();
 	}, []);
 
+	useEffect(() => {
+		if (!filtersHide) {
+			handleHideFilters();
+		}
+	}, [activity]);
+
 	return (
 		<React.Fragment>
 			{error && <ErrorModal error={error} onClear={clearError} />}
 			{isLoading && <LoadingSpinner asOverlay />}
 
-			<div className={classes.filters}>
-				<Find
-					url={`api/project/getProjects/${param.contactId}`}
-					setRes={setProjectId}
-					label='Progetto'
-					inputId='project'
-					driver={'title'}
-					resName='projects'
-				/>
-				<Input
-					id='toInvoice'
-					element='checkbox'
-					type='checkbox'
-					label='Da fatturare'
-					onInput={inputHandler}
-					validators={[VALIDATOR_NO()]}
-					initValue={false}
-					initIsValid={true}
-				/>
-				<Input
-					id='startWork'
-					element='input'
-					type='date'
-					label='Data Inizio'
-					validators={[VALIDATOR_NO()]}
-					onInput={inputHandler}
-					initValue='2020-01-01'
-					initIsValid={true}
-				/>
-				<Input
-					id='endWork'
-					element='input'
-					type='date'
-					label='Data Fine'
-					validators={[VALIDATOR_NO()]}
-					onInput={inputHandler}
-					initValue='2022-09-30'
-					initIsValid={true}
-				/>
-				<div onClick={getCard}>Button</div>
+			<div
+				id='my_filters'
+				className={`${classes.filters}
+			${
+				''
+				// !filtersHide && classes.fadeIn
+			}
+			`}
+			>
+				<div
+					className={`${classes.filters__inputs} ${
+						filtersHide && classes.inputs__hidden
+					}`}
+				>
+					<Find
+						url={`api/project/getProjects/${param.contactId}`}
+						setRes={setProjectId}
+						label='Progetto'
+						inputId='project'
+						driver={'title'}
+						resName='projects'
+					/>
+					<Input
+						id='toInvoice'
+						element='checkbox'
+						type='checkbox'
+						label='Da fatturare'
+						onInput={inputHandler}
+						validators={[VALIDATOR_NO()]}
+						initValue={false}
+						initIsValid={true}
+					/>
+					<Input
+						id='startWork'
+						element='input'
+						type='date'
+						label='Data Inizio'
+						validators={[VALIDATOR_NO()]}
+						onInput={inputHandler}
+						initValue='2020-01-01'
+						initIsValid={true}
+					/>
+					<Input
+						id='endWork'
+						element='input'
+						type='date'
+						label='Data Fine'
+						validators={[VALIDATOR_NO()]}
+						onInput={inputHandler}
+						initValue='2022-09-30'
+						initIsValid={true}
+					/>
+
+					{/* <div className={classes.filterButton} onClick={getCard}>
+					Filtra
+				</div> */}
+					<Button
+						clname={'default _50'}
+						onClick={() => {
+							getCard();
+							handleHideFilters();
+						}}
+					>
+						Filtra
+					</Button>
+				</div>
+				<div className={classes.filtersHandler} onClick={handleHideFilters}>
+					{filtersHide ? 'Mostra filtri' : 'Chiudi'}
+				</div>
 			</div>
+			<h2 style={{ paddingBottom: '2%' }}>
+				Totale {convertMinToHour(totalWorked)}
+			</h2>
 			<div className={classes.container}>{activity}</div>
 		</React.Fragment>
 	);
