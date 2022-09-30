@@ -11,10 +11,15 @@ export const useHttpClient = () => {
 
 	const currentAppName = 'my-work';
 
+	const deploy = false;
+
 	const evalSrv = () => {
-		// return `http://192.168.1.14:${SRV_port}/`;
+		if (deploy) {
+			return `http://192.168.1.14:${SRV_port}/`;
+		} else {
+			return `https://sbiz-myworksrv.azurewebsites.net/`;
+		}
 		// return `https://my-work-server.herokuapp.com/`;
-		return `https://sbiz-myworksrv.azurewebsites.net/`;
 		// return `http://${SRV_name}:${SRV_port}/`;
 		if (process.env.NODE_ENV === 'production') {
 		}
