@@ -79,7 +79,13 @@ export const getWeekDates = startDay => {
 };
 
 export const convertMinToHour = value => {
-	const timeFormat = n => ('00' + n).slice(-2);
+	const timeFormat = n => {
+		console.log(n.toString().length);
+		if (n.toString().length <= 2) {
+			return ('00' + n).slice(-2);
+		}
+		return n;
+	};
 	let min = value;
 	let hour = Math.floor(min / 60);
 	min = min - hour * 60;
