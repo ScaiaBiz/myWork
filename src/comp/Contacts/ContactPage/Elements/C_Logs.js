@@ -41,8 +41,20 @@ function C_Logs() {
 		// projectId: { value: '', isValid: true },
 		toInvoice: { value: false, isValid: false },
 		startWork: { value: '2020-01-01', isValid: true },
-		endWork: { value: '2022-09-30', isValid: true },
+		endWork: { value: new Date().toISOString().split('T')[0], isValid: true },
 	});
+
+	const postInvoiced = async activity => {
+		const _invoced = await sendRequest(
+			`api/log/logInvoiced/`,
+			'POST',
+			{ logId: activity._id },
+			{ 'Content-Type': 'application/json' }
+		);
+		// console.log(_invoced.log.invoiced);
+		// // activity.invoiced = _invoced.log.invoiced;
+		getCard();
+	};
 
 	const getCard = async () => {
 		const l = await sendRequest(
@@ -67,7 +79,7 @@ function C_Logs() {
 				workSum += a.minWorked;
 				return (
 					<div className={classes.dataRow} key={a._id}>
-						<p className={`${classes.dataCell}`}>
+						<div className={`${classes.dataCell}`}>
 							<p className={classes.typeProject}>{a.title}</p>
 							<p className={`${classes.typeDate}`}>
 								{DDMMYYFromDateString(a.startWork || a.dueDate)}
@@ -75,7 +87,7 @@ function C_Logs() {
 								{HourMinFromDateString(a.startWork || a.dueDate)}
 							</p>
 							{/* <p className={classes.typeStatus}>{a.status}</p> */}
-						</p>
+						</div>
 						<p className={`${classes.dataCell} ${classes.typeDescription}`}>
 							<p className={`${classes.dataCell} ${classes.typeWorkDesc}`}>
 								{`${a.workDescription.toString()}`}
@@ -86,12 +98,24 @@ function C_Logs() {
 							<p>Dedicato {convertMinToHour(a.minWorked)}</p>
 							<p
 								className={`${classes.typeStatus} ${
-									classes[a.minToInvoice === 0 ? 'active' : 'inactive']
+									classes[a.invoiced ? 'inactive' : 'active']
 								}`}
 							>
-								{Number(a.minToInvoice) === 0 ? 'Da fatturare' : 'Fatturarto'}
+								{a.invoiced ? 'Fatturato' : 'Da fatturare'}
 							</p>
-							{/* <p>Progressivo {convertMinToHour(workSum)}</p> */}
+							{!a.invoiced && (
+								<Button
+									style={{
+										margin: '0 0 2% 0',
+										padding: '0.5rem 1rem',
+										width: 'fit-content',
+									}}
+									clname={'small danger'}
+									onClick={() => postInvoiced(a)}
+								>
+									Registra
+								</Button>
+							)}
 						</p>
 					</div>
 				);
@@ -172,7 +196,7 @@ function C_Logs() {
 						label='Data Fine'
 						validators={[VALIDATOR_NO()]}
 						onInput={inputHandler}
-						initValue='2022-09-30'
+						initValue={new Date().toISOString().split('T')[0]}
 						initIsValid={true}
 					/>
 
