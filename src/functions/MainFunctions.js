@@ -80,7 +80,6 @@ export const getWeekDates = startDay => {
 
 export const convertMinToHour = value => {
 	const timeFormat = n => {
-		console.log(n.toString().length);
 		if (n.toString().length <= 2) {
 			return ('00' + n).slice(-2);
 		}
