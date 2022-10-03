@@ -147,6 +147,7 @@ const Input = props => {
 						onChange={changeHandler}
 						onBlur={toucHandler}
 						value={inputState.value}
+						onClick={props.onClick}
 					/>
 				);
 			case 'checkbox':
@@ -159,6 +160,7 @@ const Input = props => {
 						onBlur={toucHandler}
 						value={inputState.value}
 						className={classes.checkbox}
+						onClick={props.onClick}
 					/>
 				);
 			case 'radio':
@@ -178,6 +180,7 @@ const Input = props => {
 										type={props.type}
 										onChange={changeHandler}
 										onBlur={toucHandler}
+										onClick={props.onClick}
 										// onClick={e => {
 										// 	console.log('Dispaccio');
 										// 	dispatch({
@@ -247,6 +250,7 @@ const Input = props => {
 							onBlur={toucHandler}
 							value={inputState.value}
 							className={`${classes[props.element]} ${classes[props.baseList]}`}
+							onClick={props.onClick}
 						/>
 						<datalist id={props.label}>
 							{list?.map(el => {
@@ -265,6 +269,7 @@ const Input = props => {
 						onChange={changeHandler}
 						onBlur={toucHandler}
 						value={inputState.value}
+						onClick={props.onClick}
 					/>
 				);
 			default:
