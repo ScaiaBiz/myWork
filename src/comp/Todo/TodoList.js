@@ -26,9 +26,10 @@ function TodoList({ parentId, projectName }) {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
 	const updateTodos = id => {
+		console.log(id);
 		const newTodos = todos.filter(t => {
 			if (t._id != id) {
-				return false;
+				return t;
 			}
 		});
 		console.log({ newTodos });
@@ -36,7 +37,7 @@ function TodoList({ parentId, projectName }) {
 	};
 
 	const loadTodos = async () => {
-		console.log(formState);
+		console.log(formState.inputs);
 		const _todos = await sendRequest('api/todo/list/' + parentId);
 		setTodos(_todos.data);
 	};
@@ -56,11 +57,14 @@ function TodoList({ parentId, projectName }) {
 				'Content-Type': 'application/json',
 			}
 		);
-		formState.inputs.todoDescription.value = '';
-		formState.inputs.todoDescription.isValid = false;
-		formState.inputs.todoPriority.value = '';
-		formState.inputs.todoPriority.isValid = false;
+		// formState.inputs.todoDescription.value = '';
+		// formState.inputs.todoPriority.value = '';
+		inputHandler('todoDescription', '', false);
+		inputHandler('todoPriority', '', undefined);
+		document.getElementById('todoDescription').value = '';
+		document.getElementById(el.data.priority).checked = undefined;
 		setAnimateLoading(true);
+		console.log(el);
 		loadTodos();
 	};
 
