@@ -40,7 +40,7 @@ function C_Logs() {
 	const [formState, inputHandler, setFormData] = useForm({
 		// projectId: { value: '', isValid: true },
 		toInvoice: { value: false, isValid: false },
-		startWork: { value: '2020-01-01', isValid: true },
+		startWork: { value: '', isValid: false },
 		endWork: { value: new Date().toISOString().split('T')[0], isValid: true },
 	});
 
