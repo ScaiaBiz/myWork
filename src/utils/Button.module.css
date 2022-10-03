@@ -6,6 +6,7 @@
 	cursor: pointer;
 	text-decoration: none;
 	display: inline-block;
+	box-shadow: 1px 1px 4px grey;
 }
 
 .default {
