@@ -112,6 +112,11 @@ function C_Logs() {
 		}
 	}, [activity]);
 
+	const checkedHandler = () => {
+		let _val = document.getElementById('toInvoice').checked;
+		inputHandler('toInvoice', _val, true);
+	};
+
 	return (
 		<React.Fragment>
 			{error && <ErrorModal error={error} onClear={clearError} />}
@@ -143,7 +148,8 @@ function C_Logs() {
 						id='toInvoice'
 						element='checkbox'
 						type='checkbox'
-						label='Da fatturare'
+						label='Fatturato'
+						onClick={checkedHandler}
 						onInput={inputHandler}
 						validators={[VALIDATOR_NO()]}
 						initValue={false}
