@@ -141,6 +141,10 @@ function C_Logs() {
 		inputHandler('toInvoice', _val, true);
 	};
 
+	let today = new Date();
+	let _starDate = new Date(`${today.getFullYear}-${today.getMonth() + 1}-01`);
+	let _endDate = today.toISOString().split('T')[0];
+
 	return (
 		<React.Fragment>
 			{error && <ErrorModal error={error} onClear={clearError} />}
@@ -186,7 +190,7 @@ function C_Logs() {
 						label='Data Inizio'
 						validators={[VALIDATOR_NO()]}
 						onInput={inputHandler}
-						initValue='2020-01-01'
+						initValue={_starDate}
 						initIsValid={true}
 					/>
 					<Input
@@ -196,7 +200,7 @@ function C_Logs() {
 						label='Data Fine'
 						validators={[VALIDATOR_NO()]}
 						onInput={inputHandler}
-						initValue={new Date().toISOString().split('T')[0]}
+						initValue={_endDate}
 						initIsValid={true}
 					/>
 
